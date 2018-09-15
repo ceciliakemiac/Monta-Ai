@@ -1,2 +1,2 @@
 # Monta-Ai
-Repositório para o projeto da disciplina de Paradigmas da Linguagem de Programação
+Um sistema de gerenciamento de horário para alunos que desejam ter um melhor planejamento das disciplinas que irão cursar
