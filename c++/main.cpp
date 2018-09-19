@@ -6,9 +6,10 @@ using namespace std;
 
 string;
 string pesquisaDisc(char entrada[]){
-    string arrayDeDisciplinas[] = {""}; //Atribuir á variável Global aqui.
+    int nDisciplinas = 200; //Colocar contador do número de disciplinas aqui. 
+    string arrayDeDisciplinas[nDisciplinas] = {""}; //Atribuir á variável global com um Array com todas as disciplinas aqui.
     string saida = "";
-    for(int i = 0; i < arrayDeDisciplinas.size(); i++){
+    for(int i = 0; i < nDisciplinas; i++){
         int j = 0;
         bool add = true;
         char caracter = entrada[0];
@@ -25,7 +26,7 @@ string pesquisaDisc(char entrada[]){
         }
     }
     if(saida == ""){
-        saida = "Não foram encontradas disciplinas que corresopondam á pesquisa.";
+        saida = "Não foram encontradas disciplinas que corresopondam à pesquisa.";
     }
     return saida;
 }
