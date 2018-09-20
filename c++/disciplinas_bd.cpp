@@ -46,3 +46,9 @@ vector<disciplina> disciplinasDoPeriodo(int periodo){
     }
     return disciplinas;
 }
+
+vector<string> disciplinasPagas(string codigo){
+    vector<string> disciplinasPagas;
+    disciplinasPagas.push_back(codigo);
+    return disciplinasPagas;
+}
