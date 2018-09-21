@@ -46,3 +46,30 @@ vector<disciplina> disciplinasDoPeriodo(int periodo){
     }
     return disciplinas;
 }
+
+std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
+
+string pesquisaDisc(char entrada[]){
+    string saida = "";
+    while(i != gradeCurricular.end()){
+        int j = 0;
+        bool add = true;
+        char caracter = i->first[0];
+        while(caracter != '/n'){
+            if(caracter != i->first[j]){
+                add = false;
+                break;
+            }
+            j++;
+            caracter = entrada[j];
+        }
+        if(add){
+            saida += i->second.codigo + " " + i->second.nome + "/n";
+        }
+        i++;
+    }
+    if(saida == ""){
+        saida = "Não foram encontradas disciplinas que corresopondam à pesquisa.";
+    }
+    return saida;
+}
