@@ -22,7 +22,7 @@ int main() {
     while(opcao != SAIR) {
         switch(opcao) {
             case(MONTAR_HOR):
-            //função ou qlq coisa q a gente fizer q seja relacionado a isso
+            cout << pesquisaDisc("FMCCI");
             break;
             case(VIZUALIZAR_DISC):
             //idem
