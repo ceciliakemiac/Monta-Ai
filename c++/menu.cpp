@@ -1,4 +1,5 @@
 #include <iostream>
+#include "disciplinas_bd.cpp"
 using namespace std;
 
 void rodaMenu() {
