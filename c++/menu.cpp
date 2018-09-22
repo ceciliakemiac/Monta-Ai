@@ -2,6 +2,8 @@
 #include "disciplinas_bd.cpp"
 using namespace std;
 
+extern map<string, disciplina> gradeCurricular;
+
 void rodaMenu() {
     cout << "MENU" << "\n";
     cout << "1 - Montar Horário do semestre" << "\n";
@@ -9,6 +11,9 @@ void rodaMenu() {
     cout << "3 - Ver informações detalhadas de uma disciplina" << "\n";
     cout << "4 - Avaliar disciplina" << "\n";
     cout << "5 - SAIR" << "\n";
+
+
+    //cout << gradeCurricular.at("FMCCI").nome << endl;
 }
 
 int main() {
@@ -22,7 +27,7 @@ int main() {
     while(opcao != SAIR) {
         switch(opcao) {
             case(MONTAR_HOR):
-            cout << pesquisaDisc("FMCCI");
+            // cout << pesquisaDisc("FMCCI");  // removi por causar erros de compilação
             break;
             case(VIZUALIZAR_DISC):
             //idem

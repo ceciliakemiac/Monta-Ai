@@ -6,6 +6,10 @@ using namespace std;
 struct horario{
     int dia;
     int hora;
+
+    string toString() {
+        
+    }
 };
 
 struct turma {
@@ -172,7 +176,7 @@ string pesquisaDisc(char entrada[]){
         int j = 0;
         bool add = true;
         char caracter = i->first[0];
-        while(caracter != '/n'){
+        while(caracter != '/'){ // TODO: plese ajeite
             if(caracter != i->first[j]){
                 add = false;
                 break;
