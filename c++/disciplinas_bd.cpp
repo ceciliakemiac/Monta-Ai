@@ -17,7 +17,7 @@ struct aluno {
     int periodo;
     vector<disciplina> disciplinasCursadas;
 
-    void adicionaDisciplinas(disciplina &disc) {
+    void adicionaDisciplina(disciplina &disc) {
         disciplinasCursadas.push_back(disc);
     }
 
