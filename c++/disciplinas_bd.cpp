@@ -227,3 +227,9 @@ string pesquisaDisc(char entrada[]){
     }
     return saida;
 }
+
+vector<string> disciplinasPagas(string codigo){
+    vector<string> disciplinasPagas;
+    disciplinasPagas.push_back(codigo);
+    return disciplinasPagas;
+}
