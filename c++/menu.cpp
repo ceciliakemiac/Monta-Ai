@@ -1,6 +1,12 @@
 #include <iostream>
+<<<<<<< HEAD
 #include <avaliacao.h>
+=======
+#include "disciplinas_bd.cpp"
+>>>>>>> 0a58ff3e461541166ed48a979d14220d5bc5e26e
 using namespace std;
+
+extern map<string, disciplina> gradeCurricular;
 
 void rodaMenu() {
     cout << "MENU" << "\n";
@@ -9,6 +15,9 @@ void rodaMenu() {
     cout << "3 - Ver informações detalhadas de uma disciplina" << "\n";
     cout << "4 - Avaliar disciplina" << "\n";
     cout << "5 - SAIR" << "\n";
+
+
+    //cout << gradeCurricular.at("FMCCI").nome << endl;
 }
 
 void menuAvaliacao() {
@@ -27,7 +36,7 @@ int main() {
     while(opcao != SAIR) {
         switch(opcao) {
             case(MONTAR_HOR):
-            //função ou qlq coisa q a gente fizer q seja relacionado a isso
+            // cout << pesquisaDisc("FMCCI");  // removi por causar erros de compilação
             break;
             case(VIZUALIZAR_DISC):
             //idem
