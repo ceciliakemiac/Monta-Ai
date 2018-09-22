@@ -1,11 +1,43 @@
 #include <map>
 #include <string>
 #include <vector>
+#include <avaliacao.h>
 using namespace std;
 
-struct horario{
+struct horario {
     int dia;
     int hora;
+};
+
+struct aluno {
+    int periodo;
+    vector<disciplina> disciplinasCursadas;
+
+    void adicionaDisciplinas(disciplina &disc) {
+        disciplinasCursadas.push_back(disc);
+    }
+
+    bool contemDisciplina(string nome) {
+        bool retorno = false;
+        for(auto it = disciplinasCursadas.begin(); it != disciplinasCursadas.end(); it++) {
+            if(it->nome == nome) {
+                retorno = true;
+                break;
+            }
+        }
+        return retorno;
+    }
+
+    disciplina retornaDisciplina(string nome) {
+        disciplina disc;
+        for(auto it = disciplinasCursadas.begin(); it != disciplinasCursadas.end(); ++it) {
+            if(it->nome == nome) {
+                disc = *it;
+                break;
+            }
+        }
+        return disc;
+    }
 };
 
 struct turma {
@@ -18,6 +50,7 @@ struct disciplina {
     int creditos;
     int periodo;
     bool obrigatoria;
+    Avaliacao avaliacao;
     vector<string> pre_requisitos;
     vector<turma> turmas;
 };

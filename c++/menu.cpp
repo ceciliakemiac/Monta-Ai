@@ -1,4 +1,5 @@
 #include <iostream>
+#include <avaliacao.h>
 using namespace std;
 
 void rodaMenu() {
@@ -8,6 +9,11 @@ void rodaMenu() {
     cout << "3 - Ver informações detalhadas de uma disciplina" << "\n";
     cout << "4 - Avaliar disciplina" << "\n";
     cout << "5 - SAIR" << "\n";
+}
+
+void menuAvaliacao() {
+    cout << "1 - Deixar um comentário" << "\n";
+    cout << "2 - Deixar uma avaliação segundo classificação" << "\n";
 }
 
 int main() {
