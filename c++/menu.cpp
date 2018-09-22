@@ -1,9 +1,6 @@
 #include <iostream>
-<<<<<<< HEAD
 #include <avaliacao.h>
-=======
 #include "disciplinas_bd.cpp"
->>>>>>> 0a58ff3e461541166ed48a979d14220d5bc5e26e
 using namespace std;
 
 extern map<string, disciplina> gradeCurricular;
