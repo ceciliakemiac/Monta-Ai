@@ -38,6 +38,27 @@ struct celula {
     }
 };
 
+enum nivel {
+    rasgada,
+    deBoa,
+    carrego,
+    tenso,
+    ehPeso
+};
+
+struct avaliacao {
+    vector<string> comentarios;
+    map<nivel, int> avaliacao;
+
+    void adicionaComentario(string comentario) {
+        comentarios.push_back(comentario);
+    }
+
+    void votaAvaliacao(nivel a) {
+        avaliacao[a] += 1;
+    }
+};
+
 struct disciplina {
     string codigo;
     string nome;
@@ -46,6 +67,7 @@ struct disciplina {
     bool obrigatoria;
     vector<string> pre_requisitos;
     vector<turma> turmas;
+    avaliacao aval;
 
     string toString() {
 
@@ -220,3 +242,5 @@ string pesquisaDisc(char entrada[]){
     }
     return saida;
 }
+
+
