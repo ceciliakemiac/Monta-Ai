@@ -1,7 +1,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <avaliacao.h>
+#include "avaliacao.cpp"
 using namespace std;
 
 struct horario {
@@ -21,27 +21,27 @@ struct aluno {
         disciplinasCursadas.push_back(disc);
     }
 
-    bool contemDisciplina(string nome) {
-        bool retorno = false;
-        for(auto it = disciplinasCursadas.begin(); it != disciplinasCursadas.end(); it++) {
-            if(it->nome == nome) {
-                retorno = true;
-                break;
-            }
-        }
-        return retorno;
-    }
+    // bool contemDisciplina(string nome) {
+    //     bool retorno = false;
+    //     for(auto it = disciplinasCursadas.begin(); it != disciplinasCursadas.end(); it++) {
+    //         if(it->nome == nome) {
+    //             retorno = true;
+    //             break;
+    //         }
+    //     }
+    //     return retorno;
+    // }
 
-    disciplina retornaDisciplina(string nome) {
-        disciplina disc;
-        for(auto it = disciplinasCursadas.begin(); it != disciplinasCursadas.end(); ++it) {
-            if(it->nome == nome) {
-                disc = *it;
-                break;
-            }
-        }
-        return disc;
-    }
+    // disciplina retornaDisciplina(string nome) {
+    //     disciplina disc;
+    //     for(auto it = disciplinasCursadas.begin(); it != disciplinasCursadas.end(); ++it) {
+    //         if(it->nome == nome) {
+    //             disc = *it;
+    //             break;
+    //         }
+    //     }
+    //     return disc;
+    // }
 };
 
 struct turma {

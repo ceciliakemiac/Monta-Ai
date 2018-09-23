@@ -1,7 +1,7 @@
 #include <iostream>
-#include <avaliacao.h>
+#include "avaliacao.cpp"
+#include "validacoes.cpp"
 #include "disciplinas_bd.cpp"
-#include <validacoes.h>
 using namespace std;
 
 extern map<string, disciplina> gradeCurricular;

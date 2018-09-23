@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <string.h>
 using namespace std;
 
 enum Nivel {
@@ -12,7 +13,7 @@ enum Nivel {
 };
 
 struct Avaliacao {
-    vector<string> comentarios;
+    vector <string> comentarios;
     map<Nivel, int> classificacao;
 
     void adicionaComentario(string conteudo) {

@@ -1,4 +1,4 @@
-#include <avaliacao.h>
+#include "avaliacao.cpp"
 
 int deuChoqueDeHorarios(turma t1, turma t2){
     int choque = 0;
