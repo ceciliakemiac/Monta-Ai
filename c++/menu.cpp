@@ -11,9 +11,10 @@ bool temDisciplina(string nomeDisciplina) {
 
 disciplina retornaDisciplina(string nome) {
     disciplina disc;
-    for(auto it = gradeCurricular.begin(); it != gradeCurricular.end(); it++) {
-        if(it->first == nome) {
-            disc = it->second;
+    map<string, disciplina>::iterator it = gradeCurricular.begin();
+    for(it; it != gradeCurricular.end(); it++) {
+        disc = it->second;
+        if(disc.nome == nome) {
             break;
         }
     }
@@ -101,7 +102,8 @@ void menuTipoAvaliacao(int opcao, string nome, disciplina disc, string conteudo)
     switch(opcao) {
         case(1):
             cout << "Digite um comentario sobre a disciplina " << nome << "\n";
-            cin >> conteudo;
+            cin.ignore();
+            getline (cin, conteudo);
             disc.aval.adicionaComentario(conteudo);
             break;
         case(2):
@@ -116,6 +118,7 @@ void menuTipoAvaliacao(int opcao, string nome, disciplina disc, string conteudo)
             cout << "Opção inválida." << "\n";
             break;
     }
+    cout << "\n" << "Valeu e até mais :p" << "\n";
 }
 
 void menuAvaliacao() {
@@ -124,13 +127,16 @@ void menuAvaliacao() {
 
     cout << "Qual disciplina deseja avaliar? " << "\n";
     cin >> nomeDisc;
-    disc = retornaDisciplina(nomeDisc);
-
-    int opcao;
-    comentario_ou_votarAvaliacao();
-    cin >> opcao;
-    string conteudo;
-    menuTipoAvaliacao(opcao, nomeDisc, disc, conteudo);   
+    if(temDisciplina(nomeDisc)) {
+        disc = retornaDisciplina(nomeDisc);
+        int opcao;
+        comentario_ou_votarAvaliacao();
+        cin >> opcao;
+        string conteudo;
+        menuTipoAvaliacao(opcao, nomeDisc, disc, conteudo);
+    } else {
+        cout << "\n" << "Disciplina não existe /:" << "\n";
+    }
 }
 
 int main() {
@@ -139,6 +145,18 @@ int main() {
     const int INFORMACAO_DISC = 3;
     const int AVALIAR_DISC = 4;
     const int SAIR = 5;
+
+    // disciplina disc = retornaDisciplina("FMCCI");
+    // disc.aval.adicionaComentario("chata");
+    // disc.aval.adicionaComentario("jorge é muito simpático");
+    // disc.aval.votaAvaliacao(ehPeso);
+    // disc.aval.votaAvaliacao(ehPeso);
+    // cout << disc.periodo << "\n";
+    // cout << disc.nome << "\n";
+    // cout << disc.aval.comentarios[0] << "\n";
+    // cout << disc.aval.comentarios[1] << "\n";
+    // cout << disc.aval.avaliacao[ehPeso] << "\n";
+    // cout << disc.aval.avaliacao[rasgada] << "\n";
 
     int opcao = 0;
     while(opcao != SAIR) {
@@ -159,6 +177,7 @@ int main() {
             //
             break;
         }
+        cout << "\n";
         rodaMenu();
         cin >> opcao;
     }
