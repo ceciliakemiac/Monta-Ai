@@ -34,11 +34,13 @@ void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> s
             interarMeuHorario(disciplinas, num + 1, copiaSaida);
         } else {
 
-            saida.push_back(nova);
+            vector<celula> copiaSaida =  saida;
+            copiaSaida.push_back(nova);
+
             cout << "------SAIDA---" << endl;
-            for(int i = 0; i < saida.size(); i++)
+            for(int i = 0; i < copiaSaida.size(); i++)
             {
-                cout << saida.at(i).toString() << endl;
+                cout << copiaSaida.at(i).toString() << endl;
             }
             
         }
@@ -56,7 +58,9 @@ void montarHorario() {
 
     meuHorario.push_back(gradeCurricular.at("P1"));
     meuHorario.push_back(gradeCurricular.at("LP1"));
-    
+    meuHorario.push_back(gradeCurricular.at("IC"));
+
+
     vector<celula> celulas;
     interarMeuHorario(meuHorario, 0, celulas);
     
