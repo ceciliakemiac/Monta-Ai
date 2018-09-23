@@ -9,7 +9,7 @@ struct horario {
     int hora;
 
     string toString() {
-        
+        return "Dia " + to_string(dia) + "- hora: " + to_string(hora); 
     }
 };
 
@@ -46,6 +46,27 @@ struct aluno {
 
 struct turma {
     vector<horario> horarios;
+
+    string toString() {
+        string saida;
+        
+        for(int i = 0; i < horarios.size(); i++)
+        {
+            saida += "/ " + horarios.at(i).toString() + " /";
+        }
+
+        return saida;
+        
+    }
+};
+
+struct celula {
+    string nomeDisciplina;
+    turma turmaDisciplina;
+
+    string toString() {
+        return nomeDisciplina + " | "+ turmaDisciplina.toString();
+    }
 };
 
 struct disciplina {
@@ -57,6 +78,10 @@ struct disciplina {
     Avaliacao avaliacao;
     vector<string> pre_requisitos;
     vector<turma> turmas;
+
+    string toString() {
+
+    }
 };
 
 map<string, disciplina> gradeCurricular = {
@@ -65,12 +90,12 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{3, 10}, horario{6, 8}}}
                      }}},
     {"P1", disciplina {"2", "P1", 4, 1, true, {}, {
-                     turma{{horario{2, 8}, horario{4, 10}}},
+                     turma{{horario{2, 14}, horario{4, 16}}},
                      turma{{horario{2, 8}, horario{4, 10}}}
                      }}},
     {"LP1", disciplina {"3", "LP1", 4, 1, true, {}, {
                      turma{{horario{2, 10}, horario{5, 8}}},
-                     turma{{horario{2, 10}, horario{5, 8}}}
+                     turma{{horario{2, 16}, horario{5, 14}}}
                      }}},
     {"IC", disciplina {"4", "IC", 4, 1, true, {}, {
                      turma{{horario{3, 8}, horario{5, 10}}},
