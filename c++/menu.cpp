@@ -5,11 +5,20 @@ using namespace std;
 
 extern map<string, disciplina> gradeCurricular;
 
-
 bool temDisciplina(string nomeDisciplina) {
     return gradeCurricular.count(nomeDisciplina) == 1;
 }
 
+disciplina retornaDisciplina(string nome) {
+    disciplina disc;
+    for(auto it = gradeCurricular.begin(); it != gradeCurricular.end(); it++) {
+        if(it->first == nome) {
+            disc = it->second;
+            break;
+        }
+    }
+    return disc;
+}
 
 vector<celula> copiar_e_addCelula(vector<celula> celulas, celula nova) {
         vector<celula> copia = celulas;
@@ -17,7 +26,6 @@ vector<celula> copiar_e_addCelula(vector<celula> celulas, celula nova) {
 
         return copia;
 }
-
 
 void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> saida){
     disciplina atual = disciplinas.at(num);
@@ -75,6 +83,56 @@ void montarHorario() {
     // }
 }
 
+void comentario_ou_votarAvaliacao() {
+    cout << "1 - Deixar um comentário" << "\n";
+    cout << "2 - Votar em uma avaliação" << "\n";
+}
+
+void menuVotarAvaliacao() {
+    cout << "O que achou da disciplina?" << "\n";
+    cout << "1 - rasgada" << "\n";
+    cout << "2 - de boa" << "\n";
+    cout << "3 - carrego" << "\n";
+    cout << "4 - tenso" << "\n";
+    cout << "5 - eh peso" << "\n";
+}
+
+void menuTipoAvaliacao(int opcao, string nome, disciplina disc, string conteudo) {
+    switch(opcao) {
+        case(1):
+            cout << "Digite um comentario sobre a disciplina " << nome << "\n";
+            cin >> conteudo;
+            disc.aval.adicionaComentario(conteudo);
+            break;
+        case(2):
+            int num;
+            menuVotarAvaliacao();
+            cin >> num;
+            nivel atual;
+            atual = (nivel)num;
+            disc.aval.votaAvaliacao(atual);
+            break;
+        default:
+            cout << "Opção inválida." << "\n";
+            break;
+    }
+}
+
+void menuAvaliacao() {
+    string nomeDisc;
+    disciplina disc;
+
+    cout << "Qual disciplina deseja avaliar? " << "\n";
+    cin >> nomeDisc;
+    disc = retornaDisciplina(nomeDisc);
+
+    int opcao;
+    comentario_ou_votarAvaliacao();
+    cin >> opcao;
+    string conteudo;
+    menuTipoAvaliacao(opcao, nomeDisc, disc, conteudo);   
+}
+
 int main() {
     const int MONTAR_HOR = 1;
     const int VIZUALIZAR_DISC = 2;
@@ -87,7 +145,7 @@ int main() {
         switch(opcao) {
             case(MONTAR_HOR):
                 montarHorario();
-            break;
+                break;
             case(VIZUALIZAR_DISC):
             //idem
             break;
@@ -95,8 +153,8 @@ int main() {
             //
             break;
             case(AVALIAR_DISC):
-            //
-            break;
+                menuAvaliacao();
+                break;
             default:
             //
             break;
@@ -105,6 +163,3 @@ int main() {
         cin >> opcao;
     }
 }
-
-
-
