@@ -12,10 +12,6 @@ struct horario{
     }
 };
 
-struct celula {
-    string nomeDisciplina;
-    turma turma;
-}
 
 struct turma {
     vector<horario> horarios;
@@ -30,6 +26,15 @@ struct turma {
 
         return saida;
         
+    }
+};
+
+struct celula {
+    string nomeDisciplina;
+    turma turmaDisciplina;
+
+    string toString() {
+        return nomeDisciplina + " | "+ turmaDisciplina.toString();
     }
 };
 

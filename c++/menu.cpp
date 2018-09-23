@@ -18,16 +18,29 @@ bool temDisciplina(string nomeDisciplina) {
 }
 
 
-void interarMeuHorario(vector<disciplina> disciplinas, int num, string saida){
+void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> saida){
     disciplina atual = disciplinas.at(num);
     //cout << atual.nome << endl;
     
     for(int i = 0; i < atual.turmas.size(); i++)
-    {
+    {   
+        celula nova = celula{ atual.nome, atual.turmas.at(i)};
+
         if (num + 1 < disciplinas.size()) {
-            interarMeuHorario(disciplinas, num + 1, atual.nome + "-" + atual.turmas.at(i).toString());
+            
+            vector<celula> copiaSaida =  saida;
+            copiaSaida.push_back(nova);
+            
+            interarMeuHorario(disciplinas, num + 1, copiaSaida);
         } else {
-            cout << saida + atual.nome + "-" + atual.turmas.at(i).toString() << endl;
+
+            saida.push_back(nova);
+            cout << "------SAIDA---" << endl;
+            for(int i = 0; i < saida.size(); i++)
+            {
+                cout << saida.at(i).toString() << endl;
+            }
+            
         }
         
     }
@@ -44,7 +57,8 @@ void montarHorario() {
     meuHorario.push_back(gradeCurricular.at("P1"));
     meuHorario.push_back(gradeCurricular.at("LP1"));
     
-    interarMeuHorario(meuHorario, 0, "");
+    vector<celula> celulas;
+    interarMeuHorario(meuHorario, 0, celulas);
     
     // cout << "Quantas disciplinas pretende pagar: ";
     // cin >> qtdDisciplinas;
