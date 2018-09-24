@@ -158,6 +158,22 @@ int main() {
     // cout << disc.aval.avaliacao[ehPeso] << "\n";
     // cout << disc.aval.avaliacao[rasgada] << "\n";
 
+
+    // meu testezinho - jady
+    // preRequisitos p;
+    //     p.dPagas(retornaDisciplina("P1"));
+    //     p.dPagas(retornaDisciplina("LP1"));
+    //     for(disciplina i : p.disciplinasPagas){ 
+    //         cout<< i.toString();
+    //     }
+
+    // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
+    // cout << p.atendePreRequisitos(retornaDisciplina("LP2"), p.disciplinasPagas) << "\n";
+    // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
+
+
+    
+
     int opcao = 0;
     while(opcao != SAIR) {
         switch(opcao) {

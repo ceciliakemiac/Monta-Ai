@@ -70,7 +70,35 @@ struct disciplina {
     avaliacao aval;
 
     string toString() {
+        //ajeitar, foi só pra teste @AndreHelloWorld
+        return nome + " - " + codigo;
+    }
+};
 
+struct preRequisitos {
+    vector<disciplina> disciplinasPagas;
+
+    void dPagas(disciplina d){
+        disciplinasPagas.push_back(d);
+    }
+
+    int atendePreRequisitos(disciplina d, vector<disciplina> disciplinasPagas){
+        int atendePreRequisitos = 1;
+        int pagou;
+        for(string preRequisitos: d.pre_requisitos){
+           pagou = 0;
+            for(disciplina dPaga : disciplinasPagas){
+                if(dPaga.codigo == preRequisitos){
+                    pagou = 1;
+                    break;
+                }
+            }
+            if(!pagou){
+                atendePreRequisitos = 0;
+                break;
+            }
+        }
+        return atendePreRequisitos;
     }
 };
 
@@ -95,7 +123,7 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{2, 10}, horario{5, 8}}},
                      turma{{horario{2, 10}, horario{5, 8}}}
                      }}},
-    {"CalculoI", disciplina {"6", "CalculoI", 4, 2, true, {"1"}, {
+    {"C1", disciplina {"6", "C1", 4, 2, true, {"1"}, {
                      turma{{horario{2, 14}, horario{4, 16}}},
                      turma{{horario{2, 14}, horario{4, 16}}}
                      }}},
@@ -107,13 +135,13 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{3, 8}, horario{5, 10}}},
                      turma{{horario{3, 8}, horario{5, 10}}}
                      }}},
-    {"Algebra Linear", disciplina {"4", "Algebra Linear", 4, 3, true, {"5"}, {
+    {"AL", disciplina {"4", "AL", 4, 3, true, {"5"}, {
                      turma{{horario{3, 14}, horario{5, 16}}},
                      }}},
-    {"Logica para computacao", disciplina{"10", "Logica para computacao", 4, 3, true,{"5", "6"}, {
+    {"LC", disciplina{"10", "LC", 4, 3, true,{"5", "6"}, {
                      turma{{horario {4, 8}, horario {6, 10}}},
                      }}},
-    {"CalculoII", disciplina {"11", "CalculoII", 4, 3, true, {"5", "6"}, {
+    {"C2", disciplina {"11", "C2", 4, 3, true, {"5", "6"}, {
                      turma{{horario{2, 14}, horario{4, 16}}},
                      }}},
     {"EDA", disciplina {"12", "EDA", 4, 3, true, {"7", "8"}, {
@@ -124,14 +152,14 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{2, 16}, horario{5, 14}}},
                      turma{{horario{2, 16}, horario{5, 14}}}
                      }}},
-    {"Teoria dos grafos", disciplina{"14", "Teoria dos grafos", 4, 3, true,{}, {
+    {"TG", disciplina{"14", "TG", 4, 3, true,{}, {
                      turma{{horario{3, 10}, horario{6, 10}}},
                      }}},
-    {"Introducao a probabilidade", disciplina {"15", "Introducao a probabilidade", 4, 4, true, {"5", "6"}, {
+    {"IP", disciplina {"15", "IP", 4, 4, true, {"5", "6"}, {
                      turma{{horario{2, 10}, horario{5, 10}}},
                      turma{{horario{2, 10}, horario{5, 10}}}
                      }}},
-    {"Projeto de software", disciplina {"16", "Projeto de software", 4, 4, true, {"2", "3"}, {
+    {"PS", disciplina {"16", "PS", 4, 4, true, {"2", "3"}, {
                      turma{{horario{2, 14}, horario{4, 16}}},
                      turma{{horario{2, 14}, horario{4, 16}}}
                      }}},
@@ -151,54 +179,107 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{4, 8}, horario{6, 10}}},
                      turma{{horario{3, 14}, horario{5, 16}}}
                      }}},
-    {"Estatistica aplicada", disciplina{"21", "Estatistica aplicada", 4, 5, true,{"15"}, {
+    {"EA", disciplina{"21", "EA", 4, 5, true,{"15"}, {
                      turma{{horario {2, 10}, horario {5, 8}}},
                      }}},
-    {"Analise de sistema", disciplina {"22", "Analise de sistema", 4, 5, true, {"2", "3"}, {
+    {"AS", disciplina {"22", "AS", 4, 5, true, {"2", "3"}, {
                      turma{{horario{3, 10}, horario{6, 8}}},
                      }}},
-    {"Engenharia de software", disciplina {"23", "Engenharia de software", 4, 5, true, {"2", "3"}, {
+    {"ES", disciplina {"23", "ES", 4, 5, true, {"2", "3"}, {
                      turma{{horario{2, 14}, horario{4, 16}}}
                      }}},
-    {"Rede de computadores", disciplina{"24", "Rede de computadores", 4, 5, true, {"4"}, {
+    {"RC", disciplina{"24", "RC", 4, 5, true, {"4"}, {
                      turma{{horario {3, 8}, horario {5, 10}}},
                      turma{{horario{3, 16}, horario{5, 14}}},
                      }}},
-    {"Sistemas operacionais", disciplina {"25", "Sistemas operacionais", 4, 5, true, {"20"}, {
+    {"SO", disciplina {"25", "SO", 4, 5, true, {"20"}, {
                      turma{{horario{2, 8}, horario{4, 10}}},
                      }}},
-    {"Teoria da computacao", disciplina {"26", "Teoria da computacao", 4, 5, true, {"17"}, {
+    {"TC", disciplina {"26", "TC", 4, 5, true, {"17"}, {
                      turma{{horario{2, 16}, horario{6, 14}}},
                      }}},
-    {"Metodologia cientifica", disciplina{"27", "Metodologia cientifica", 4, 6, true,{}, {
+    {"MC", disciplina{"27", "MC", 4, 6, true,{}, {
                      turma{{horario {3, 14}, horario {5, 16}}},
                      }}},
-    {"Programacao concorrente", disciplina {"28", "Progamacao concorrente", 4, 6, true, {"25"}, {
+    {"PC", disciplina {"28", "PC", 4, 6, true, {"25"}, {
                      turma{{horario{2, 16}, horario{5, 14}}},
                      }}},
-    {"Inteligencia artificial", disciplina {"29", "Inteligencia artificial", 4, 6, true, {"26"}, {
+    {"IA", disciplina {"29", "IA", 4, 6, true, {"26"}, {
                      turma{{horario{3, 16}, horario{6, 14}}},
                      }}},
     {"ATAL", disciplina {"30", "ATAL", 4, 7, true, {"12", "13"}, {
                      turma{{horario{3, 10}, horario{6, 8}}},
                      }}},
-    {"Compiladores", disciplina{"31", "Compiladores", 4, 7, true, {"17"}, {
+    {"Comp", disciplina{"31", "Comp", 4, 7, true, {"17"}, {
                      turma{{horario {3, 8}, horario {5, 16}}},
                      turma{{horario{3, 10}, horario{5, 8}}},
                      }}},
-    {"Projeto em computacao I", disciplina {"32", "Projeto em computacao I", 4, 8, true, {"23"}, {
+    {"PC1", disciplina {"32", "PC1", 4, 8, true, {"23"}, {
                      turma{{horario{3, 18}, horario{5, 8}}},
                      turma{{horario{3, 10}, horario{5, 10}}}
                      }}},
-    {"Projeto TCC", disciplina {"33", "Projeto TCC", 4, 8, true, {}, {
+    {"PTCC", disciplina {"33", "PTCC", 4, 8, true, {}, {
                      turma{{horario{3, 14}, horario{5, 8}}},
                      }}},
-    {"Projeto em computacao II", disciplina{"34", "Projeto em computacao II", 4, 9, true, {"32"}, {
+    {"PC2", disciplina{"34", "PC2", 4, 9, true, {"32"}, {
                      turma{{horario {3, 14}, horario {5, 16}}},
                      }}},
     {"TCC", disciplina {"25", "TCC", 4, 9, true, {"33"}, {
                      turma{{horario{2, 10}, horario{5, 8}}},
                      turma{{horario{3, 10}, horario{5, 10}}}
+                     }}},
+    {"VD", disciplina {"36", "VD", 4, 0, false, {}, {
+                     turma{{horario{2, 10}, horario{5, 8}}}
+                     }}},
+    {"CDP", disciplina {"37", "CDP", 4, 0, false, {}, {
+                     turma{{horario{2, 8}, horario{4, 10}}}
+                     }}},
+    {"VVTS", disciplina {"38", "VVTS", 4, 1, true, {"23"}, {
+                     turma{{horario{2, 16}, horario{6, 14}}}
+                     }}},
+    {"PDW", disciplina {"39", "PDW", 4, 0, false, {}, {
+                     turma{{horario{3, 14}, horario{6, 16}}}
+                     }}},
+    {"PSO", disciplina{"40", "PSO", 4, 0, false, {}, {
+                     turma{{horario {3, 8}, horario {5, 10}}}
+                     }}},
+    {"AS", disciplina {"41", "AS", 4, 0, false, {}, {
+                     turma{{horario{2, 14}, horario{4, 16}}}
+                     }}},
+    {"ES", disciplina {"42", "ES", 4, 0, false, {}, {
+                     turma{{horario{3, 14}, horario{5, 8}}}
+                     }}},
+    {"AA", disciplina{"43", "AA", 4, 0, false, {"2", "3"}, {
+                     turma{{horario {2, 18}, horario {5, 18}}}
+                     }}},
+    {"ETI", disciplina {"44", "ETI", 4, 0, false, {"21"}, {
+                     turma{{horario{2, 16}, horario{4, 14}}}
+                     }}},  
+    {"JD", disciplina {"45", "JD", 4, 0, false, {}, {
+                     turma{{horario{2, 18}, horario{4, 18}}}
+                     }}},
+    {"PF", disciplina{"46", "PF", 4, 0, false, {"17"}, {
+                     turma{{horario {2, 14}, horario {4, 16}}}
+                     }}},
+    {"D1/2", disciplina {"47", "D1/2", 2, 0, false, {}, {
+                     turma{{horario{2, 18}, horario{5, 8}}}
+                     }}},
+    {"GRC", disciplina {"48", "GRC", 4, 0, false, {}, {
+                     turma{{horario{3, 7}, horario{6, 7}}}
+                     }}},
+    // optativas gerais
+    {"LP", disciplina{"48", "LP", 4, 0, false, {}, {
+                     turma{{horario {4, 8}, horario {6, 10}}}
+                     }}},
+    {"Ing", disciplina {"49", "Ing", 4, 0, false, {}, {
+                     turma{{horario{2, 8}, horario{4, 10}}},
+                     turma{{horario{2, 18}, horario{5, 10}}}
+                     }}},
+    {"Fut", disciplina {"50", "Fut", 2, 0, false, {}, {
+                     turma{{horario{2, 18}}}
+                     }}},
+    {"DC", disciplina {"51", "DC", 4, 0, false, {}, {
+                     turma{{horario{3, 10}, horario{6, 10}}}
                      }}}
 };
 
@@ -242,5 +323,11 @@ string pesquisaDisc(char entrada[]){
     }
     return saida;
 }
+
+
+
+
+
+
 
 
