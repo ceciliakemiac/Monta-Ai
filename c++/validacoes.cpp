@@ -1,5 +1,6 @@
 #include "disciplinas_bd.cpp"
 
+
 int deuChoqueDeHorarios(turma t1, turma t2){
     int choque = 0;
     for(horario ht1 : t1.horarios){
@@ -31,4 +32,8 @@ int validaQtdCreditos(int totalDeCreditos){
         valida = 1;
     }
     return valida;
+}
+
+bool validaNivel(Nivel a) {
+    return !(a != deBoa && a != rasgada && a != carrego && a != ehPeso && a != tenso);
 }

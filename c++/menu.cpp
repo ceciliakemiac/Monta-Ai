@@ -4,6 +4,7 @@
 using namespace std;
 
 extern map<string, disciplina> gradeCurricular;
+Aluno alunoLogado;
 
 bool temDisciplina(string nomeDisciplina) {
     return gradeCurricular.count(nomeDisciplina) == 1;
@@ -137,6 +138,56 @@ void menuAvaliacao() {
     } else {
         cout << "\n" << "Disciplina não existe /:" << "\n";
     }
+
+}
+
+void menuAvaliacao() {
+    string nomeDisciplina;
+    cout << "Qual disciplina deseja avaliar?" << "\n";
+    cin >> nomeDisciplina;
+    if(alunoLogado.contemDisciplina(nomeDisciplina)) {
+        int tipo;
+        disciplina disc = alunoLogado.retornaDisciplina(nomeDisciplina);
+        menuTipoAvaliacao();
+        cin >> tipo;
+        switch(tipo) {
+            case(1):
+                string conteudo;
+                cout << "Digite um comentário sobre a disciplina: " << "\n";
+                cin >> conteudo;
+                disc.avaliacao.adicionaComentario(conteudo);
+                break;
+            case(2):
+                Nivel nivel;
+                menuNivel();
+                cin >> nivel;
+                if(validaNivel(nivel)) {
+                    disc.avaliacao.adicionaAvaliacao(nivel);
+                }else {
+                    cout << "Opção inválida" << "\n";
+                }
+                break;
+            default: 
+                cout << "Opção inválida" << "\n";
+                break;
+        }
+    }else {
+        cout << "Você ainda não cursou essa disciplina."
+    }
+}
+
+void menuNivel() {
+    cout << "O que achou da disciplina?" << "\n";
+    cout << "1 - rasgada" << "\n";
+    cout << "2 - de boa" << "\n";
+    cout << "3 - carrego" << "\n";
+    cout << "4 - tenso" << "\n";
+    cout << "5 - eh peso" << "\n";
+}
+
+void menuTipoAvaliacao() {
+    cout << "1 - Deixar um comentário" << "\n";
+    cout << "2 - Deixar uma avaliação segundo classificação" << "\n";
 }
 
 int main() {
