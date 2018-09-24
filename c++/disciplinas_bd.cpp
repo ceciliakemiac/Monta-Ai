@@ -299,14 +299,13 @@ vector<disciplina> disciplinasDoPeriodo(int periodo){
 
 std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
 
-string pesquisaDisc(char entrada[]){
+string pesquisaDisc(string entrada){
     string saida = "";
     while(i != gradeCurricular.end()){
         int j = 0;
         bool add = true;
-        char caracter = i->first[0];
-        while(caracter != '/'){ // TODO: plese ajeite
-            if(caracter != i->first[j]){
+        while(!entrada.eof()){ // TODO: plese ajeite
+            if(entrada[j] != i->first[j]){
                 add = false;
                 break;
             }
