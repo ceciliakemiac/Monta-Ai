@@ -339,7 +339,7 @@ string pesquisaDisc(string entrada){
     if(saida == ""){
         saida = "Não foram encontradas disciplinas que corresopondam à pesquisa.";
     }
-    return saida;
+    return saida + '\n';
 }
 
 string exibirTodasAsDiscSimples(){
@@ -349,19 +349,23 @@ string exibirTodasAsDiscSimples(){
         saida += i->second.toString() + '\n';
         i++;
     }
-    return saida;
+    return saida + '\n';
 }
 
-/*
-string exibirTodasAsDiscDetalh(){
+string exibirDiscDetalh(string entrada){
     std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
     string saida = "";
     while(i != gradeCurricular.end()){
-        saida += i->second.toStringDetalh() + '\n';
+        if(entrada == i->second.nome){
+            saida = i->second.toStringDetalhado();
+        }
         i++;
     }
+    if(saida == ""){
+        saida = "Não foram encontradas disciplinas que corresopondam à pesquisa.";
+    }
     return saida;
-}*/
+}
 
 
 
