@@ -72,6 +72,28 @@ struct disciplina {
     string toString() {
         return nome + " - " + to_string(creditos) + " - " + codigo;
     }
+
+    string toStringDetalhado() {
+        string saida = "Nome: ";
+        saida += nome + "\nCodigo: "  + codigo + "\nCreditos: " + to_string(creditos) + "\nPeriodo: " + to_string(periodo) + "\n";
+        if(obrigatoria){
+            saida += "Status: Obrigatoria \n"; 
+        } else {
+            saida += "Status: Optativa \n";
+        }
+        saida += "Pre-requisitos: ";
+        for (string p : pre_requisitos){
+            saida += p + " / ";
+        }
+        saida += "\nTurmas: ";
+        int i = 1;
+        for (turma t : turmas){
+            saida += "\n------" + to_string(i) + " " + t.toString();
+            i++;
+        }
+        // saida += aval.toString();
+        return saida;
+    }
 };
 
 struct preRequisitos {

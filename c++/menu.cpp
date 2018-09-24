@@ -166,16 +166,17 @@ int main() {
     //     for(disciplina i : p.disciplinasPagas){ 
     //         cout<< i.toString();
     //     }
-
+     disciplina i = retornaDisciplina("P1");
+      cout<< i.toStringDetalhado();
     // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
     // cout << p.atendePreRequisitos(retornaDisciplina("LP2"), p.disciplinasPagas) << "\n";
     // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
 
-    cout << (pesquisaDisc("P"));
+    // cout << (pesquisaDisc("P"));
 
-    cout << (pesquisaDisc("N"));
+    // cout << (pesquisaDisc("N"));
 
-    cout << (exibirTodasAsDiscSimples());    
+    // cout << (exibirTodasAsDiscSimples());    
 
     int opcao = 0;
     while(opcao != SAIR) {
