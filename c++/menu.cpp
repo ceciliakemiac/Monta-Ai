@@ -1,6 +1,6 @@
 #include <iostream>
-#include "funcoesAuxiliares.cpp"
 #include "disciplinas_bd.cpp"
+#include "funcoesAuxiliares.cpp"
 using namespace std;
 
 extern map<string, disciplina> gradeCurricular;
