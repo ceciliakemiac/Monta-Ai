@@ -1,3 +1,5 @@
+#include "disciplinas_bd.cpp"
+
 int deuChoqueDeHorarios(turma t1, turma t2){
     int choque = 0;
     for(horario ht1 : t1.horarios){
