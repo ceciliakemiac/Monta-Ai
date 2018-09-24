@@ -171,8 +171,11 @@ int main() {
     // cout << p.atendePreRequisitos(retornaDisciplina("LP2"), p.disciplinasPagas) << "\n";
     // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
 
+    cout << (pesquisaDisc("P"));
 
-    
+    cout << (pesquisaDisc("N"));
+
+    cout << (exibirTodasAsDiscSimples());    
 
     int opcao = 0;
     while(opcao != SAIR) {

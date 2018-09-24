@@ -70,8 +70,7 @@ struct disciplina {
     avaliacao aval;
 
     string toString() {
-        //ajeitar, foi só pra teste @AndreHelloWorld
-        return nome + " - " + codigo;
+        return nome + " - " + to_string(creditos) + " - " + codigo;
     }
 };
 
@@ -297,23 +296,21 @@ vector<disciplina> disciplinasDoPeriodo(int periodo){
     return disciplinas;
 }
 
-std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
-
 string pesquisaDisc(string entrada){
+    std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
     string saida = "";
     while(i != gradeCurricular.end()){
         int j = 0;
         bool add = true;
-        while(!entrada.eof()){ // TODO: plese ajeite
+        while(entrada[j] != '\0'){
             if(entrada[j] != i->first[j]){
                 add = false;
                 break;
             }
             j++;
-            caracter = entrada[j];
         }
         if(add){
-            saida += i->second.codigo + " " + i->second.nome + "/n";
+            saida += i->second.toString() + "\n";
         }
         i++;
     }
@@ -322,6 +319,27 @@ string pesquisaDisc(string entrada){
     }
     return saida;
 }
+
+string exibirTodasAsDiscSimples(){
+    std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
+    string saida = "";
+    while(i != gradeCurricular.end()){
+        saida += i->second.toString() + '\n';
+        i++;
+    }
+    return saida;
+}
+
+/*
+string exibirTodasAsDiscDetalh(){
+    std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
+    string saida = "";
+    while(i != gradeCurricular.end()){
+        saida += i->second.toStringDetalh() + '\n';
+        i++;
+    }
+    return saida;
+}*/
 
 
 
