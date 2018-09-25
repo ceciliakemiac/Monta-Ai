@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm> 
 #include "disciplinas_bd.cpp"
 #include "funcoesAuxiliares.cpp"
 using namespace std;
@@ -52,36 +53,63 @@ void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> s
     
 }
 
+bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
+    // TODO: adicionar disciplinas pagas
+    vector<disciplina> disciplinasPagas;
+    preRequisitos requisitos;
+    bool pararAnalise = false;
+    int i = 0;
+    while(i < disciplinas.size() && !pararAnalise) {
+        disciplina d = disciplinas.at(i);
+        cout << "Aqui: " << requisitos.atendePreRequisitos(d, disciplinasPagas);
+        
+        if (!requisitos.atendePreRequisitos(d, disciplinasPagas) == 1) {
+            cout << "Você não atente os requisitos da disciplna " << d.nome << ".\n";
+            pararAnalise = true;
+        }
+
+        i += 1;
+    }
+    return !pararAnalise;
+}
+
 void montarHorario() {
     int qtdDisciplinas;
+    bool pararExecucao = false; 
     vector<disciplina> meuHorario;
 
-    meuHorario.push_back(gradeCurricular.at("P1"));
-    meuHorario.push_back(gradeCurricular.at("LP1"));
-    meuHorario.push_back(gradeCurricular.at("IC"));
+    //meuHorario.push_back(gradeCurricular.at("P1"));
+    //meuHorario.push_back(gradeCurricular.at("LP1"));
+    //meuHorario.push_back(gradeCurricular.at("IC"));
 
 
-    vector<celula> celulas;
-    interarMeuHorario(meuHorario, 0, celulas);
-    
-    
-    // Leitura de montar horário
-    // cout << "Quantas disciplinas pretende pagar: ";
-    // cin >> qtdDisciplinas;
-    
-    // string nomeDisciplina;
-    // for(int i = 0; i < qtdDisciplinas; i++)
-    // {
-    //     cout << "Digite o nome da disciplina: ";
-    //     cin >> nomeDisciplina;
+    vector<celula> celulas;    
 
-    //     if (temDisciplina(nomeDisciplina)) {
-    //         meuHorario.push_back(gradeCurricular.at(nomeDisciplina));
-    //     } else {
-    //         cout << "um erro aconteceu! Por favor, tente novamente.\n";
-    //         break;
-    //     }
-    // }
+    //Leitura de montar horário
+    cout << "Quantas disciplinas pretende pagar: ";
+    cin >> qtdDisciplinas;
+    
+    string nomeDisciplina;
+    for(int i = 0; i < qtdDisciplinas; i++)
+    {
+        cout << "Digite o nome da disciplina: ";
+        cin >> nomeDisciplina;
+        transform(nomeDisciplina.begin(), nomeDisciplina.end(), nomeDisciplina.begin(), ::toupper);
+        if (temDisciplina(nomeDisciplina)) {
+            meuHorario.push_back(gradeCurricular.at(nomeDisciplina));
+        } else {
+            cout << "um erro aconteceu! Por favor, tente novamente.\n";
+            pararExecucao = true;
+            break;
+        }
+    }
+
+    if (!pararExecucao) {
+        if (disciplinasAtendemRequisitos(meuHorario)) {
+            vector<celula> celulas;
+            interarMeuHorario(meuHorario, 0, celulas);
+        }
+    }
 }
 
 void comentario_ou_votarAvaliacao() {
@@ -144,46 +172,7 @@ int main() {
     const int VIZUALIZAR_DISC = 2;
     const int INFORMACAO_DISC = 3;
     const int AVALIAR_DISC = 4;
-    const int SAIR = 5;
-
-    // disciplina disc = retornaDisciplina("FMCCI");
-    // disc.aval.adicionaComentario("chata");
-    // disc.aval.adicionaComentario("jorge é muito simpático");
-    // disc.aval.votaAvaliacao(peso);
-    // disc.aval.votaAvaliacao(peso);
-    // disc.aval.votaAvaliacao(carrego);
-    // disc.aval.votaAvaliacao(carrego);
-    // disc.aval.votaAvaliacao(carrego);
-    // cout << disc.periodo << "\n";
-    // cout << disc.nome << "\n";
-    // cout << disc.aval.comentarios[0] << "\n";
-    // cout << disc.aval.comentarios[1] << "\n";
-    // cout << disc.aval.avaliacao[peso] << "\n";
-    // cout << disc.aval.avaliacao[rasgada] << "\n";
-    // cout << disc.toStringDetalhado() << "\n";
-
-    // meu testezinho - jady
-    // preRequisitos p;
-    //     p.dPagas(retornaDisciplina("P1"));
-    //     p.dPagas(retornaDisciplina("LP1"));
-    //     for(disciplina i : p.disciplinasPagas){ 
-    //         cout<< i.toString();
-    //     }
-
-    // disciplina i = retornaDisciplina("P1");
-    // cout<< (i.toStringDetalhado());
-
-    // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
-    // cout << p.atendePreRequisitos(retornaDisciplina("LP2"), p.disciplinasPagas) << "\n";
-    // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
-
-    // cout << (pesquisaDisc("P"));
-
-    // cout << (pesquisaDisc("N"));
-
-    // cout << (exibirTodasAsDiscSimples());
-
-    // cout << (exibirDiscDetalh("P1"));    
+    const int SAIR = 5;  
 
     int opcao = 0;
     while(opcao != SAIR) {
