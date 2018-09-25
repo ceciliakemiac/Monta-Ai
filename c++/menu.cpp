@@ -192,10 +192,10 @@ int main() {
                 montarHorario();
                 break;
             case(VIZUALIZAR_DISC):
-            //idem
+                visualizarTodasDisc();
             break;
             case(INFORMACAO_DISC):
-            //
+                visualizarDisciplinaDet();
             break;
             case(AVALIAR_DISC):
                 menuAvaliacao();

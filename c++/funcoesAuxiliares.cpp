@@ -21,6 +21,7 @@ void printHorario(vector<disciplina> disciplinas) {
 			}
 		}
 	}
+	
 
 	int w = 30;
 	cout << left << setw(w) << setfill(' ') << "SEGUNDA";
@@ -50,5 +51,16 @@ void printHorario(vector<disciplina> disciplinas) {
 		}
 
 	}
+}
 
+// Metodos de iteracao para visualizacao das disciplinas
+void visualizarDisciplinaDet(){
+    string disc;
+    cout << "Digite o nome da disciplina: ";
+    cin >> disc;
+    cout << exibirDiscDetalh(disc); 
+}
+
+void visualizarTodasDisc(){
+   cout << exibirTodasAsDiscSimples();
 }
