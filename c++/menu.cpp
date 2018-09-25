@@ -5,6 +5,9 @@
 using namespace std;
 
 extern map<string, disciplina> gradeCurricular;
+vector<quadro> quadrosPossiveis;
+
+
 
 bool temDisciplina(string nomeDisciplina) {
     return gradeCurricular.count(nomeDisciplina) == 1;
@@ -40,7 +43,9 @@ void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> s
             vector<celula> copia = copiar_e_addCelula(saida, nova);
             interarMeuHorario(disciplinas, num + 1, copia);
         } else {
-            vector<celula> copia =  copiar_e_addCelula(saida, nova);;
+            vector<celula> copia =  copiar_e_addCelula(saida, nova);
+            quadrosPossiveis.push_back({copia});
+            // TODO: chamar a funcao
             cout << "------SAIDA---" << endl;
             for(int i = 0; i < copia.size(); i++)
             {
@@ -61,8 +66,7 @@ bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
     int i = 0;
     while(i < disciplinas.size() && !pararAnalise) {
         disciplina d = disciplinas.at(i);
-        cout << "Aqui: " << requisitos.atendePreRequisitos(d, disciplinasPagas);
-        
+
         if (!requisitos.atendePreRequisitos(d, disciplinasPagas) == 1) {
             cout << "Você não atente os requisitos da disciplna " << d.nome << ".\n";
             pararAnalise = true;

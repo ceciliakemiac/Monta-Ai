@@ -37,6 +37,11 @@ struct celula {
     }
 };
 
+
+struct quadro {
+    vector<celula> celulas;
+};
+
 enum nivel {
     rasgada,
     deBoa,
