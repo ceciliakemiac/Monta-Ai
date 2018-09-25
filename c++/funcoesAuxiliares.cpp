@@ -11,7 +11,7 @@ void rodaMenu() {
     cout << "5 - SAIR" << "\n";
 }
 
-void printHorario(vector<disciplina> disciplinas){
+void printHorario(vector<disciplina> disciplinas) {
 
 	vector<string> h[5][5];
 	for(disciplina d: disciplinas){

@@ -12,7 +12,6 @@ struct horario{
     }
 };
 
-
 struct turma {
     vector<horario> horarios;
 
@@ -43,7 +42,15 @@ enum nivel {
     deBoa,
     carrego,
     tenso,
-    ehPeso
+    peso
+};
+
+map<nivel, string> stringAvaliacao = {
+    {rasgada, "rasgada"},
+    {deBoa, "deBoa"},
+    {carrego, "carrego"},
+    {tenso, "tenso"},
+    {peso, "peso"}
 };
 
 struct avaliacao {
@@ -56,6 +63,39 @@ struct avaliacao {
 
     void votaAvaliacao(nivel a) {
         avaliacao[a] += 1;
+    }
+
+    nivel maiorVotacao() {
+        nivel niv = rasgada;
+        int maior = 0;
+        int atual;
+        map<nivel, int>::iterator it = avaliacao.begin();
+        for(it; it != avaliacao.end(); it++) {
+            atual = it->second;
+            if(atual > maior) {
+                maior = atual;
+                niv = it->first;
+            }
+        }
+        return niv;
+    }
+
+    string toStringComentarios() {
+        string saida = "Comentários:\n";
+        int pos = 1;
+        for(string comentario : comentarios) {
+            saida += to_string(pos) + " - " + comentario + "\n";
+            pos++;
+        }
+        return saida;
+    }
+
+    string toStringAvaliacao() {
+        string saida = "";
+        saida += "Essa disciplina eh ";
+        nivel niv = maiorVotacao();
+        saida += stringAvaliacao[niv];
+        return saida;   
     }
 };
 
@@ -91,7 +131,9 @@ struct disciplina {
             saida += "\n------" + to_string(i) + " " + t.toString();
             i++;
         }
-        // saida += aval.toString();
+        saida += "\n";
+        saida += aval.toStringComentarios();
+        saida += aval.toStringAvaliacao() + " >:(";
         return saida;
     }
 };

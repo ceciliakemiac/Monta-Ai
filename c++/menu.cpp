@@ -149,15 +149,18 @@ int main() {
     // disciplina disc = retornaDisciplina("FMCCI");
     // disc.aval.adicionaComentario("chata");
     // disc.aval.adicionaComentario("jorge é muito simpático");
-    // disc.aval.votaAvaliacao(ehPeso);
-    // disc.aval.votaAvaliacao(ehPeso);
+    // disc.aval.votaAvaliacao(peso);
+    // disc.aval.votaAvaliacao(peso);
+    // disc.aval.votaAvaliacao(carrego);
+    // disc.aval.votaAvaliacao(carrego);
+    // disc.aval.votaAvaliacao(carrego);
     // cout << disc.periodo << "\n";
     // cout << disc.nome << "\n";
     // cout << disc.aval.comentarios[0] << "\n";
     // cout << disc.aval.comentarios[1] << "\n";
-    // cout << disc.aval.avaliacao[ehPeso] << "\n";
+    // cout << disc.aval.avaliacao[peso] << "\n";
     // cout << disc.aval.avaliacao[rasgada] << "\n";
-
+    // cout << disc.toStringDetalhado() << "\n";
 
     // meu testezinho - jady
     // preRequisitos p;
@@ -166,19 +169,21 @@ int main() {
     //     for(disciplina i : p.disciplinasPagas){ 
     //         cout<< i.toString();
     //     }
-     disciplina i = retornaDisciplina("P1");
-      cout<< (i.toStringDetalhado());
+
+    // disciplina i = retornaDisciplina("P1");
+    // cout<< (i.toStringDetalhado());
+
     // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
     // cout << p.atendePreRequisitos(retornaDisciplina("LP2"), p.disciplinasPagas) << "\n";
     // cout << p.atendePreRequisitos(retornaDisciplina("LC"), p.disciplinasPagas);
 
-    cout << (pesquisaDisc("P"));
+    // cout << (pesquisaDisc("P"));
 
-    cout << (pesquisaDisc("N"));
+    // cout << (pesquisaDisc("N"));
 
-    cout << (exibirTodasAsDiscSimples());
+    // cout << (exibirTodasAsDiscSimples());
 
-    cout << (exibirDiscDetalh("P1"));    
+    // cout << (exibirDiscDetalh("P1"));    
 
     int opcao = 0;
     while(opcao != SAIR) {
