@@ -13,6 +13,7 @@ void printLogo(){
 
 void rodaMenu() {
     cout << "MENU" << "\n";
+	cout << "0 - Informar Disciplinas que já paguei" << "\n";
     cout << "1 - Montar Horário do semestre" << "\n";
     cout << "2 - Visualizar disciplinas" << "\n";
     cout << "3 - Ver informações detalhadas de uma disciplina" << "\n";

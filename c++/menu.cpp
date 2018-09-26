@@ -68,6 +68,7 @@ void removeDscPaga(string nome) {
     for(it; it != disciplinasPagas.end(); it++){
         if((*it).nome == nome) {
             disciplinasPagas.erase(disciplinasPagas.begin() + i);
+            break;
         }
         i++;
     }
@@ -114,7 +115,7 @@ void informaDisciplinasPagas() {
         }
     }
 
-    cout << "Você Pagou as seguintes disciplinas.\n";
+    cout << "Você pagou as seguintes disciplinas.\n\n";
     vector<disciplina>::iterator it = disciplinasPagas.begin();
     for(it; it != disciplinasPagas.end(); it++) {
         cout << (*it).toString();
@@ -159,7 +160,6 @@ void montarHorario() {
         }
     }
 
-    informaDisciplinasPagas();
 }
 
 void comentario_ou_votarAvaliacao() {
@@ -218,15 +218,19 @@ void menuAvaliacao() {
 }
 
 int main() {
+    const int INFORM_DSC_PAGAS = 0;
     const int MONTAR_HOR = 1;
     const int VIZUALIZAR_DISC = 2;
     const int INFORMACAO_DISC = 3;
     const int AVALIAR_DISC = 4;
     const int SAIR = 5;  
 
-    int opcao = 0;
+    int opcao = -1;
     while(opcao != SAIR) {
         switch(opcao) {
+            case(INFORM_DSC_PAGAS):
+                informaDisciplinasPagas();
+                break;
             case(MONTAR_HOR):
                 montarHorario();
                 break;
