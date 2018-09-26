@@ -5,9 +5,12 @@
 
 using namespace std;
 
-extern map<string, disciplina> gradeCurricular;
 vector<quadro> quadrosPossiveis;
+<<<<<<< HEAD
+
+=======
 vector<disciplina> disciplinasPagas;
+>>>>>>> da81a947bca397c7858414db91b7bd4bc880cf38
 
 bool temDisciplina(string nomeDisciplina) {
     return gradeCurricular.count(nomeDisciplina) == 1;
@@ -41,7 +44,6 @@ void escolherHorarios() {
         
         cout << "Digite um nome de uma turma que você deseja pagar?\n";
         std::getline(std::cin, turma);
-        transform(turma.begin(), turma.end(), turma.begin(), ::toupper);
         for(int i = quadrosPossiveis.size() - 1; i >= 0; i--)
         {
             bool achou = false;
@@ -52,6 +54,7 @@ void escolherHorarios() {
                 if (quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina == turma) {
                     achou = true;
                 }
+                // cout << "show";
                 j -= 1;
             }
 
@@ -97,10 +100,10 @@ void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> s
         }
         
     }
-    
 }
 
-
+<<<<<<< HEAD
+=======
 void adicionaDscPaga(string nome) {
     disciplina dscPaga = retornaDisciplina(nome);
     disciplinasPagas.push_back(dscPaga);
@@ -115,9 +118,9 @@ void removeDscPaga(string nome) {
         i++;
     }
 }
+>>>>>>> da81a947bca397c7858414db91b7bd4bc880cf38
 
 bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
-
     preRequisitos requisitos;
     bool pararAnalise = false;
     int i = 0;
@@ -170,15 +173,22 @@ void montarHorario() {
     int qtdDisciplinas;
     bool pararExecucao = false; 
     vector<disciplina> meuHorario;
+    string nomeDisciplina;
 
-
+<<<<<<< HEAD
     vector<celula> celulas;    
+=======
+    //meuHorario.push_back(gradeCurricular.at("P1"));
+    //meuHorario.push_back(gradeCurricular.at("LP1"));
+    //meuHorario.push_back(gradeCurricular.at("IC"));
+
+    vector<celula> celulas;
+>>>>>>> da81a947bca397c7858414db91b7bd4bc880cf38
 
     //Leitura de montar horário
     cout << "Quantas disciplinas pretende pagar: ";
     cin >> qtdDisciplinas;
     
-    string nomeDisciplina;
     for(int i = 0; i < qtdDisciplinas; i++)
     {
         cout << "Digite o nome da disciplina: ";
@@ -201,7 +211,7 @@ void montarHorario() {
         }
     }
 
-    //informaDisciplinasPagas();
+    informaDisciplinasPagas();
 }
 
 void comentario_ou_votarAvaliacao() {
@@ -265,7 +275,7 @@ int main() {
     const int INFORMACAO_DISC = 3;
     const int AVALIAR_DISC = 4;
     const int SAIR = 5;  
-
+    
     int opcao = 0;
     while(opcao != SAIR) {
         switch(opcao) {
