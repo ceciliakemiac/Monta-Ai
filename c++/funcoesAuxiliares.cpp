@@ -3,6 +3,15 @@
 #include "disciplinas_bd.cpp"
 using namespace std;
 
+void printLogo(){
+	cout << " __  __             _                            _           " << endl;
+	cout << "|  \\/  |           | |                     /\\   (_)        " << endl;
+	cout << "| \\  / | ___  _ __ | |_ __ _   ______     /  \\   _         " << endl;
+	cout << "| |\\/| |/ _ \\| '_ \\| __/ _` | |______|   / /\\ \\ | |     " << endl;
+	cout << "| |  | | (_) | | | | || (_| |           / ____ \\| |         " << endl;
+	cout << "|_|  |_|\\___/|_| |_|\\__\\__,_|          /_/    \\_\\_|	  " << endl;
+}
+
 void rodaMenu() {
     cout << "MENU" << "\n";
     cout << "1 - Montar Horário do semestre" << "\n";
@@ -63,7 +72,7 @@ void printHorario(vector<string> h[5][5], int marcarChoques){
 					} else {
 						cout << BOLD << GREEN <<  left << setw(w) << setfill(' ') <<  h[dia][hora][idisc] << RESTORE_COLOR;                                           
 					}
-					
+
 				} else cout << left << setw(w) << setfill(' ') << "";
 			}
 			cout << endl;
