@@ -1,6 +1,5 @@
 #include <iostream>
 #include <iomanip>
-#include "disciplinas_bd.cpp"
 using namespace std;
 
 void printLogo(){
