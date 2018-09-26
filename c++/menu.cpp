@@ -34,32 +34,25 @@ vector<celula> copiar_e_addCelula(vector<celula> celulas, celula nova) {
 void escolherHorarios() {
     bool parar = false;
     cout << "Existem " << quadrosPossiveis.size() << ".\n";
-
     string turma;
-    while(!parar || quadrosPossiveis.size() > 1) {
+    cin.ignore();
+    while(!parar) {
+        
         cout << "Digite um nome de uma turma que você deseja pagar?\n";
-        cin >> turma;
-
-        cout << "foooiikkkki\n";
-        cout << quadrosPossiveis.size() - 1 << endl;
-
-        for(int i = 0; i < quadrosPossiveis.size(); i++)
+        std::getline(std::cin, turma);
+        for(int i = quadrosPossiveis.size() - 1; i >= 0; i--)
         {
-            cout << "foooiii";
             bool achou = false;
-            int j = 0;
-            // Not Working
-            // while(!achou || j >= quadrosPossiveis.at(i).celulas.size()) {
-            //     cout << quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina;
-            //     cout << turma;
-                
-            //     if (quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina == turma) {
-            //         achou = true;
-            //         cout << "achou";
-            //     }
-            //     cout << "show";
-            //     j += 1;
-            // }
+            int j = quadrosPossiveis.at(i).celulas.size() - 1;
+
+            while(!achou && j >= 0) {
+                string nomeCelula = quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina;
+                if (quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina == turma) {
+                    achou = true;
+                }
+                // cout << "show";
+                j -= 1;
+            }
 
             if (!achou) {
                 quadrosPossiveis.erase(quadrosPossiveis.begin() + i);
@@ -67,11 +60,13 @@ void escolherHorarios() {
             
         }
 
-    
+        turma = "";
         cout << "Existem " << quadrosPossiveis.size() << ".\n";
+        if (quadrosPossiveis.size() < 4) {
+            parar = true;
+        }
     }
 
-    cout << "this";
     for(int i = 0; i < quadrosPossiveis.size(); i++)
     {
         printQuadro(quadrosPossiveis.at(i));
