@@ -2,12 +2,11 @@
 #include <algorithm> 
 #include "disciplinas_bd.cpp"
 #include "funcoesAuxiliares.cpp"
+
 using namespace std;
 
-extern map<string, disciplina> gradeCurricular;
 vector<quadro> quadrosPossiveis;
-
-
+vector<disciplina> disciplinasPagas;
 
 bool temDisciplina(string nomeDisciplina) {
     return gradeCurricular.count(nomeDisciplina) == 1;
@@ -58,9 +57,22 @@ void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> s
     
 }
 
+void adicionaDscPaga(string nome) {
+    disciplina dscPaga = retornaDisciplina(nome);
+    disciplinasPagas.push_back(dscPaga);
+}
+
+void removeDscPaga(string nome) {
+    int i = 0;
+    for(disciplina d : disciplinasPagas){
+        if(d.nome == nome) {
+            disciplinasPagas.erase(disciplinasPagas.begin() + i);
+        }
+        i++;
+    }
+}
+
 bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
-    // TODO: adicionar disciplinas pagas
-    vector<disciplina> disciplinasPagas;
     preRequisitos requisitos;
     bool pararAnalise = false;
     int i = 0;
@@ -77,23 +89,52 @@ bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
     return !pararAnalise;
 }
 
+void informaDisciplinasPagas() {
+    string entrada = "";
+    string comando = "";
+
+    //Leitura de quais disciplinas o usuário já pagou
+    while(entrada != "Pronto"){
+        cout << "Quais disciplinas voce ja pagou?       | Digite \"Pronto\" quando terminar \n"; 
+        cin >> entrada;
+        if(entrada != "Pronto") {
+            adicionaDscPaga(entrada);
+        }  
+    }
+
+    //Remove disciplinas que o usuário possa ter informado erroneamente
+    while(comando != "N"){
+        cout << "Deseja remover alguma disciplina que informou como paga? S/N :\n";
+        cin >> comando;
+        if(comando == "S") {
+            cout << "Qual disciplina deseja remover? ";
+            cin >> entrada;
+            removeDscPaga(entrada);
+        }
+    }
+
+    cout << "Você Pagou as seguintes disciplinas.\n";
+    for(disciplina d : disciplinasPagas) {
+        exibirDiscDetalh(d.nome);
+    }
+}
+
 void montarHorario() {
     int qtdDisciplinas;
     bool pararExecucao = false; 
     vector<disciplina> meuHorario;
+    string nomeDisciplina;
 
     //meuHorario.push_back(gradeCurricular.at("P1"));
     //meuHorario.push_back(gradeCurricular.at("LP1"));
     //meuHorario.push_back(gradeCurricular.at("IC"));
 
-
-    vector<celula> celulas;    
+    vector<celula> celulas;
 
     //Leitura de montar horário
     cout << "Quantas disciplinas pretende pagar: ";
     cin >> qtdDisciplinas;
     
-    string nomeDisciplina;
     for(int i = 0; i < qtdDisciplinas; i++)
     {
         cout << "Digite o nome da disciplina: ";
@@ -114,6 +155,8 @@ void montarHorario() {
             interarMeuHorario(meuHorario, 0, celulas);
         }
     }
+
+    informaDisciplinasPagas();
 }
 
 void comentario_ou_votarAvaliacao() {
