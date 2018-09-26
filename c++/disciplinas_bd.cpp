@@ -50,7 +50,7 @@ enum nivel {
     peso
 };
 
-map<nivel, string> stringAvaliacao = {
+map<nivel, string> stringAvaliacao {
     {rasgada, "rasgada"},
     {deBoa, "deBoa"},
     {carrego, "carrego"},
