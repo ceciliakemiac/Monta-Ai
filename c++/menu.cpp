@@ -5,7 +5,6 @@
 
 using namespace std;
 
-extern map<string, disciplina> gradeCurricular;
 vector<quadro> quadrosPossiveis;
 vector<disciplina> disciplinasPagas;
 
@@ -32,74 +31,31 @@ vector<celula> copiar_e_addCelula(vector<celula> celulas, celula nova) {
         return copia;
 }
 
-void escolherHorarios() {
-    bool parar = false;
-    cout << "Existem " << quadrosPossiveis.size() << ".\n";
-    string turma;
-    cin.ignore();
-    while(!parar) {
-        
-        cout << "Digite um nome de uma turma que você deseja pagar?\n";
-        std::getline(std::cin, turma);
-        transform(turma.begin(), turma.end(), turma.begin(), ::toupper);
-        for(int i = quadrosPossiveis.size() - 1; i >= 0; i--)
-        {
-            bool achou = false;
-            int j = quadrosPossiveis.at(i).celulas.size() - 1;
-
-            while(!achou && j >= 0) {
-                string nomeCelula = quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina;
-                if (quadrosPossiveis.at(i).celulas.at(j).nomeDisciplina == turma) {
-                    achou = true;
-                }
-                j -= 1;
-            }
-
-            if (!achou) {
-                quadrosPossiveis.erase(quadrosPossiveis.begin() + i);
-            }
-            
-        }
-
-        turma = "";
-        cout << "Existem " << quadrosPossiveis.size() << ".\n";
-        if (quadrosPossiveis.size() < 4) {
-            parar = true;
-        }
-    }
-
-    for(int i = 0; i < quadrosPossiveis.size(); i++)
-    {
-        printQuadro(quadrosPossiveis.at(i));
-    }
-    
-   
-}
-
 void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> saida){
     disciplina atual = disciplinas.at(num);
     
     for(int i = 0; i < atual.turmas.size(); i++)
     {   
-
-        celula nova = celula{ atual.nome + " - " + to_string(i + 1), atual.turmas.at(i)};
+        celula nova = celula{ atual.nome, atual.turmas.at(i)};
 
         if (num + 1 < disciplinas.size()) {
             vector<celula> copia = copiar_e_addCelula(saida, nova);
             interarMeuHorario(disciplinas, num + 1, copia);
         } else {
             vector<celula> copia =  copiar_e_addCelula(saida, nova);
-            quadro novo = { copia };
-            cout << "-------------------------------------------------------------------" << endl;
-            printQuadro(novo);
-            cout << "-----------------------------END------------------------------------" << endl;
-            quadrosPossiveis.push_back(novo);
+            quadrosPossiveis.push_back({copia});
+            // TODO: chamar a funcao
+            cout << "------SAIDA---" << endl;
+            for(int i = 0; i < copia.size(); i++)
+            {
+                cout << copia.at(i).toString() << endl;
+            }
+            
         }
         
     }
     
 }
-
 
 void adicionaDscPaga(string nome) {
     disciplina dscPaga = retornaDisciplina(nome);
@@ -108,8 +64,9 @@ void adicionaDscPaga(string nome) {
 
 void removeDscPaga(string nome) {
     int i = 0;
-    for(disciplina d : disciplinasPagas){
-        if(d.nome == nome) {
+    vector<disciplina>::iterator it = disciplinasPagas.begin();
+    for(it; it != disciplinasPagas.end(); it++){
+        if((*it).nome == nome) {
             disciplinasPagas.erase(disciplinasPagas.begin() + i);
         }
         i++;
@@ -117,7 +74,6 @@ void removeDscPaga(string nome) {
 }
 
 bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
-
     preRequisitos requisitos;
     bool pararAnalise = false;
     int i = 0;
@@ -159,26 +115,29 @@ void informaDisciplinasPagas() {
     }
 
     cout << "Você Pagou as seguintes disciplinas.\n";
-    for(disciplina d : disciplinasPagas) {
-        exibirDiscDetalh(d.nome);
+    vector<disciplina>::iterator it = disciplinasPagas.begin();
+    for(it; it != disciplinasPagas.end(); it++) {
+        cout << (*it).toString();
+        cout << "\n";
     }
 }
 
 void montarHorario() {
-    quadrosPossiveis.clear();
-
     int qtdDisciplinas;
     bool pararExecucao = false; 
     vector<disciplina> meuHorario;
+    string nomeDisciplina;
 
+    //meuHorario.push_back(gradeCurricular.at("P1"));
+    //meuHorario.push_back(gradeCurricular.at("LP1"));
+    //meuHorario.push_back(gradeCurricular.at("IC"));
 
-    vector<celula> celulas;    
+    vector<celula> celulas;
 
     //Leitura de montar horário
     cout << "Quantas disciplinas pretende pagar: ";
     cin >> qtdDisciplinas;
     
-    string nomeDisciplina;
     for(int i = 0; i < qtdDisciplinas; i++)
     {
         cout << "Digite o nome da disciplina: ";
@@ -197,11 +156,10 @@ void montarHorario() {
         if (disciplinasAtendemRequisitos(meuHorario)) {
             vector<celula> celulas;
             interarMeuHorario(meuHorario, 0, celulas);
-            escolherHorarios();
         }
     }
 
-    //informaDisciplinasPagas();
+    informaDisciplinasPagas();
 }
 
 void comentario_ou_votarAvaliacao() {
