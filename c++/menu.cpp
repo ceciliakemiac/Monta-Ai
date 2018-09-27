@@ -6,7 +6,7 @@
 using namespace std;
 
 vector<quadro> quadrosPossiveis;
-vector<disciplina> disciplinasPagas;
+vector<disciplina> dscPagasGlobal;
 
 bool temDisciplina(string nomeDisciplina) {
     return gradeCurricular.count(nomeDisciplina) == 1;
@@ -14,14 +14,18 @@ bool temDisciplina(string nomeDisciplina) {
 
 disciplina retornaDisciplina(string nome) {
     disciplina disc;
+    bool disciplinaValida = false;
     map<string, disciplina>::iterator it = gradeCurricular.begin();
     for(it; it != gradeCurricular.end(); it++) {
-        disc = it->second;
-        if(disc.nome == nome) {
+        if(it->second.nome == nome) {
+            disc = it->second;
+            disciplinaValida = true;
             break;
         }
     }
-    return disc;
+    if(disciplinaValida) {
+        return disc;
+    }
 }
 
 vector<celula> copiar_e_addCelula(vector<celula> celulas, celula nova) {
@@ -57,17 +61,19 @@ void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> s
     
 }
 
-void adicionaDscPaga(string nome) {
+void adicionaDscPaga(string nome, vector<disciplina>& dscPagas) {
     disciplina dscPaga = retornaDisciplina(nome);
-    disciplinasPagas.push_back(dscPaga);
+    if(dscPaga.codigo != "") {
+        dscPagas.push_back(dscPaga);
+    }
 }
 
-void removeDscPaga(string nome) {
+void removeDscPaga(string nome, vector<disciplina>& dscPagas) {
     int i = 0;
-    vector<disciplina>::iterator it = disciplinasPagas.begin();
-    for(it; it != disciplinasPagas.end(); it++){
+    vector<disciplina>::iterator it = dscPagas.begin();
+    for(it; it != dscPagas.end(); it++){
         if((*it).nome == nome) {
-            disciplinasPagas.erase(disciplinasPagas.begin() + i);
+            dscPagas.erase(dscPagasGlobal.begin() + i);
             break;
         }
         i++;
@@ -78,10 +84,11 @@ bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
     preRequisitos requisitos;
     bool pararAnalise = false;
     int i = 0;
+    
     while(i < disciplinas.size() && !pararAnalise) {
         disciplina d = disciplinas.at(i);
 
-        if (!requisitos.atendePreRequisitos(d, disciplinasPagas) == 1) {
+        if (!requisitos.atendePreRequisitos(d, dscPagasGlobal) == 1) {
             cout << "Você não atente os requisitos da disciplna " << d.nome << ".\n";
             pararAnalise = true;
         }
@@ -91,7 +98,7 @@ bool disciplinasAtendemRequisitos(vector<disciplina> disciplinas) {
     return !pararAnalise;
 }
 
-void informaDisciplinasPagas() {
+void informaDscPagas() {
     string entrada = "";
     string comando = "";
 
@@ -100,7 +107,7 @@ void informaDisciplinasPagas() {
         cout << "Quais disciplinas voce ja pagou?       | Digite \"Pronto\" quando terminar \n"; 
         cin >> entrada;
         if(entrada != "Pronto") {
-            adicionaDscPaga(entrada);
+            adicionaDscPaga(entrada, dscPagasGlobal);
         }  
     }
 
@@ -111,13 +118,13 @@ void informaDisciplinasPagas() {
         if(comando == "S") {
             cout << "Qual disciplina deseja remover? ";
             cin >> entrada;
-            removeDscPaga(entrada);
+            removeDscPaga(entrada, dscPagasGlobal);
         }
     }
 
     cout << "Você pagou as seguintes disciplinas.\n\n";
-    vector<disciplina>::iterator it = disciplinasPagas.begin();
-    for(it; it != disciplinasPagas.end(); it++) {
+    vector<disciplina>::iterator it = dscPagasGlobal.begin();
+    for(it; it != dscPagasGlobal.end(); it++) {
         cout << (*it).toString();
         cout << "\n";
     }
@@ -229,7 +236,7 @@ int main() {
     while(opcao != SAIR) {
         switch(opcao) {
             case(INFORM_DSC_PAGAS):
-                informaDisciplinasPagas();
+                informaDscPagas();
                 break;
             case(MONTAR_HOR):
                 montarHorario();

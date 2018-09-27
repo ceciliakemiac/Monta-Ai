@@ -143,19 +143,15 @@ struct disciplina {
 };
 
 struct preRequisitos {
-    vector<disciplina> disciplinasPagas;
-
-    void dPagas(disciplina d){
-        disciplinasPagas.push_back(d);
-    }
-
+    
     int atendePreRequisitos(disciplina d, vector<disciplina> disciplinasPagas){
         int atendePreRequisitos = 1;
         int pagou;
+        vector<disciplina>::iterator it = disciplinasPagas.begin();
         for(string preRequisitos: d.pre_requisitos){
-           pagou = 0;
+            pagou = 0;
             for(disciplina dPaga : disciplinasPagas){
-                if(dPaga.codigo == preRequisitos){
+                if(dPaga.nome == preRequisitos) {
                     pagou = 1;
                     break;
                 }
