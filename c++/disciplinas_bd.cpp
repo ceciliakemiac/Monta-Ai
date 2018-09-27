@@ -170,7 +170,7 @@ struct preRequisitos {
 };
 
 map<string, disciplina> gradeCurricular = {
-    {"FMCCI", disciplina {"1", "FMCC1", 4, 1, true, {}, {
+    {"FMCCI", disciplina {"1", "FMCCI", 4, 1, true, {}, {
                      turma{{horario{3, 10}, horario{6, 8}}},
                      turma{{horario{3, 10}, horario{6, 8}}}
                      }}},
@@ -186,7 +186,7 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{3, 8}, horario{5, 10}}},
                      turma{{horario{3, 8}, horario{5, 10}}}
                      }}},
-    {"FMCCII", disciplina {"5", "FMCC2", 4, 2, true, {"FMCC1"}, {
+    {"FMCCII", disciplina {"5", "FMCCII", 4, 2, true, {"FMCC1"}, {
                      turma{{horario{2, 10}, horario{5, 8}}},
                      turma{{horario{2, 10}, horario{5, 8}}}
                      }}},

@@ -179,10 +179,10 @@ void menuVotarAvaliacao() {
 void menuTipoAvaliacao(int opcao, string nome, disciplina disc, string conteudo) {
     switch(opcao) {
         case(1):
-            cout << "Digite um comentario sobre a disciplina " << nome << "\n";
+            cout << "Digite um comentario sobre a disciplina " << nome << ": ";
             cin.ignore();
             getline (cin, conteudo);
-            disc.aval.adicionaComentario(conteudo);
+            gradeCurricular.at(nome).aval.adicionaComentario(conteudo);
             break;
         case(2):
             int num;
@@ -190,7 +190,7 @@ void menuTipoAvaliacao(int opcao, string nome, disciplina disc, string conteudo)
             cin >> num;
             nivel atual;
             atual = (nivel)num;
-            disc.aval.votaAvaliacao(atual);
+            gradeCurricular.at(nome).aval.votaAvaliacao(atual);
             break;
         default:
             cout << "Opção inválida." << "\n";
@@ -203,7 +203,7 @@ void menuAvaliacao() {
     string nomeDisc;
     disciplina disc;
 
-    cout << "Qual disciplina deseja avaliar? " << "\n";
+    cout << "Qual disciplina deseja avaliar? ";
     cin >> nomeDisc;
     if(temDisciplina(nomeDisc)) {
         disc = retornaDisciplina(nomeDisc);
