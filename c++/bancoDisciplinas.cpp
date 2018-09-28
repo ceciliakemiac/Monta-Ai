@@ -131,7 +131,7 @@ map<string, disciplina> gradeCurricular = {
     {"CDP", disciplina {"37", "CDP", 4, 0, false, {}, {
                      turma{{horario{2, 8}, horario{4, 10}}}
                      }}},
-    {"VVTS", disciplina {"38", "VVTS", 4, 1, true, {"ES"}, {
+    {"VVTS", disciplina {"38", "VVTS", 4, 0, false, {"ES"}, {
                      turma{{horario{2, 16}, horario{6, 14}}}
                      }}},
     {"PDW", disciplina {"39", "PDW", 4, 0, false, {}, {
