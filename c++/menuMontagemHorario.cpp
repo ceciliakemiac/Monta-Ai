@@ -9,6 +9,19 @@ vector<celula> copiar_e_addCelula(vector<celula> celulas, celula nova) {
         return copia;
 }
 
+int jaTem(disciplina d){
+
+    for (int i = 0;i  < meuHorario.size(); i++){
+
+        if(d.nome == meuHorario.at(i).nome){
+            return 1;
+        }
+    }
+
+    return 0;
+
+}
+
 void interarMeuHorario(vector<disciplina> disciplinas, int num, vector<celula> saida){
     disciplina atual = disciplinas.at(num);
     
@@ -55,8 +68,14 @@ void adicionarDisciplinas(){
         	string validaPreRequisitos = atendePreRequisitos(d, disciplinasPagas);
         	
         	if( validaPreRequisitos == "OK"){
-        		meuHorario.push_back(d);
-        		cout <<  CGREEN << validaPreRequisitos << RESTORE_COLOR << endl;
+                if(jaTem(d) == 0){
+                    meuHorario.push_back(d);
+                    cout <<  CGREEN << validaPreRequisitos << RESTORE_COLOR << endl;
+                } else {
+                    cout << CRED << "ERRO! " << RESTORE_COLOR << "Disciplina já adicionada"  << endl;
+                }
+        		
+        		
         	} else {
         		cout << CRED << "ERRO! " << RESTORE_COLOR  << validaPreRequisitos << endl;
         	}
@@ -82,6 +101,7 @@ int verificaChoquesNoHorario(quadro horario){
 	}
 	return choque;
 }
+
 
 void gerarHorarioAuto(){
 	vector<celula> celulas;
@@ -191,8 +211,9 @@ void removerDisciplina(){
     }
 }
 
-void gerarHorarioManual(){
 
+void gerarHorarioManual(){
+    quadrofinal = {};
 	for (disciplina d : meuHorario){
     	quadrofinal.celulas.push_back(celula{d, 0});
     }
