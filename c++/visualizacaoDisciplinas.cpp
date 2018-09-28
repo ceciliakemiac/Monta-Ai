@@ -3,6 +3,14 @@ string CRED = "\x1B[31m";
 string CGREEN = "\x1B[32m";
 string RESTORE_COLOR = "\x1B[0m";
 
+
+void visualizaDisciplinas(vector<disciplina> disc){
+	for(disciplina d: disc){
+		cout << d.toString() + "\n";
+	}
+}
+
+
 void visualizarDiciplinas(){
 	system("clear");
 
@@ -40,18 +48,22 @@ void visualizarDiciplinas(){
 		 				cout << endl;
 		 				cout << "disciplinas do " << periodo << "º periodo: " << endl;
 		 				disciplinas = disciplinasDoPeriodo(periodo);
+						visualizaDisciplinas(disciplinas);
 		 				break;
 		 			case(2):
 		 				cout << "disciplinas obrigatorias: " << endl;
 		 				disciplinas = disciplinasObrigatorias();
+						visualizaDisciplinas(disciplinas);
 		 				break;
 		 			case(3):
 		 				cout << "disciplinas optativas: " << endl;
 		 				disciplinas = disciplinasOptativas();
+						visualizaDisciplinas(disciplinas);
 		 				break;
 		 			case(4):
 		 				cout << "Grade curricular: " << endl;
 		 				disciplinas = todasDisciplinas();
+						 visualizaDisciplinas(disciplinas);
 		 				break;
 		 			default:
 		 				cout << CRED << "ERRO! " << RESTORE_COLOR <<"opcao invalida" << endl;

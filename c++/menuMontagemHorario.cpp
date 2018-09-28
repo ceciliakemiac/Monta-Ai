@@ -209,6 +209,7 @@ void gerarHorarioManual(){
     			quadrofinal.celulas.at(i).turma = turma;
     		} else{
     			cout << CRED << "ERRO! " << RESTORE_COLOR << "turma invalida" <<endl;
+				break;
     		}
     		turma = 0;
     	}
@@ -268,8 +269,6 @@ void gerarHorarioManual(){
     }
 
 }
-
-
 
 void montarHorario() {
 
