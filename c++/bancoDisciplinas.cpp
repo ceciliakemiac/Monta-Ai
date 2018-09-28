@@ -16,11 +16,11 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{3, 8}, horario{5, 10}}},
                      turma{{horario{3, 8}, horario{5, 10}}}
                      }}},
-    {"FMCCII", disciplina {"5", "FMCCII", 4, 2, true, {"FMCC1"}, {
+    {"FMCCII", disciplina {"5", "FMCCII", 4, 2, true, {"FMCCI"}, {
                      turma{{horario{2, 10}, horario{5, 8}}},
                      turma{{horario{2, 10}, horario{5, 8}}}
                      }}},
-    {"C1", disciplina {"6", "C1", 4, 2, true, {"FMCC1"}, {
+    {"C1", disciplina {"6", "C1", 4, 2, true, {"FMCCI"}, {
                      turma{{horario{2, 14}, horario{4, 16}}},
                      turma{{horario{2, 14}, horario{4, 16}}}
                      }}},
@@ -32,13 +32,13 @@ map<string, disciplina> gradeCurricular = {
                      turma{{horario{3, 8}, horario{5, 10}}},
                      turma{{horario{3, 8}, horario{5, 10}}}
                      }}},
-    {"AL", disciplina {"9", "AL", 4, 3, true, {"FMCC2"}, {
+    {"AL", disciplina {"9", "AL", 4, 3, true, {"FMCCII"}, {
                      turma{{horario{3, 14}, horario{5, 16}}},
                      }}},
-    {"LC", disciplina{"10", "LC", 4, 3, true,{"FMCC2", "C1"}, {
+    {"LC", disciplina{"10", "LC", 4, 3, true,{"FMCCII", "C1"}, {
                      turma{{horario {4, 8}, horario {6, 10}}},
                      }}},
-    {"C2", disciplina {"11", "C2", 4, 3, true, {"FMCC2", "C1"}, {
+    {"C2", disciplina {"11", "C2", 4, 3, true, {"FMCCII", "C1"}, {
                      turma{{horario{2, 14}, horario{4, 16}}},
                      }}},
     {"EDA", disciplina {"12", "EDA", 4, 3, true, {"P2", "LP2"}, {
@@ -52,7 +52,7 @@ map<string, disciplina> gradeCurricular = {
     {"TG", disciplina{"14", "TG", 4, 3, true,{}, {
                      turma{{horario{3, 10}, horario{6, 10}}},
                      }}},
-    {"IP", disciplina {"15", "IP", 4, 4, true, {"FMCC2", "C1"}, {
+    {"IP", disciplina {"15", "IP", 4, 4, true, {"FMCCII", "C1"}, {
                      turma{{horario{2, 10}, horario{5, 10}}},
                      turma{{horario{2, 10}, horario{5, 10}}}
                      }}},

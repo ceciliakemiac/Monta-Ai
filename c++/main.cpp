@@ -32,6 +32,7 @@ int main(){
     const int SAIR = 5;  
 
     int opcao = -1;
+    
     while(opcao != SAIR) {
 
     	system("clear");

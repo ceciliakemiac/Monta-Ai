@@ -308,12 +308,14 @@ void montarHorario() {
     const int SAIR = 5;
     
     int opcao = 0;
+	string entrada;
     
 
     while(opcao != SAIR){
     	cout << "Menu: Adicionar disciplinas(1) gerar horario automaticamente (2) ou manualmente(3) sair(5) "  << endl;
 		cout << ">> ";
-		cin >> opcao;
+		cin >> entrada;
+		opcao = stoi(entrada);
 		switch(opcao) {
 			case(ADICIONAR_DISCIPLINA):
 				adicionarDisciplinas();

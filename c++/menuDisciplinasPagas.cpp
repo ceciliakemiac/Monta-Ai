@@ -29,7 +29,7 @@ void informaDisciplinasPagas() {
     string comando = "";
 
     //Leitura de quais disciplinas o usuário já pagou
-    cout << "Quais disciplinas voce ja pagou?       | Digite \"Pronto\" quando terminar \n"; 
+    cout << "Quais disciplinas voce ja pagou?       | Digite \"pronto\" quando terminar \n"; 
     cout << ">> ";
     cin >> entrada;
     transform(entrada.begin(), entrada.end(), entrada.begin(), ::toupper);
