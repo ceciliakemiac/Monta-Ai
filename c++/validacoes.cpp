@@ -1,4 +1,21 @@
-#include "disciplinas_bd.cpp"
+
+string atendePreRequisitos(disciplina d, vector<disciplina> disciplinasPagas){
+        int atendePreRequisitos = 1;
+        int pagou;
+        for(string preRequisito: d.pre_requisitos){
+           pagou = 0;
+            for(disciplina dPaga : disciplinasPagas){
+                if(dPaga.nome == preRequisito){
+                    pagou = 1;
+                    break;
+                }
+            }
+            if(!pagou){
+                return "Pre-requisito de " + d.nome + " não atendido: " + preRequisito;
+            }
+        }
+        return "OK";
+}
 
 int deuChoqueDeHorarios(turma t1, turma t2){
     int choque = 0;
@@ -13,21 +30,26 @@ int deuChoqueDeHorarios(turma t1, turma t2){
     return choque;
 }
 
-int totalDeCreditos(vector<disciplina> disciplinas){
-    int total = 0;
-    for(disciplina d : disciplinas){
-        total += d.creditos;
+int validaChoques(turma t, vector<celula> celulas){
+    for(celula cel : celulas){
+        if(deuChoqueDeHorarios(t, cel.disc.turmas.at(cel.turma - 1))){
+            return 1;
+        }
     }
-    return total;
+    return 0;
 }
 
-// retorna -1 se estiver abaixo do mínimo de créditos exigido(15),
-// 1 se estiver acima do máximo(24) e 0 se estiver tudo certo
-int validaQtdCreditos(int totalDeCreditos){
+int validaQtdCreditos(quadro horario){
+    int total = 0;
+    
+    for(celula cel : horario.celulas){
+        total += cel.disc.creditos;
+    }
+
     int valida = 0;
-    if(totalDeCreditos < 15){
+    if(total < 15){
         valida = -1;
-    } else if(totalDeCreditos > 24){
+    } else if(total > 24){
         valida = 1;
     }
     return valida;
