@@ -1,6 +1,3 @@
-#include <iostream>
-#include <iomanip>
-using namespace std;
 
 void printLogo(){
 	cout << " __  __             _                            _           " << endl;
@@ -102,22 +99,66 @@ void printDisciplinas(vector<disciplina> disciplinas) {
 void printQuadro(quadro q){
 	vector<string> h[5][5];
 	for(celula cel: q.celulas){
-		for(horario hr: cel.turmaDisciplina.horarios){
-			h[hr.dia - 2][(hr.hora - 8) / 2].push_back(cel.nomeDisciplina);
+		if(cel.turma == 0){
+			for(int i = 0; i < cel.disc.turmas.size(); i++){
+				for(horario hr: cel.disc.turmas[i].horarios){
+					h[hr.dia - 2][(hr.hora - 8) / 2].push_back(cel.disc.nome + " t-"+ to_string(i + 1));
+			}
 		}
+		} else {
+
+			for(horario hr: cel.disc.turmas.at(cel.turma - 1).horarios){
+				h[hr.dia - 2][(hr.hora - 8) / 2].push_back(cel.disc.nome + " t-" + to_string(cel.turma));
+			}
+		}	
 	}
 
 	printHorario(h, 1);
 }
 
+string exibirTodasAsDiscSimples(){
+    std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
+    string saida = "";
+    while(i != gradeCurricular.end()){
+        saida += i->second.toString() + '\n';
+        i++;
+    }
+    return saida + '\n';
+}
 
+string exibirDiscDetalh(string entrada){
+    std::map<std::string, disciplina>::iterator i = gradeCurricular.begin();
+    string saida = "";
+    while(i != gradeCurricular.end()){
+        if(entrada == i->second.nome){
+            saida = i->second.toStringDetalhado();
+        }
+        i++;
+    }
+    if(saida == ""){
+        saida = "Não foram encontradas disciplinas que corresopondam à pesquisa.\n";
+    }
+    return saida;
+}
 
 // Metodos de iteracao para visualizacao das disciplinas
 void visualizarDisciplinaDet(){
-    string disc;
-    cout << "Digite o nome da disciplina: ";
-    cin >> disc;
-    cout << exibirDiscDetalh(disc); 
+	system("clear");
+
+	cout << "Informações detalhadas de uma disciplina" << "\n\n";
+
+	int op = 1;
+
+    while(op != 2){
+	    string disc;
+	    cout << "Digite o nome da disciplina: ";
+	    cin >> disc;
+	    cout << exibirDiscDetalh(disc); 
+	    cout << endl;
+	    cout << "1 - Visualizar outra disciplina\n2 - voltar ao menu\n";
+	    cout << ">> ";
+        cin >> op;
+	}
 }
 
 void visualizarTodasDisc(){
