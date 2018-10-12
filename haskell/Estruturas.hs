@@ -20,7 +20,7 @@ module Estruturas where
             creditos :: Int,
             periodo :: Int,
             obrigatorio :: Bool,
-            pre_requisitos :: [Disciplina],
+            pre_requisitos :: [String],
             turmas :: [Turma]
         } deriving (Show)
 
