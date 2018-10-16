@@ -1,11 +1,9 @@
 module BancoDisciplinas where 
 import Estruturas
 
-fmcci = Disciplina { codigo = "1", nome = "FMCCI", creditos = 4, periodo = 1, obrigatorio = True, 
-pre_requisitos = [], turmas = [
-    Turma { horarios = [ Horario 3 10, Horario 6 8]},
-    Turma { horarios = [ Horario 3 10, Horario 6 8]}
-]}
+fmcci = Disciplina "1" "FMCCI" 4 1 True [] [
+    getTurma 3 10 6 8,
+    getTurma 3 10 6 8 ]
 p1 = Disciplina "2" "P1" 4 1 True [] [
     getTurma 2 14 4 16, 
     getTurma 2 8 4 10 ]
@@ -68,9 +66,11 @@ disciplinas = [fmcci, p1, lp1, ic, fmccii, c1, p2, lp2, al, lc, c2, eda, leda, t
 getTurma :: Int -> Int -> Int -> Int -> Turma
 getTurma d1 h1 d2 h2 = Turma { horarios = [ Horario d1 h1, Horario d2 h2] }
 
-getDisciplinaNome::String->[Disciplina]
-getDisciplinaNome nomeDisc = [disc | disc<-disciplinas, nomeDisc == (nome disc)]
+getPrimeiroElemento::[Disciplina]->Disciplina
+getPrimeiroElemento array = array !! 0
 
+getDisciplinaNome::String->Disciplina
+getDisciplinaNome nomeDisc = getPrimeiroElemento [disc | disc<-disciplinas, nomeDisc == (nome disc)]
 
 -- getDisciplinaCodigo :: String -> Disciplina
 -- getDisciplinaCodigo codigo
