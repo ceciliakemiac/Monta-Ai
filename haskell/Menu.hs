@@ -5,7 +5,32 @@ comentario_ou_votarAvaliacao,
 menuVotarAvaliacao) where
 
 
+
+
+selecinarPrincipal :: String -> IO()
+selecinarPrincipal op
+        | op == "0" = do
+                putStrLn "Not Implement"
+                principal
+        | op == "1" = do
+                putStrLn "Not Implement"
+                principal
+        | op == "2" = do
+                putStrLn "Not Implement"
+                principal
+        | op == "3" = do
+                putStrLn "Not Implement"
+                principal
+        | op == "4" = do
+                putStrLn "Not Implement"
+                principal
+        | op == "5" = putStrLn ""
+        | otherwise = do
+                putStrLn "Opção Inválida"
+                principal
+
 principal = do
+        putStrLn ""
         putStrLn "MENU"
         putStrLn "0 - Informar/Editar disciplinas que já paguei"
         putStrLn "1 - Montar horário do semestre"
@@ -13,7 +38,9 @@ principal = do
         putStrLn "3 - Ver informações detalhadas de uma disciplina"
         putStrLn "4 - Avaliar disciplina"
         putStrLn "5 - SAIR"
-
+        op <- getLine
+        selecinarPrincipal op
+        
 
 logo = do
         putStrLn " __  __             _                            _           "
@@ -21,6 +48,8 @@ logo = do
 	putStrLn "| \\  / | ___  _ __ | |_ __ _   ______     /  \\   _         "
 	putStrLn "| |\\/| |/ _ \\| '_ \\| __/ _` | |______|   / /\\ \\ | |     "
 	putStrLn "| |  | | (_) | | | | || (_| |           / ____ \\| |         "
+        putStrLn ""
+
 
 comentario_ou_votarAvaliacao = do
         putStrLn "1 - Deixar um comentário"
@@ -33,3 +62,7 @@ menuVotarAvaliacao = do
         putStrLn "3 - carrego"
         putStrLn "4 - tenso"
         putStrLn "5 - eh peso"
+
+        
+
+
