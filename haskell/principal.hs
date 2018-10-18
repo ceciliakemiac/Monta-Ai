@@ -10,6 +10,7 @@ import System.Process
 main :: IO ()
 main = do
     Menu.logo
+    putStrLn(exibeDisciplinas disciplinas)
     -- print "Teste de pre-requisitos"
     -- print ((atendePreRequisitos (getDisciplinaNome "P1") []) == True)
     -- print ((atendePreRequisitos (getDisciplinaNome "P2") ["P1", "LP1"]) == True)
