@@ -124,28 +124,21 @@ dc = Disciplina "50" "DC" 4 0 False [] [
     getTurma 3 10 6 8]
 
 
-
-
-
-
-
-
-disciplinas = [ fmcc1, p1, lp1, ic, fmcc2, c1, p2, lp2, al, lc, c2, eda, leda, tg, ip, ps, plp, 
+disciplinas = [fmcc1, p1, lp1, ic, fmcc2, c1, p2, lp2, al, lc, c2, eda, leda, tg, ip, ps, plp, 
                 bd1, oac, loac, ea, as, es, rc, so, tc, mc, pc, ia, atal, comp, pc1, ptcc, pc2, 
                 tcc, vd, cdp, vvts, pwd, pso, aa, eti, jd, pf, d, grc, lp, ing, fut, dc]
 
-disicplinasPagas :: [String]              
-disicplinasPagas = ["P1", "LP1", "IC"]
+disciplinasPagas :: [String]              
+disciplinasPagas = ["P1", "LP1", "IC"]
 
 getTurma :: Int -> Int -> Int -> Int -> Turma
-getTurma d1 h1 d2 h2 = Turma { horarios = [ Horario d1 h1, Horario d2 h2] }
+getTurma d1 h1 d2 h2 = Turma { horarios = [Horario d1 h1, Horario d2 h2] }
 
-getPrimeiroElemento::[Disciplina]->Disciplina
+getPrimeiroElemento :: [Disciplina] -> Disciplina
 getPrimeiroElemento array = array !! 0
 
-getDisciplinaNome::String->Disciplina
+getDisciplinaNome::String -> Disciplina
 getDisciplinaNome nomeDisc = getPrimeiroElemento [disc | disc<-disciplinas, nomeDisc == (nome disc)]
-
 
 atendePreRequisitos :: Disciplina -> [String] -> Bool
 atendePreRequisitos d1 pagas = ehSubList (pre_requisitos d1) pagas
@@ -160,3 +153,24 @@ ehSubList l1 l2
         = ehSubList (tail l1) l2
     | head l1 /= head l2
         = ehSubList l1 (tail l2)
+
+
+disciplinasDisponiveis :: [Disciplina] -> String
+disciplinasDisponiveis [] = ""
+disciplinasDisponiveis (d:ds) = if((atendePreRequisitos d disciplinasPagas) && not(foiPaga disciplinasPagas d))
+                                then (toString d) ++ "\n" ++ (disciplinasDisponiveis ds) 
+                                else disciplinasDisponiveis ds
+
+foiPaga :: [String] -> Disciplina -> Bool
+foiPaga [] disc = False
+foiPaga (a:as) disc = if(a == nome disc) then True else foiPaga as disc
+
+getDiscPorPeriodo :: Int -> [Disciplina] -> String
+getDiscPorPeriodo n [] = []
+getDiscPorPeriodo n (a:as) = if((periodo a) == n) then toString a ++ "\n" ++  getDiscPorPeriodo n as
+                                else getDiscPorPeriodo n as
+
+
+toString :: Disciplina -> String
+toString (Disciplina {codigo = c, nome = n, creditos = cr}) = 
+    "Disciplina: " ++ n ++ " - Creditos: " ++ show(cr) ++ " - Codigo: " ++ c 
