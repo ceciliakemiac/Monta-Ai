@@ -24,6 +24,12 @@ module Estruturas where
             turmas :: [Turma]
         } deriving (Show)
 
+    data Disciplina_matricula =
+        Disciplina_matricula{
+            nome_m :: String,
+            creditos_m :: Int,
+            turma_m :: Turma
+        } deriving (Show)
 
     data Nivel = Rasgada
                     | DeBoa
