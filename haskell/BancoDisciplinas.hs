@@ -160,3 +160,16 @@ ehSubList l1 l2
         = ehSubList (tail l1) l2
     | head l1 /= head l2
         = ehSubList l1 (tail l2)
+
+
+
+getNome :: Disciplina -> String
+getNome d1 = (nome d1)
+
+existeDisciplina :: [Disciplina] -> String -> Bool
+existeDisciplina lista nomeDsc
+    | null lista
+        = False
+    | nomeDsc == (getNome (head lista))
+        = True
+    | otherwise = existeDisciplina (tail lista) nomeDsc

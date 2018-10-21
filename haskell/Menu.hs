@@ -1,10 +1,9 @@
 module Menu
 (principal,
 logo,
-comentario_ou_votarAvaliacao,
 menuVotarAvaliacao) where
 
-
+import Avaliacao
 
 
 selecinarPrincipal :: String -> IO()
@@ -22,7 +21,7 @@ selecinarPrincipal op
                 putStrLn "Not Implement"
                 principal
         | op == "4" = do
-                putStrLn "Not Implement"
+                Avaliacao.passoAvaliacao
                 principal
         | op == "5" = putStrLn ""
         | otherwise = do
@@ -50,10 +49,6 @@ logo = do
 	putStrLn "| |  | | (_) | | | | || (_| |           / ____ \\| |         "
         putStrLn ""
 
-
-comentario_ou_votarAvaliacao = do
-        putStrLn "1 - Deixar um comentário"
-        putStrLn "2 - Votar em uma avaliação" 
 
 menuVotarAvaliacao = do
         putStrLn "O que achou da disciplina?"
