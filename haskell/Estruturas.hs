@@ -31,11 +31,20 @@ module Estruturas where
             turma_m :: Turma
         } deriving (Show)
 
+
+    data Avaliacao =
+        Avaliacao {
+            nomeDisciplina :: String,
+            comentarios :: [String],
+            nivel :: Nivel
+        } deriving (Show)
+    
     data Nivel = Rasgada
                     | DeBoa
                     | Carrego
                     | Tenso
-                    | Peso deriving(Eq, Show)
+                    | Peso
+                    | Nada deriving(Eq, Show)
 
 
     stringToNivel :: String -> Nivel
@@ -44,4 +53,5 @@ module Estruturas where
                      | (palavra == "carrego") = Carrego
                      | (palavra == "tenso") = Tenso
                      | (palavra == "rasgada") = Peso
+                     | otherwise = Nada
 

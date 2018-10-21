@@ -174,3 +174,14 @@ getDiscPorPeriodo n (a:as) = if((periodo a) == n) then toString a ++ "\n" ++  ge
 toString :: Disciplina -> String
 toString (Disciplina {codigo = c, nome = n, creditos = cr}) = 
     "Disciplina: " ++ n ++ " - Creditos: " ++ show(cr) ++ " - Codigo: " ++ c 
+
+getNome :: Disciplina -> String
+getNome d1 = (nome d1)
+
+existeDisciplina :: [Disciplina] -> String -> Bool
+existeDisciplina lista nomeDsc
+    | null lista
+        = False
+    | nomeDsc == (getNome (head lista))
+        = True
+    | otherwise = existeDisciplina (tail lista) nomeDsc
