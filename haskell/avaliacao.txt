@@ -48,4 +48,4 @@ lp;*;top
 ing;*;top
 fut;*;paga com loac
 rc;*;top
-dc;deBoa;linda,10 certo,top
+dc;*;top
