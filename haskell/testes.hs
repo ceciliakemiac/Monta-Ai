@@ -14,8 +14,8 @@ main = do
     -- testeFoiPaga
     -- putStrLn (exibeDisciplinasRec disciplinas) 
     -- testePegaNivel
-    adicionarComentario
-    atribuirNivel
+    passoAvaliacao
+    
     
 
 d1 = Disciplina_matricula "FMCCI" 4 $ getTurma 3 10 6 8
@@ -40,24 +40,24 @@ testeGetDiscPorPeriodo = putStrLn (getDiscPorPeriodo 2 disciplinas)
 testePrintHorarios :: IO ()
 testePrintHorarios = putStr $ printHorario horario
 
-testePegaAvaliacao :: IO ()
-testePegaAvaliacao = do
-    a <- pegarAvaliacao
-    print a
+-- testePegaAvaliacao :: IO ()
+-- testePegaAvaliacao = do
+--     a <- pegarAvaliacao
+--     print a
 
-testePegaDadosAvaliacao :: IO ()
-testePegaDadosAvaliacao = do
-    a <- pegarAvaliacao
-    print (pegarDadosAval a "fmcc1") 
+-- testePegaDadosAvaliacao :: IO ()
+-- testePegaDadosAvaliacao = do
+--     a <- pegarAvaliacao
+--     print (pegarDadosAval a "fmcc1") 
 
-testePegaNivel :: IO ()
-testePegaNivel = do
-    a <- pegarAvaliacao 
-    let b = pegarDadosAval a "fmcc1"
-    print (pegaIndice "ap1" a 0)
-    -- print (length b)
-    -- print (pegaNivel "fmcc1" b)
+-- testePegaNivel :: IO ()
+-- testePegaNivel = do
+--     a <- pegarAvaliacao 
+--     let b = pegarDadosAval a "fmcc1"
+--     print (pegaIndice "ap1" a 0)
+--     -- print (length b)
+--     -- print (pegaNivel "fmcc1" b)
 
--- a :: IO ()
--- a = do
---     adicionarAval "p1"
+-- -- a :: IO ()
+-- -- a = do
+-- --     adicionarAval "p1"

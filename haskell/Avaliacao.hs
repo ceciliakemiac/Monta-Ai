@@ -1,80 +1,68 @@
-module Avaliacao where
+module Avaliacao (passoAvaliacao) where
 
 import BancoDisciplinas
 import Estruturas
 import Data.List.Split
 import System.IO  
 import System.Directory  
-import Data.List  
+import Data.List 
+import Data.Char  
 
 
 comentario_ou_votarAvaliacao = do
     putStrLn "1 - Deixar um comentário"
     putStrLn "2 - Votar em uma avaliação" 
 
+menu_votar_avaliacao = do
+    putStrLn "O que achou da disciplina?"
+    putStrLn "1 - rasgada"
+    putStrLn "2 - de boa"
+    putStrLn "3 - carrego"
+    putStrLn "4 - tenso"
+    putStrLn "5 - peso"
+
 passoAvaliacao :: IO()
 passoAvaliacao = do
     putStrLn "Qual disciplina deseja avaliar?"
     nomeDisc <- getLine
 
-    if (existeDisciplina disciplinas nomeDisc) then do
-        let d1 = (getDisciplinaNome nomeDisc)
-        escolherOpcao d1 
+    if (existeDisciplina disciplinas (upper nomeDisc)) then do
+        escolherOpcao nomeDisc
     else
         putStrLn "Disciplina não existe /:"
-        -- 1 - Avaliar outra disciplina
-        -- 2 - voltar ao menu
+    
+    putStrLn "1 - Avaliar outra disciplina\n2 - voltar ao menu"
+    op <- getLine
+    if((read op) == 1) then passoAvaliacao
+    else return ()
 
-
-escolherOpcao :: Disciplina -> IO()
-escolherOpcao disc = do
+escolherOpcao :: String -> IO()
+escolherOpcao nome = do
     comentario_ou_votarAvaliacao
     op <- getLine
-    if (op == "1") then do
-        comentarDisciplina disc 
+    if (op == "2") then do
+        menu_votar_avaliacao
+        atribuirNivel nome
+        
     else
-        putStrLn "avaliar"
+        adicionarComentario nome
 
 
-
-
-comentarDisciplina :: Disciplina -> IO()
-comentarDisciplina disc = do
-    let nomeDisc = (getNome disc)
-    putStrLn ("Digite um comentario sobre a disciplina " ++ nomeDisc)
-    comentario <- getLine
-    let aval = Avaliacao { nomeDisciplina = nomeDisc, comentarios = [], nivel = stringToNivel ""}
-    let novaAvaliacao = (addComentario aval comentario)
-    print novaAvaliacao
-
-
-addComentario :: Avaliacao -> String -> Avaliacao
-addComentario aval comentario = Avaliacao { nomeDisciplina = n, comentarios = com, nivel = niv}
-    where
-        n = (nomeDisciplina aval)
-        niv = (nivel aval)
-        com = ((comentarios aval) ++ [comentario])
-
-adicionarComentario :: IO ()
-adicionarComentario = do
-    putStrLn ("Digite o nome da disciplina: ")
-    nome <- getLine
-    putStrLn ("Digite o comentario: ")
+adicionarComentario :: String -> IO ()
+adicionarComentario nome = do
+    putStrLn ("Digite um comentario sobre a disciplina " ++ nome)
     comentario <- getLine
     avaliacoes <- pegarAvaliacao
     atualizaTxt nome avaliacoes
     appendFile "avaliacao.txt" (nome ++ ";" ++ (pegaNivel nome avaliacoes ) ++ ";" ++ comentario ++ " " ++
                 (pegaComentarios nome avaliacoes) ++ "\n") 
 
-atribuirNivel :: IO ()
-atribuirNivel = do
-    putStrLn ("Digite o nome da disciplina: ")
-    nome <- getLine
-    putStrLn ("Digite o nivel: ")
+atribuirNivel :: String -> IO ()
+atribuirNivel nome = do
     nivel <- getLine
     avaliacoes <- pegarAvaliacao
     atualizaTxt nome avaliacoes
-    appendFile "avaliacao.txt" (nome ++ ";" ++ nivel ++ ";" ++
+    appendFile "avaliacao.txt" (nome ++ ";" ++ (verificaNivel (read nivel)) ++ ";" ++
                 (pegaComentarios nome avaliacoes) ++ "\n") 
 
 atualizaTxt :: String -> [String] -> IO ()
@@ -113,3 +101,23 @@ pegarAvaliacao = do
 pegaComentarios :: String -> [String] -> String
 pegaComentarios nome aval = if ((pegarDadosAval aval nome) !! 2) == "*" then ""
                             else (pegarDadosAval aval nome) !! 2
+
+verificaNivel :: Int -> String
+verificaNivel n 
+    | n == 1 = "rasgada"
+    | n == 2 = "de boa"
+    | n == 3 = "carrego"
+    | n == 4 = "tenso"
+    | n == 5 = "peso"
+    | otherwise = "Opção inválida!"
+
+upper :: String -> String
+upper [] = []
+upper (a:as) = toUpper(a) : upper as
+
+toStringComentarios :: String -> [String] -> String
+toStringComentarios nome avaliacoes = auxCom (splitOn " " (pegaComentarios nome avaliacoes)) 1
+
+auxCom :: [String] -> Int -> String
+auxCom [] n = ""
+auxCom (a:as) n = (show n) ++ " - " ++ a ++ "\n" ++ (auxCom as (n+1)) 
