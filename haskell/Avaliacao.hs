@@ -25,7 +25,6 @@ passoAvaliacao :: IO()
 passoAvaliacao = do
     putStrLn "Qual disciplina deseja avaliar?"
     nomeDisc <- getLine
-
     if (existeDisciplina disciplinas (upper nomeDisc)) then do
         escolherOpcao nomeDisc
     else
@@ -54,7 +53,7 @@ adicionarComentario nome = do
     comentario <- getLine
     avaliacoes <- pegarAvaliacao
     atualizaTxt nome avaliacoes
-    appendFile "avaliacao.txt" (nome ++ ";" ++ (pegaNivel nome avaliacoes ) ++ ";" ++ comentario ++ " " ++
+    appendFile "avaliacao.txt" (nome ++ ";" ++ (pegaNivel nome avaliacoes ) ++ ";" ++ comentario ++ "," ++
                 (pegaComentarios nome avaliacoes) ++ "\n") 
 
 atribuirNivel :: String -> IO ()
@@ -116,7 +115,7 @@ upper [] = []
 upper (a:as) = toUpper(a) : upper as
 
 toStringComentarios :: String -> [String] -> String
-toStringComentarios nome avaliacoes = auxCom (splitOn " " (pegaComentarios nome avaliacoes)) 1
+toStringComentarios nome avaliacoes = auxCom (splitOn "," (pegaComentarios nome avaliacoes)) 1
 
 auxCom :: [String] -> Int -> String
 auxCom [] n = ""
