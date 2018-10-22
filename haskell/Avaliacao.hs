@@ -25,6 +25,7 @@ passoAvaliacao :: IO()
 passoAvaliacao = do
     putStrLn "Qual disciplina deseja avaliar?"
     nomeDisc <- getLine
+
     if (existeDisciplina disciplinas (upper nomeDisc)) then do
         escolherOpcao nomeDisc
     else
@@ -85,7 +86,8 @@ pegaIndice nome (a:as) n = if ((splitOn ";" a) !! 0) == nome then n
                             else 0 + pegaIndice nome as (n + 1)
 
 pegaNivel :: String -> [String] -> String
-pegaNivel nome aval = (pegarDadosAval aval nome) !! 1
+pegaNivel nome aval = if((pegarDadosAval aval nome) !! 1) == "*" then "rasgada" 
+            else (pegarDadosAval aval nome) !! 1
 
 pegarDadosAval:: [String] -> String -> [String]
 pegarDadosAval avaliacoes nome =  splitOn (";") (unwords [aval | aval <- avaliacoes, nome == ((splitOn ";" aval) !! 0)]) 
@@ -120,3 +122,7 @@ toStringComentarios nome avaliacoes = auxCom (splitOn "," (pegaComentarios nome 
 auxCom :: [String] -> Int -> String
 auxCom [] n = ""
 auxCom (a:as) n = (show n) ++ " - " ++ a ++ "\n" ++ (auxCom as (n+1)) 
+
+toStringAvaliacao :: String -> [String] -> String
+toStringAvaliacao nome avaliacoes = 
+        "Essa disciplina eh " ++ (pegaNivel nome avaliacoes) ++ "\n" ++ (toStringComentarios nome avaliacoes) 
