@@ -30,7 +30,7 @@ module Estruturas where
             creditos_m :: Int,
             turma_m :: Turma
         } deriving (Show)
-
+        
 
     data Avaliacao =
         Avaliacao {
