@@ -103,7 +103,7 @@ pso = Disciplina "40" "PSO" 4 0 False [] [
     getTurma 3 8 5 10]
 aa = Disciplina "41" "AA" 4 0 False ["P1", "LP1"] [
     getTurma 2 18 5 18]
-eti = Disciplina "42" " ETI" 4 0 False ["EA"] [
+eti = Disciplina "42" "ETI" 4 0 False ["EA"] [
     getTurma 2 16 4 14]
 jd = Disciplina "43" "JD" 4 0 False [] [
     getTurma 2 18 4 18]
@@ -165,12 +165,21 @@ foiPaga :: [String] -> Disciplina -> Bool
 foiPaga [] disc = False
 foiPaga (a:as) disc = if(a == nome disc) then True else foiPaga as disc
 
-getDiscPorPeriodo :: Int -> [Disciplina] -> String
+getDiscPorPeriodo :: Int -> [Disciplina] -> [Disciplina]
 getDiscPorPeriodo n [] = []
-getDiscPorPeriodo n (a:as) = if((periodo a) == n) then toString a ++ "\n" ++  getDiscPorPeriodo n as
+getDiscPorPeriodo n (a:as) = if((periodo a) == n) then a : getDiscPorPeriodo n as
                                 else getDiscPorPeriodo n as
 
+getDiscObrigatorias :: [Disciplina] -> [Disciplina]
+getDiscObrigatorias [] = []
+getDiscObrigatorias (a:as) = if (obrigatorio a) then a : getDiscObrigatorias as
+                            else getDiscObrigatorias as
 
+getDiscOptativas :: [Disciplina] -> [Disciplina]
+getDiscOptativas [] = []
+getDiscOptativas (a:as) = if not(obrigatorio a) then a : getDiscOptativas as
+                            else getDiscOptativas as
+                            
 toString :: Disciplina -> String
 toString (Disciplina {codigo = c, nome = n, creditos = cr}) = 
     "Disciplina: " ++ n ++ " - Creditos: " ++ show(cr) ++ " - Codigo: " ++ c 
