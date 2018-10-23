@@ -34,7 +34,10 @@ printHorario disciplinas =  cabecalhoTabelaHorario ++  concat [ formataString (i
                             hora <-  delete 2 [0..4], dia <- [0..4], let dh = tabela !! dia !! hora ]
                             where tabela = geraTabelaHorario disciplinas
 
-quantidadeCreditos::[Disciplina_matricula]->Bool
-quantidadeCreditos [] = True
-quantidadeCreditos disciplinas = (cadeiras >= 4 && cadeiras <= 6)
-                                 where cadeiras = length disciplinas
+quantidadeCreditos::[Disciplina_matricula]->Int
+quantidadeCreditos [] = 0
+quantidadeCreditos (x:xs) = (creditos_m x) + (quantidadeCreditos xs)
+
+limiteCreditos::[Disciplina_matricula]->Bool
+limiteCreditos cadeiras = creditos >= 16 && creditos <= 24
+                          where creditos = (quantidadeCreditos cadeiras)
