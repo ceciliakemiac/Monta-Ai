@@ -54,7 +54,7 @@ adicionarComentario nome = do
     comentario <- getLine
     avaliacoes <- pegarAvaliacao
     atualizaTxt nome avaliacoes
-    appendFile "avaliacao.txt" (nome ++ ";" ++ (pegaNivel nome avaliacoes ) ++ ";" ++ comentario ++ " " ++
+    appendFile "avaliacao.txt" (nome ++ ";" ++ (pegaNivel nome avaliacoes ) ++ ";" ++ comentario ++ "," ++
                 (pegaComentarios nome avaliacoes) ++ "\n") 
 
 atribuirNivel :: String -> IO ()
@@ -86,7 +86,8 @@ pegaIndice nome (a:as) n = if ((splitOn ";" a) !! 0) == nome then n
                             else 0 + pegaIndice nome as (n + 1)
 
 pegaNivel :: String -> [String] -> String
-pegaNivel nome aval = (pegarDadosAval aval nome) !! 1
+pegaNivel nome aval = if((pegarDadosAval aval nome) !! 1) == "*" then "rasgada" 
+            else (pegarDadosAval aval nome) !! 1
 
 pegarDadosAval:: [String] -> String -> [String]
 pegarDadosAval avaliacoes nome =  splitOn (";") (unwords [aval | aval <- avaliacoes, nome == ((splitOn ";" aval) !! 0)]) 
@@ -116,8 +117,12 @@ upper [] = []
 upper (a:as) = toUpper(a) : upper as
 
 toStringComentarios :: String -> [String] -> String
-toStringComentarios nome avaliacoes = auxCom (splitOn " " (pegaComentarios nome avaliacoes)) 1
+toStringComentarios nome avaliacoes = auxCom (splitOn "," (pegaComentarios nome avaliacoes)) 1
 
 auxCom :: [String] -> Int -> String
 auxCom [] n = ""
 auxCom (a:as) n = (show n) ++ " - " ++ a ++ "\n" ++ (auxCom as (n+1)) 
+
+toStringAvaliacao :: String -> [String] -> String
+toStringAvaliacao nome avaliacoes = 
+        "Essa disciplina eh " ++ (pegaNivel nome avaliacoes) ++ "\n" ++ (toStringComentarios nome avaliacoes) 

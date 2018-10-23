@@ -4,6 +4,7 @@ logo,
 menuVotarAvaliacao) where
 
 import Avaliacao
+import VisualizacaoDisciplinas
 
 
 selecinarPrincipal :: String -> IO()
@@ -15,10 +16,10 @@ selecinarPrincipal op
                 putStrLn "Not Implement"
                 principal
         | op == "2" = do
-                putStrLn "Not Implement"
+                VisualizacaoDisciplinas.visualizarDisciplinas
                 principal
         | op == "3" = do
-                putStrLn "Not Implement"
+                VisualizacaoDisciplinas.visualizarDiscDetalhada
                 principal
         | op == "4" = do
                 Avaliacao.passoAvaliacao
