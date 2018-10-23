@@ -123,9 +123,9 @@ module BancoDisciplinas where
     dc = Disciplina "50" "DC" 4 0 False [] [
         getTurma 3 10 6 8]
 
-    a = Disciplina_matricula "DC" 4 (getTurma 3 10 6 8)
-    b = Disciplina_matricula "FUT" 2 (getTurma 2 18 5 18)
-    c = Disciplina_matricula "ING" 4 (getTurma 2 8 4 10)
+    -- a = Disciplina_matricula "DC" 4 (getTurma 3 10 6 8)
+    -- b = Disciplina_matricula "FUT" 2 (getTurma 2 18 5 18)
+    -- c = Disciplina_matricula "ING" 4 (getTurma 2 8 4 10)
      
     disciplinas = [fmcc1, p1, lp1, ic, fmcc2, c1, p2, lp2, al, lc, c2, eda, leda, tg, ip, ps, plp, 
                     bd1, oac, loac, ea, as, es, rc, so, tc, mc, pc, ia, atal, comp, pc1, ptcc, pc2, 
@@ -198,8 +198,8 @@ module BancoDisciplinas where
             = True
         | otherwise = existeDisciplina (tail lista) nomeDsc
 
-    toStringDisciplinaTurma::Disciplina->String->String
-    toStringDisciplinaTurma disc turma = (nome disc) ++ " t-" ++ turma
+    -- toStringDisciplinaTurma::Disciplina->String->String
+    -- toStringDisciplinaTurma disc turma = (nome disc) ++ " t-" ++ turma
 
     -- arrayTurmas::String->String->[Disciplina]->[String]
     -- arrayTurmas dia hora (x:xs)

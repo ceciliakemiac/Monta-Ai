@@ -20,7 +20,7 @@ main = do
 
     -- putStrLn (show (getHorarios (turmas fmcc1)))
     -- putStrLn (show (getHorarios (turmas fut)))
-    putStrLn (string)
+    -- putStrLn (string)
 
     -- putStrLn (show (geraTabelaHorario [a,b,c]))
     -- putStrLn (show (printHorario [a,b,c]))
