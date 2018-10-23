@@ -1,7 +1,7 @@
 import Estruturas
 import BancoDisciplinas
 import Menu
-
+import GeradorHorario
 
 
 main :: IO ()
