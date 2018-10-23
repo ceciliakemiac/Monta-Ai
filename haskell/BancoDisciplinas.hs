@@ -123,7 +123,6 @@ fut = Disciplina "49" "FUT" 2 0 False [] [
 dc = Disciplina "50" "DC" 4 0 False [] [
     getTurma 3 10 6 8]
 
-
 disciplinas = [fmcc1, p1, lp1, ic, fmcc2, c1, p2, lp2, al, lc, c2, eda, leda, tg, ip, ps, plp, 
                 bd1, oac, loac, ea, as, es, rc, so, tc, mc, pc, ia, atal, comp, pc1, ptcc, pc2, 
                 tcc, vd, cdp, vvts, pwd, pso, aa, eti, jd, pf, d, grc, lp, ing, fut, dc]

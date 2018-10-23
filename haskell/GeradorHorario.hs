@@ -33,3 +33,8 @@ printHorario :: [Disciplina_matricula] -> String
 printHorario disciplinas =  cabecalhoTabelaHorario ++  concat [ formataString (if(length dh > 0) then nome_m $ dh !! 0 else "----") ++ if(dia == 4) then "\n" else "" |
                             hora <-  delete 2 [0..4], dia <- [0..4], let dh = tabela !! dia !! hora ]
                             where tabela = geraTabelaHorario disciplinas
+
+quantidadeCreditos::[Disciplina_matricula]->Bool
+quantidadeCreditos [] = True
+quantidadeCreditos disciplinas = (cadeiras >= 4 && cadeiras <= 6)
+                                 where cadeiras = length disciplinas
