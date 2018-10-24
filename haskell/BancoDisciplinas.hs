@@ -1,6 +1,6 @@
 module BancoDisciplinas where 
     import Estruturas
-    
+
     fmcc1 = Disciplina "1" "FMCC1" 4 1 True [] [
         getTurma 3 10 6 8,
         getTurma 3 10 6 8 ]
@@ -122,7 +122,11 @@ module BancoDisciplinas where
         getTurma 2 18 5 18]
     dc = Disciplina "50" "DC" 4 0 False [] [
         getTurma 3 10 6 8]
-    
+
+    -- a = Disciplina_matricula "DC" 4 (getTurma 3 10 6 8)
+    -- b = Disciplina_matricula "FUT" 2 (getTurma 2 18 5 18)
+    -- c = Disciplina_matricula "ING" 4 (getTurma 2 8 4 10)
+     
     disciplinas = [fmcc1, p1, lp1, ic, fmcc2, c1, p2, lp2, al, lc, c2, eda, leda, tg, ip, ps, plp, 
                     bd1, oac, loac, ea, as, es, rc, so, tc, mc, pc, ia, atal, comp, pc1, ptcc, pc2, 
                     tcc, vd, cdp, vvts, pwd, pso, aa, eti, jd, pf, d, grc, lp, ing, fut, dc]
@@ -193,6 +197,12 @@ module BancoDisciplinas where
         | nomeDsc == (getNome (head lista))
             = True
         | otherwise = existeDisciplina (tail lista) nomeDsc
+
+    -- toStringDisciplinaTurma::Disciplina->String->String
+    -- toStringDisciplinaTurma disc turma = (nome disc) ++ " t-" ++ turma
+
+    -- arrayTurmas::String->String->[Disciplina]->[String]
+    -- arrayTurmas dia hora (x:xs)
     
     instance Eq Disciplina_matricula where
      d1 == d2  = (nome_m d1 == nome_m d2 && t d1 == t d2)  
