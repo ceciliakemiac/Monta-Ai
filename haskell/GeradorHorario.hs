@@ -62,3 +62,19 @@ removeDiscDuplicadas :: [Disciplina_matricula] -> [Disciplina_matricula]
 removeDiscDuplicadas [] = []
 removeDiscDuplicadas (d:ds) = d : removeDiscDuplicadas (filter (\y -> not (nome_m y == nome_m d)) ds)
 
+
+verificaChoques :: Disciplina_matricula -> [Disciplina_matricula] -> Bool
+verificaChoques d [] = False
+verificaChoques d (x:xs) 
+                | (deuChoque (horarios $ turma_m d) x) = True
+                | otherwise = verificaChoques d xs
+
+deuChoque :: [Horario] -> Disciplina_matricula -> Bool
+deuChoque [] _ = False
+deuChoque (x:xs) d = horarioBate (dia x) (hora x) (horarios $ turma_m d) 
+
+validaChoqueTurmas :: [Disciplina_matricula] -> Bool
+validaChoqueTurmas [] = True
+validaChoqueTurmas (x:xs)
+                    | (verificaChoques x xs) = False
+                    | otherwise = validaChoqueTurmas xs
