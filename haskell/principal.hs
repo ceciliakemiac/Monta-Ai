@@ -2,7 +2,7 @@ import Estruturas
 import BancoDisciplinas
 import Menu
 import GeradorHorario
-import Planilhas
+import Planilha
 
 
 main :: IO ()
