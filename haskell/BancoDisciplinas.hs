@@ -177,7 +177,11 @@ module BancoDisciplinas where
     getDiscObrigatorias [] = []
     getDiscObrigatorias (a:as) = if (obrigatorio a) then a : getDiscObrigatorias as
                                 else getDiscObrigatorias as
-    
+
+    showObrigatoria :: Bool -> String
+    showObrigatoria True = "Obrigatoria"
+    showObrigatoria False = "Optativa"
+
     getDiscOptativas :: [Disciplina] -> [Disciplina]
     getDiscOptativas [] = []
     getDiscOptativas (a:as) = if not(obrigatorio a) then a : getDiscOptativas as
@@ -197,6 +201,27 @@ module BancoDisciplinas where
         | nomeDsc == (getNome (head lista))
             = True
         | otherwise = existeDisciplina (tail lista) nomeDsc
+
+
+    toStringHorario :: Horario -> String
+    toStringHorario (Horario {dia = d, hora = h}) = 
+        "Dia " ++ show(d) ++ "- hora: " ++ show(h)
+
+    toStringHTurma :: [Horario] -> String
+    toStringHTurma [] = []
+    toStringHTurma (a:as) = "| " ++ toStringHorario(a) ++ " |" ++
+            toStringHTurma as
+
+    pegaHorarioTurma :: Turma -> String
+    pegaHorarioTurma (Turma {horarios = h}) = toStringHTurma h
+
+    pegarTurmas :: [Turma] -> String
+    pegarTurmas [] = []
+    pegarTurmas (a:as) = "------ " ++ pegaHorarioTurma a ++ "\n" ++ pegarTurmas as
+
+    toStringPreRequisitos :: [String] -> String
+    toStringPreRequisitos [] = []
+    toStringPreRequisitos (a:as) = a ++ " | " ++ toStringPreRequisitos as
 
     -- toStringDisciplinaTurma::Disciplina->String->String
     -- toStringDisciplinaTurma disc turma = (nome disc) ++ " t-" ++ turma

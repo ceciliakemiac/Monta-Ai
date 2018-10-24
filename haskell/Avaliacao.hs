@@ -1,4 +1,4 @@
-module Avaliacao (passoAvaliacao) where
+module Avaliacao where
 
 import BancoDisciplinas
 import Estruturas
@@ -125,4 +125,5 @@ auxCom (a:as) n = (show n) ++ " - " ++ a ++ "\n" ++ (auxCom as (n+1))
 
 toStringAvaliacao :: String -> [String] -> String
 toStringAvaliacao nome avaliacoes = 
-        "Essa disciplina eh " ++ (pegaNivel nome avaliacoes) ++ "\n" ++ (toStringComentarios nome avaliacoes) 
+        (toStringComentarios nome avaliacoes) ++ "- Essa disciplina eh " ++
+        (pegaNivel nome avaliacoes) ++ " >:("

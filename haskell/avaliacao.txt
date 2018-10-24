@@ -1,51 +1,51 @@
-fmcc1;*;top
-p1;*;top
-lp1;*;melhor disciplina
-ic;*;top
-fmcc2;*;top
-c1;*;xo
-p2;*;maravilhosa
-lp2;*;linda
-al;;*;n gostei
-lc;*;top
-c2;*;xoxoxo
-eda;*;Deus ajuda
-leda;*;boa sorte
-tg;*;otima
-ip;*;top
-ps;*;trabalhosa
-plp;*;top
-bd1;*;top
-oac;*;top
-loac;*;eh peso
-ea;*;top
-as;*;top
-es;*;top
-so;*;top
-tc;*;top
-mc;*;top
-pc;*;top
-ia;*;top
-atal;*;muitas oracoes
-comp;*;igreja todo fds
-pc1;*;top
-ptcc;*;top
-pc2;*;top
-tcc;*;top
-vd;*;top
-cdp;*;top
-vvts;*;top
-pdw;*;top
-pso;*;top
-as;*;top
-aa;*;top
-eti;*;top
-jd;*;top
-pf;*;top
-d1/2;*;top
-grc;*;top
-lp;*;top
-ing;*;top
-fut;*;paga com loac
-rc;*;top
-dc;*;top
+FMCC1;*;top
+P1;*;top
+LP1;*;melhor disciplina
+IC;*;top
+FMCC2;*;top
+C1;*;xo
+P2;*;maravilhosa
+LP2;*;linda
+AL;;*;n gostei
+LC;*;top
+C2;*;xoxoxo
+EDA;*;Deus ajuda
+LEDA;*;boa sorte
+TG;*;otima
+IP;*;top
+PS;*;trabalhosa
+PLP;*;top
+BD1;*;top
+OAC;*;top
+LOAC;*;eh peso
+EA;*;top
+AS;*;top
+ES;*;top
+SO;*;top
+TC;*;top
+MC;*;top
+PC;*;top
+IA;*;top
+ATAL;*;muitas oracoes
+COMP;*;igreja todo fds
+PC1;*;top
+PTCC;*;top
+PC2;*;top
+TCC;*;top
+VD;*;top
+CDP;*;top
+VVTS;*;top
+PWD;*;top
+PSO;*;top
+AS;*;top
+AA;*;top
+ETI;*;top
+JD;*;top
+PF;*;top
+D1/2;*;top
+GRC;*;top
+LP;*;top
+ING;*;top
+FUT;*;paga com loac
+RC;*;top
+DC;*;top

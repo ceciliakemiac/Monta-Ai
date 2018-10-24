@@ -3,6 +3,7 @@ module VisualizacaoDisciplinas (visualizarDisciplinas, visualizarDiscDetalhada) 
 import BancoDisciplinas
 import Estruturas
 import Planilha
+import Avaliacao
 
 visualizaDisciplinas :: [Disciplina] -> String
 visualizaDisciplinas [] = []
@@ -70,8 +71,18 @@ menuDiscDetalhada :: IO()
 menuDiscDetalhada = do
     putStrLn ("Digite o nome da disciplina: ")
     nome <- getLine
-    putStrLn("chama metodo")
+    aval <- pegarAvaliacao
+    putStrLn(exibeDisciplinaDet (getDisciplinaNome (upper nome)) aval) 
     putStrLn ("1 - Visualizar outra disciplina\n2 - voltar ao menu")
     op <- getLine
     if((read op) == 1) then menuDiscDetalhada
     else return()
+
+toStringDet :: Disciplina -> [String] -> String
+toStringDet (Disciplina {codigo = c, nome = n, creditos = cr, periodo = p, obrigatorio = o, pre_requisitos = pr, turmas = t}) avals =
+    "Codigo: " ++ c ++ "\n" ++ "Creditos: " ++ show(cr) ++ "\n" ++ "Periodo: " ++ show(p) ++ "\n" ++ "Status: " ++ (showObrigatoria o) ++ "\n" ++ "Pre-requisitos: " ++ (toStringPreRequisitos pr) ++ "\n" ++ 
+    "Turmas: \n" ++ (pegarTurmas t) ++ "\n" ++ "Comentários:\n" ++ (toStringAvaliacao n avals)  ++ "\n"
+
+
+exibeDisciplinaDet :: Disciplina -> [String] -> String
+exibeDisciplinaDet d avals = (toStringDet d avals)
