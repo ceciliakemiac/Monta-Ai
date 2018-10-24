@@ -41,3 +41,15 @@ quantidadeCreditos (x:xs) = (creditos_m x) + (quantidadeCreditos xs)
 limiteCreditos::[Disciplina_matricula]->Bool
 limiteCreditos cadeiras = creditos >= 16 && creditos <= 24
                           where creditos = (quantidadeCreditos cadeiras)
+
+discToDisc_mat :: Disciplina -> [Turma] -> Int -> [Disciplina_matricula]
+discToDisc_mat d [] n = []
+discToDisc_mat d (t:ts) n = [Disciplina_matricula{
+                                        nome_m = nome d, 
+                                        creditos_m = creditos d, 
+                                        t = n,
+                                        turma_m = t} ]  ++ discToDisc_mat d ts (n+1)
+
+disciplinasToDisciplina_matricula :: [Disciplina] -> [Disciplina_matricula]
+disciplinasToDisciplina_matricula [] = []
+disciplinasToDisciplina_matricula  (d:ds) = discToDisc_mat d (turmas d) 1  ++ disciplinasToDisciplina_matricula ds
