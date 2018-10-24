@@ -28,6 +28,7 @@ module Estruturas where
         Disciplina_matricula{
             nome_m :: String,
             creditos_m :: Int,
+            t :: Int,
             turma_m :: Turma
         } deriving (Show)
         
