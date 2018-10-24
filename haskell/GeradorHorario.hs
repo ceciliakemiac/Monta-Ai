@@ -1,6 +1,7 @@
 module GeradorHorario where 
 import Estruturas 
 import FuncoesAuxiliares
+import BancoDisciplinas
 import Data.List
 
 horarioBate :: Int -> Int -> [Horario] -> Bool
@@ -53,3 +54,11 @@ discToDisc_mat d (t:ts) n = [Disciplina_matricula{
 disciplinasToDisciplina_matricula :: [Disciplina] -> [Disciplina_matricula]
 disciplinasToDisciplina_matricula [] = []
 disciplinasToDisciplina_matricula  (d:ds) = discToDisc_mat d (turmas d) 1  ++ disciplinasToDisciplina_matricula ds
+
+removeHorariosDuplicados :: [[Disciplina_matricula]] -> [[Disciplina_matricula]]
+removeHorariosDuplicados h = ordNub [removeDiscDuplicadas x | x <-  h]
+
+removeDiscDuplicadas :: [Disciplina_matricula] -> [Disciplina_matricula]
+removeDiscDuplicadas [] = []
+removeDiscDuplicadas (d:ds) = d : removeDiscDuplicadas (filter (\y -> not (nome_m y == nome_m d)) ds)
+
