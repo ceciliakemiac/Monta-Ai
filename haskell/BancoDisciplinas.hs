@@ -193,3 +193,11 @@ module BancoDisciplinas where
         | nomeDsc == (getNome (head lista))
             = True
         | otherwise = existeDisciplina (tail lista) nomeDsc
+    
+    instance Eq Disciplina_matricula where
+     d1 == d2  = (nome_m d1 == nome_m d2 && t d1 == t d2)  
+     
+    instance Ord Disciplina_matricula where
+     d1 `compare` d2  
+                | (nome_m d1 `compare` nome_m d2) == EQ = t d1 `compare` t d2
+                | otherwise  = nome_m d1 `compare` nome_m d2
