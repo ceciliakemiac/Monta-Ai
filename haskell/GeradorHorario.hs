@@ -40,7 +40,7 @@ quantidadeCreditos [] = 0
 quantidadeCreditos (x:xs) = (creditos_m x) + (quantidadeCreditos xs)
 
 limiteCreditos::[Disciplina_matricula]->Bool
-limiteCreditos cadeiras = creditos >= 16 && creditos <= 24
+limiteCreditos cadeiras = creditos >= 14 && creditos <= 24
                           where creditos = (quantidadeCreditos cadeiras)
 
 discToDisc_mat :: Disciplina -> [Turma] -> Int -> [Disciplina_matricula]
@@ -78,3 +78,9 @@ validaChoqueTurmas [] = True
 validaChoqueTurmas (x:xs)
                     | (verificaChoques x xs) = False
                     | otherwise = validaChoqueTurmas xs
+
+validaPossiveisHorarios:: [[Disciplina_matricula]] -> [[Disciplina_matricula]]
+validaPossiveisHorarios h =  [x | x <- h, validaChoqueTurmas x, limiteCreditos x]
+
+geraHorariosValidos :: [Disciplina] -> [[Disciplina_matricula]]
+geraHorariosValidos disciplinas = validaPossiveisHorarios (removeHorariosDuplicados (gerarPossiveisHorarios (disciplinasToDisciplina_matricula disciplinas)))
