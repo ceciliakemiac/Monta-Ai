@@ -2,6 +2,7 @@ module VisualizacaoDisciplinas (visualizarDisciplinas, visualizarDiscDetalhada) 
 
 import BancoDisciplinas
 import Estruturas
+import Planilha
 
 visualizaDisciplinas :: [Disciplina] -> String
 visualizaDisciplinas [] = []
@@ -20,7 +21,7 @@ menuDisciplinas = do
     let op = (read opcao)
 
     if (op == 1) then do
-        -- chama metodo planilha de horarios
+        putStrLn (planilha)
         menuDisciplinas
     else if (op == 2) then do
         putStrLn ("Disciplinas: \n")
