@@ -31,7 +31,7 @@ cabecalhoTabelaHorario :: String
 cabecalhoTabelaHorario = concat [ formataString dia | dia <- ["SEGUNDA", "TERCA", "QUARTA", "QUINTA", "SEXTA"]] ++ "\n"
 
 printHorario :: [Disciplina_matricula] -> String
-printHorario disciplinas =  cabecalhoTabelaHorario ++  concat [ formataString (if(length dh > 0) then nome_m $ dh !! 0 else "----") ++ if(dia == 4) then "\n" else "" |
+printHorario disciplinas =  cabecalhoTabelaHorario ++  concat [ formataString (if(length dh > 0) then nome_m (dh !! 0) ++ " t-" ++ show (t (dh !! 0)) else "----") ++ if(dia == 4) then "\n" else "" |
                             hora <-  delete 2 [0..4], dia <- [0..4], let dh = tabela !! dia !! hora ]
                             where tabela = geraTabelaHorario disciplinas
 
@@ -83,4 +83,7 @@ validaPossiveisHorarios:: [[Disciplina_matricula]] -> [[Disciplina_matricula]]
 validaPossiveisHorarios h =  [x | x <- h, validaChoqueTurmas x, limiteCreditos x]
 
 geraHorariosValidos :: [Disciplina] -> [[Disciplina_matricula]]
-geraHorariosValidos disciplinas = validaPossiveisHorarios (removeHorariosDuplicados (gerarPossiveisHorarios (disciplinasToDisciplina_matricula disciplinas)))
+geraHorariosValidos disciplinas =   validaPossiveisHorarios $ 
+                                    removeHorariosDuplicados $ 
+                                    gerarPossiveisHorarios $ 
+                                    disciplinasToDisciplina_matricula disciplinas
