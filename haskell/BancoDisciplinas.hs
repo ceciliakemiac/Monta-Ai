@@ -13,7 +13,7 @@ module BancoDisciplinas where
     ic = Disciplina "4" "IC" 4 1 True [] [
         getTurma 3 8 5 10, 
         getTurma 3 8 5 10]
-    fmcc2 = Disciplina "5" "FMCC2" 4 2 True [] [
+    fmcc2 = Disciplina "5" "FMCC2" 4 2 True ["FMCC1"] [
         getTurma 2 10 5 8, 
         getTurma 2 10 5 8]
     c1 = Disciplina "6" "C1" 4 2 True ["FMCC1"] [
@@ -132,7 +132,7 @@ module BancoDisciplinas where
                     tcc, vd, cdp, vvts, pwd, pso, aa, eti, jd, pf, d, grc, lp, ing, fut, dc]
     
     disciplinasPagas :: [String]              
-    disciplinasPagas = ["P1", "LP1", "IC"]
+    disciplinasPagas = []
     
     getTurma :: Int -> Int -> Int -> Int -> Turma
     getTurma d1 h1 d2 h2 = Turma { horarios = [Horario d1 h1, Horario d2 h2] }
@@ -197,6 +197,11 @@ module BancoDisciplinas where
         | nomeDsc == (getNome (head lista))
             = True
         | otherwise = existeDisciplina (tail lista) nomeDsc
+
+    pegaDisciplina :: [Disciplina] -> String -> Disciplina
+    pegaDisciplina (x:xs) nomeDsc
+        | nomeDsc == nome x  = x
+        | otherwise = pegaDisciplina xs nomeDsc
 
     -- toStringDisciplinaTurma::Disciplina->String->String
     -- toStringDisciplinaTurma disc turma = (nome disc) ++ " t-" ++ turma

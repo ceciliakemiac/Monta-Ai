@@ -1,4 +1,4 @@
-module Planilha where
+module Planilhas where
 import Estruturas
 
 -- getHorarios::[Turma]->[[Horario]]
