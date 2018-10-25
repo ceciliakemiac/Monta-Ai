@@ -5,6 +5,7 @@ menuVotarAvaliacao) where
 
 import Avaliacao
 import VisualizacaoDisciplinas
+import MontagemHorario
 
 
 selecinarPrincipal :: String -> IO()
@@ -13,7 +14,7 @@ selecinarPrincipal op
                 putStrLn "Not Implement"
                 principal
         | op == "1" = do
-                putStrLn "Not Implement"
+                MontagemHorario.montarHorario
                 principal
         | op == "2" = do
                 VisualizacaoDisciplinas.visualizarDisciplinas
@@ -44,10 +45,10 @@ principal = do
 
 logo = do
         putStrLn " __  __             _                            _           "
-	putStrLn "|  \\/  |           | |                     /\\   (_)        "
-	putStrLn "| \\  / | ___  _ __ | |_ __ _   ______     /  \\   _         "
-	putStrLn "| |\\/| |/ _ \\| '_ \\| __/ _` | |______|   / /\\ \\ | |     "
-	putStrLn "| |  | | (_) | | | | || (_| |           / ____ \\| |         "
+        putStrLn "|  \\/  |           | |                     /\\   (_)        "
+        putStrLn "| \\  / | ___  _ __ | |_ __ _   ______     /  \\   _         "
+        putStrLn "| |\\/| |/ _ \\| '_ \\| __/ _` | |______|   / /\\ \\ | |     "
+        putStrLn "| |  | | (_) | | | | || (_| |           / ____ \\| |         "
         putStrLn ""
 
 
