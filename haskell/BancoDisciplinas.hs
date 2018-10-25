@@ -202,8 +202,6 @@ module BancoDisciplinas where
             = True
         | otherwise = existeDisciplina (tail lista) nomeDsc
 
-<<<<<<< HEAD
-
     toStringHorario :: Horario -> String
     toStringHorario (Horario {dia = d, hora = h}) = 
         "Dia " ++ show(d) ++ "- hora: " ++ show(h)
@@ -223,12 +221,12 @@ module BancoDisciplinas where
     toStringPreRequisitos :: [String] -> String
     toStringPreRequisitos [] = []
     toStringPreRequisitos (a:as) = a ++ " | " ++ toStringPreRequisitos as
-=======
+
     pegaDisciplina :: [Disciplina] -> String -> Disciplina
     pegaDisciplina (x:xs) nomeDsc
         | nomeDsc == nome x  = x
         | otherwise = pegaDisciplina xs nomeDsc
->>>>>>> montagem-horario
+
 
     -- toStringDisciplinaTurma::Disciplina->String->String
     -- toStringDisciplinaTurma disc turma = (nome disc) ++ " t-" ++ turma
