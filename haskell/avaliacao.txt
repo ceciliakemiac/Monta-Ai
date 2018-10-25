@@ -1,5 +1,4 @@
 FMCC1;*;top
-P1;*;top
 LP1;*;melhor disciplina
 IC;*;top
 FMCC2;*;top
@@ -49,3 +48,4 @@ ING;*;top
 FUT;*;paga com loac
 RC;*;top
 DC;*;top
+P1;rasgada;linda,top

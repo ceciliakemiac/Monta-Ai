@@ -4,6 +4,7 @@ import BancoDisciplinas
 import Estruturas
 import Planilha
 import Avaliacao
+import FuncoesAuxiliares
 
 visualizaDisciplinas :: [Disciplina] -> String
 visualizaDisciplinas [] = []
@@ -12,7 +13,7 @@ visualizaDisciplinas (a:as) = toString a ++ "\n" ++ visualizaDisciplinas as
 
 visualizarDisciplinas :: IO ()
 visualizarDisciplinas = do
-    putStrLn ("Visualizar disciplinas \n\n")
+    putStrLn ("Visualizar disciplinas \n")
     menuDisciplinas 
 
 menuDisciplinas :: IO()
@@ -22,16 +23,21 @@ menuDisciplinas = do
     let op = (read opcao)
 
     if (op == 1) then do
+        putStr ("\ESC[2J")
         putStrLn (planilha)
         menuDisciplinas
     else if (op == 2) then do
+        putStr ("\ESC[2J")
         putStrLn ("Disciplinas: \n")
         putStrLn (visualizaDisciplinas disciplinas)
         menuDisciplinas
     else if (op == 3) then do
+        putStr ("\ESC[2J")
         menuFiltro
         menuDisciplinas
-    else if (op == 4) then return()
+    else if (op == 4) then do
+        putStr ("\ESC[2J")
+        return()
     else do 
         putStrLn ("ERRO! opcao invalida, tente novamente")
         menuDisciplinas
@@ -76,7 +82,9 @@ menuDiscDetalhada = do
     putStrLn ("1 - Visualizar outra disciplina\n2 - voltar ao menu")
     op <- getLine
     if((read op) == 1) then menuDiscDetalhada
-    else return()
+    else do
+        putStr ("\ESC[2J")
+        return()
 
 toStringDet :: Disciplina -> [String] -> String
 toStringDet (Disciplina {codigo = c, nome = n, creditos = cr, periodo = p, obrigatorio = o, pre_requisitos = pr, turmas = t}) avals =

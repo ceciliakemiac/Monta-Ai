@@ -1,5 +1,6 @@
 module FuncoesAuxiliares where
 import qualified Data.Set as Set
+import Data.Char  
 
 slice :: Int -> Int -> [a] -> [a]
 slice start stop xs = fst $ splitAt (stop - start) (snd $ splitAt start xs)
@@ -26,3 +27,7 @@ ordNub l = go Set.empty l
     go _ [] = []
     go s (x:xs) = if x `Set.member` s then go s xs
                                       else x : go (Set.insert x s) xs
+
+upper :: String -> String
+upper [] = []
+upper (a:as) = toUpper(a) : upper as

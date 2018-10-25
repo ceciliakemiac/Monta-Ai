@@ -6,7 +6,8 @@ import Data.List.Split
 import System.IO  
 import System.Directory  
 import Data.List 
-import Data.Char  
+
+import FuncoesAuxiliares
 
 
 comentario_ou_votarAvaliacao = do
@@ -34,7 +35,9 @@ passoAvaliacao = do
     putStrLn "1 - Avaliar outra disciplina\n2 - voltar ao menu"
     op <- getLine
     if((read op) == 1) then passoAvaliacao
-    else return ()
+    else do 
+        putStr ("\ESC[2J")
+        return ()
 
 escolherOpcao :: String -> IO()
 escolherOpcao nome = do
@@ -53,17 +56,17 @@ adicionarComentario nome = do
     putStrLn ("Digite um comentario sobre a disciplina " ++ nome)
     comentario <- getLine
     avaliacoes <- pegarAvaliacao
-    atualizaTxt nome avaliacoes
-    appendFile "avaliacao.txt" (nome ++ ";" ++ (pegaNivel nome avaliacoes ) ++ ";" ++ comentario ++ "," ++
-                (pegaComentarios nome avaliacoes) ++ "\n") 
+    atualizaTxt (upper nome) avaliacoes
+    appendFile "avaliacao.txt" ((upper nome) ++ ";" ++ (pegaNivel (upper nome) avaliacoes ) ++ ";" ++ comentario ++ "," ++
+                (pegaComentarios (upper nome) avaliacoes) ++ "\n") 
 
 atribuirNivel :: String -> IO ()
 atribuirNivel nome = do
     nivel <- getLine
     avaliacoes <- pegarAvaliacao
     atualizaTxt nome avaliacoes
-    appendFile "avaliacao.txt" (nome ++ ";" ++ (verificaNivel (read nivel)) ++ ";" ++
-                (pegaComentarios nome avaliacoes) ++ "\n") 
+    appendFile "avaliacao.txt" ((upper nome) ++ ";" ++ (verificaNivel (read nivel)) ++ ";" ++
+                (pegaComentarios (upper nome) avaliacoes) ++ "\n") 
 
 atualizaTxt :: String -> [String] -> IO ()
 atualizaTxt nome avaliacoes = do
@@ -112,10 +115,6 @@ verificaNivel n
     | n == 5 = "peso"
     | otherwise = "Opção inválida!"
 
-upper :: String -> String
-upper [] = []
-upper (a:as) = toUpper(a) : upper as
-
 toStringComentarios :: String -> [String] -> String
 toStringComentarios nome avaliacoes = auxCom (splitOn "," (pegaComentarios nome avaliacoes)) 1
 
@@ -125,5 +124,5 @@ auxCom (a:as) n = (show n) ++ " - " ++ a ++ "\n" ++ (auxCom as (n+1))
 
 toStringAvaliacao :: String -> [String] -> String
 toStringAvaliacao nome avaliacoes = 
-        (toStringComentarios nome avaliacoes) ++ "- Essa disciplina eh " ++
-        (pegaNivel nome avaliacoes) ++ " >:("
+        (toStringComentarios (upper nome) avaliacoes) ++ "- Essa disciplina eh " ++
+        (pegaNivel (upper nome) avaliacoes) ++ " >:("
