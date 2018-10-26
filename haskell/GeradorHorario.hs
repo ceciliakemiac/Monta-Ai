@@ -35,8 +35,13 @@ printHorario disciplinas =  cabecalhoTabelaHorario ++
                             concat [ (if(dia==0) then (if (hora == 0) then "0" else "") ++ show (hora * 2 + 8) ++ ":00   " else "") ++
                                         formataString (if(length dh > 0) then nome_m (dh !! 0) ++ " t-" ++ show (t (dh !! 0)) else "----") ++ 
                                         if(dia == 4) then "\n" else "" |
-                                    hora <-  delete 2 [0..4], dia <- [0..4], let dh = tabela !! dia !! hora]
+                                    hora <-  delete 2 [0..4], dia <- [0..4], let dh = tabela !! dia !! hora] ++ "\n" ++
+                            "Disciplinas: " ++ printDisciplinas' disciplinas ++ "\n"
                             where tabela = geraTabelaHorario disciplinas
+
+printDisciplinas' :: [Disciplina_matricula] -> String
+printDisciplinas' [] = "\n"
+printDisciplinas' (d:ds) =  nome_m d ++ " t- " ++ show (t d) ++ "  " ++ printDisciplinas' ds
 
 quantidadeCreditos::[Disciplina_matricula]->Int
 quantidadeCreditos [] = 0
@@ -53,16 +58,6 @@ discToDisc_mat d (t:ts) n = [Disciplina_matricula{
                                         creditos_m = creditos d, 
                                         t = n,
                                         turma_m = t} ]  ++ discToDisc_mat d ts (n+1)
-
--- agrupa :: [Disciplina_matricula] -> [[Disciplina_matricula]]
--- agrupa disc = groupBy $ (\x y -> (nome_m x == nome_m y && mesmaTurma (turma_m x) (turma_m y))) disc
-
--- mesmaTurma :: Turma-> Turma -> Bool
--- mesmaTurma t1 t2 = sort [(dia h, hora h) | h <- horarios t1] == sort [(dia h, hora h) | h <- horarios t2] 
-
--- agrupaDisc :: [[Disciplina_matricula]] -> [Disciplina_matricula]
--- agrupa [] = []
--- agrupa (x:xs) = 
 
 disciplinasToDisciplina_matricula :: [Disciplina] -> [Disciplina_matricula]
 disciplinasToDisciplina_matricula [] = []
@@ -121,3 +116,7 @@ adicionaDiscNoHorario d disc = horarios
     where  horarios =   validaPossiveisHorarios $ 
                         removeHorariosDuplicados $ 
                         gerarPossiveisHorarios $ disc ++ disciplinasToDisciplina_matricula [d]
+
+getDiscMatricula :: String -> Int -> Disciplina_matricula
+getDiscMatricula nome turma = Disciplina_matricula{nome_m = nome, creditos_m = creditos d, t = turma, turma_m = (turmas d ) !! (turma - 1)} 
+    where d = pegaDisciplina disciplinas nome 
