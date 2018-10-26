@@ -3,15 +3,23 @@ import GeradorHorario
 import BancoDisciplinas
 import Estruturas
 import Data.Char
+import Data.List.Split
+import System.Directory 
 
 montarHorario :: IO ()
 montarHorario = do
     putStrLn "Menu montagem de horario"
     putStrLn ""
-    discDisponiveis
-    adicionarOuRemoverDisciplinas disciplinasCandidatas
-    where
-        disciplinasCandidatas = [d | d <- (getDiscObrigatorias disciplinas), atendePreRequisitos  d disciplinasPagas, not(foiPaga disciplinasPagas d)]
+    menuRecuperarHorario
+
+
+
+menuRecuperarHorario :: IO ()
+menuRecuperarHorario = do
+    putStrLn "Deseja importar algum horario pronto? (s/n)"
+    op <- getLine
+    if(op == "s") then recuperarHorario
+    else discDisponiveis
 
 
 discDisponiveis::IO()
@@ -21,6 +29,9 @@ discDisponiveis = do
     putStrLn ""
     putStrLn "Estas são as disciplinas OPTATIVAS disponíveis para matricula"
     printDisciplinas $ [d | d <- (getDiscOptativas disciplinas), atendePreRequisitos  d disciplinasPagas, not(foiPaga disciplinasPagas d)]
+    adicionarOuRemoverDisciplinas disciplinasCandidatas
+    where
+        disciplinasCandidatas = [d | d <- (getDiscObrigatorias disciplinas), atendePreRequisitos  d disciplinasPagas, not(foiPaga disciplinasPagas d)]
     
 adicionarOuRemoverDisciplinas:: [Disciplina] -> IO()
 adicionarOuRemoverDisciplinas  d = do
@@ -49,6 +60,7 @@ printDisciplinas [] = putStrLn ""
 printDisciplinas (d:ds) = do 
     putStr $ nome d ++ " "
     printDisciplinas ds
+
 
 adicionarDisc::[Disciplina] -> String -> IO()
 adicionarDisc disc nomed =  do
@@ -90,10 +102,11 @@ menuEscolherHorario h n = do
 
 adicionarOuRemoverDisciplinasHorario :: [Disciplina_matricula] -> IO()
 adicionarOuRemoverDisciplinasHorario horario = do
-    putStrLn "deseja adicionar(a) ou remover(r) alguma disciplina ou salvar(s)?"
+    putStrLn "deseja adicionar(a) ou remover(r) alguma disciplina, salvar(s) ou voltar(v)?"
     op <- getLine
-    if(op == "s") then do
-        putStrLn "Salvando..."
+    if(op == "v") then putStrLn ""
+    else if(op == "s") then do
+        salvarHorario horario
     else if(op == "a") then do 
         dis <- getLine
         adicionarDiscHorario horario [toUpper c | c <- dis]             
@@ -125,3 +138,30 @@ adicionarDiscHorario disc nomed =  do
     else do
         putStrLn "Diciplina não encontrada"
         adicionarOuRemoverDisciplinasHorario disc
+
+salvarHorario:: [Disciplina_matricula] -> IO()
+salvarHorario disc = do
+    putStrLn "Digite o nome do arquivo que deseja salvar"
+    nomeArquivo <- getLine
+    writeFile nomeArquivo (disctoFile disc)
+
+
+disctoFile :: [Disciplina_matricula] -> String
+disctoFile [] = ""
+disctoFile (x:xs) = nome_m x ++ ";t-" ++ show (t x) ++  "\n" ++ disctoFile xs 
+
+
+recuperarHorario::IO ()
+recuperarHorario = do
+    putStrLn "Digite o nome do arquivo que deseja recuperar"
+    nomeArquivo <- getLine
+    fileExists <- doesFileExist nomeArquivo  
+    if fileExists  then do 
+        contents <- readFile nomeArquivo
+        let todoTasks = lines contents
+        let horario = [ getDiscMatricula (discTurma !! 0) (read (discTurma !! 1)::Int) | disc <- todoTasks, let discTurma = (splitOn ";t-" disc)]
+        putStr $ printHorario horario
+        adicionarOuRemoverDisciplinasHorario  horario
+    else do 
+        putStrLn "Arquivo inexistente"
+        menuRecuperarHorario
