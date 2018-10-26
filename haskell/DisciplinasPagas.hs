@@ -26,7 +26,7 @@ module DisciplinasPagas where
     removerDisciplina :: String -> IO()
     removerDisciplina nome = do
         dPagas <- pegarDiscPagas
-        atualizaTxtPagas nome dPagas
+        atualizaTxtPagas (upper nome) dPagas
 
     pegarDiscPagas :: IO [String]
     pegarDiscPagas = do
