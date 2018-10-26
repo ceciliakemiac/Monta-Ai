@@ -24,14 +24,13 @@ menuRecuperarHorario = do
 
 discDisponiveis::IO()
 discDisponiveis = do
+    dpagas <- readFile "disciplinasPagas.txt"   
     putStrLn "Estas são as disciplinas OBRIGATÓRIAS disponíveis para matricula"
-    printDisciplinas $ [d | d <- (getDiscObrigatorias disciplinas), atendePreRequisitos  d disciplinasPagas, not(foiPaga disciplinasPagas d)]
+    printDisciplinas $ [d | d <- (getDiscObrigatorias disciplinas), atendePreRequisitos  d (lines dpagas), not(foiPaga (lines dpagas) d)]
     putStrLn ""
     putStrLn "Estas são as disciplinas OPTATIVAS disponíveis para matricula"
-    printDisciplinas $ [d | d <- (getDiscOptativas disciplinas), atendePreRequisitos  d disciplinasPagas, not(foiPaga disciplinasPagas d)]
-    adicionarOuRemoverDisciplinas disciplinasCandidatas
-    where
-        disciplinasCandidatas = [d | d <- (getDiscObrigatorias disciplinas), atendePreRequisitos  d disciplinasPagas, not(foiPaga disciplinasPagas d)]
+    printDisciplinas $ [d | d <- (getDiscOptativas disciplinas), atendePreRequisitos  d (lines dpagas), not(foiPaga (lines dpagas) d)]
+    adicionarOuRemoverDisciplinas [d | d <- (getDiscObrigatorias disciplinas), atendePreRequisitos  d (lines dpagas), not(foiPaga (lines dpagas) d)]
     
 adicionarOuRemoverDisciplinas:: [Disciplina] -> IO()
 adicionarOuRemoverDisciplinas  d = do
@@ -64,9 +63,10 @@ printDisciplinas (d:ds) = do
 
 adicionarDisc::[Disciplina] -> String -> IO()
 adicionarDisc disc nomed =  do
+    dpagas <- readFile "disciplinasPagas.txt" 
     if(existeDisciplina disciplinas nomed) then do
-        if(atendePreRequisitos (pegaDisciplina disciplinas nomed) disciplinasPagas) then do
-            if (not(foiPaga disciplinasPagas (pegaDisciplina disciplinas nomed))) then do
+        if(atendePreRequisitos (pegaDisciplina disciplinas nomed) (lines dpagas)) then do
+            if (not(foiPaga (lines dpagas) (pegaDisciplina disciplinas nomed))) then do
                 adicionarOuRemoverDisciplinas $ removeDiscDuplicadas' $ disc ++ [(pegaDisciplina disciplinas nomed)]
             else do 
                 putStrLn "Disciplina já foi paga"
@@ -122,9 +122,10 @@ adicionarOuRemoverDisciplinasHorario horario = do
 
 adicionarDiscHorario::[Disciplina_matricula] -> String -> IO()
 adicionarDiscHorario disc nomed =  do
+    dpagas <- readFile "disciplinasPagas.txt" 
     if(existeDisciplina disciplinas nomed) then do
-        if(atendePreRequisitos (pegaDisciplina disciplinas nomed) disciplinasPagas) then do
-            if (not(foiPaga disciplinasPagas (pegaDisciplina disciplinas nomed))) then do
+        if(atendePreRequisitos (pegaDisciplina disciplinas nomed) (lines dpagas)) then do
+            if (not(foiPaga (lines dpagas) (pegaDisciplina disciplinas nomed))) then do
                 if (not (jaTem nomed disc)) then iterarHorarios (adicionaDiscNoHorario (pegaDisciplina disciplinas nomed) disc) 0 False 
                 else do
                     putStrLn "Disciplina já no horario"

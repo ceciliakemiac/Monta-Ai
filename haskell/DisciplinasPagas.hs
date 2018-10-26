@@ -9,7 +9,7 @@ module DisciplinasPagas where
 
     adicionarDisciplina :: String -> IO ()
     adicionarDisciplina nome = do
-        appendFile "disciplinasPagas.txt" (nome ++ "\n") 
+        appendFile "disciplinasPagas.txt" (upper nome ++ "\n") 
     
     atualizaTxtPagas :: String -> [String] -> IO ()
     atualizaTxtPagas nome avaliacoes = do
