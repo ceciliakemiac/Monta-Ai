@@ -1,6 +1,6 @@
 % noms, qtdCreditos, periodo, Obrigatoria, 
 % .....Requisitos, turmas 
-
+:- module(turmas, []).
 
 % 1p
 disciplina("FMCC1", 4, 1, true, [], 
