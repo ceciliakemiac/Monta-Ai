@@ -17,11 +17,9 @@ adicionaDisciplinaPaga():-
     adicionaPreRequisito(Y).
     
 adicionaPreRequisito([S]):- 
-    not(disciplinaPaga(S)),
-    assert(disciplinaPaga(S)).
+    not(disciplinaPaga(S)) -> assert(disciplinaPaga(S))).
 adicionaPreRequisito([H | T]):-
-    not(disciplinaPaga(H)),
-    assert(disciplinaPaga(H)),
+    (not(disciplinaPaga(H)) -> assert(disciplinaPaga(H))),
     adicionaPreRequisito(T).
 
 % digitaDisciplinas(Discs):-
