@@ -40,5 +40,27 @@ iteraResumido:-
 
 removerDisciplina:-
     read_line_to_string(user_input, Nome),
+    iteraResumido,
     (disciplinaPaga(Nome) -> retract(disciplinaPaga(Nome)), true;
      writeln("Você não pagou essa disciplina!!! Digite novamente."), removerDisciplina).
+
+removerDisciplinas([]).
+removerDisciplinas([H | T]):-
+    retract(disciplinaPaga(H)),
+    removerDisciplinas(T).
+
+getRemoveDisciplinas:- 
+    findall(X, disciplinaPaga(X), Lista),
+    removerDisciplinas(Lista).
+
+listarDisciplinasPagas([]):- writeln("").
+listarDisciplinasPagas([H | T]):-
+    write("        "), 
+    write(H), nl,
+    listarDisciplinasPagas(T).
+
+getListaDisciplinasPagas:- 
+    findall(Y, disciplinaPaga(Y), X),
+    listarDisciplinasPagas(X).
+
+
