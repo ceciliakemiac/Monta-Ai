@@ -8,7 +8,7 @@ existeDisciplina(Nome):- turmas:disciplina(Nome, _, _, _, _, _).
 
 digitaDisciplinas:-
     read_line_to_string(user_input, Nome),
-    (Nome = "pronto" -> false;
+    (Nome = "pronto" -> true;
      existeDisciplina(Nome) -> assert(disciplinaPaga(Nome)), digitaDisciplinas;
      writeln("ERRO! Não existe essa daí."), digitaDisciplinas).
 
@@ -38,3 +38,7 @@ iteraResumido:-
     findall(Y, disciplinaPaga(Y), X),
     iteraPagasAdicionaRequisitos(X).
 
+removerDisciplina:-
+    read_line_to_string(user_input, Nome),
+    (disciplinaPaga(Nome) -> retract(disciplinaPaga(Nome)), true;
+     writeln("Você não pagou essa disciplina!!! Digite novamente."), removerDisciplina).
