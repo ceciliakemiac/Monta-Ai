@@ -1,6 +1,7 @@
 :- module(horariosPagos, []).
 :- use_module(turmas).
 
+%disciplinaPaga(Nome).
 :- dynamic(disciplinaPaga/1).
 
 existeDisciplina(Nome):- turmas:disciplina(Nome, _, _, _, _, _).
@@ -14,14 +15,19 @@ digitaDisciplinas:-
 getPreRequisito(X, Y):- 
     (turmas:disciplina(X, _, _, _, Y, _) -> true;
      true).
-    
+
+%Itera sobre os pre-requisitos de uma disciplina, se algum dos pre-requisitos não for
+%uma disciplina paga, adiciona ele.
+adicionaPreRequisito([]).
 adicionaPreRequisito([S]):- 
     (not(disciplinaPaga(S)) -> assert(disciplinaPaga(S)), true;
      true).
 adicionaPreRequisito([H | T]):-
-    (not(disciplinaPaga(H)) -> assert(disciplinaPaga(H))),
-    adicionaPreRequisito(T).
+    (not(disciplinaPaga(H)) -> assert(disciplinaPaga(H)), adicionaPreRequisito(T);
+     disciplinaPaga(H) -> adicionaPreRequisito(T)).
 
+%Itera sobre um array de nomes de disciplinas, pega os pre-requisitos e chama o método
+%adicionaPreRequisito
 iteraPagasAdicionaRequisitos([]).
 iteraPagasAdicionaRequisitos([H | T]):-
     getPreRequisito(H, Y),
@@ -31,30 +37,4 @@ iteraPagasAdicionaRequisitos([H | T]):-
 iteraResumido:-
     findall(Y, disciplinaPaga(Y), X),
     iteraPagasAdicionaRequisitos(X).
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
