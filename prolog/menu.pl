@@ -24,7 +24,8 @@ menu0RetornaMenu:-
     write("Deseja retornar ao menu principal? s/n"), nl, nl,
     read_line_to_string(user_input, Entrada),
     (Entrada = "s" -> write(""), nl, nl, nl, nl, nl, main;
-     Entrada = "n" -> write(""), nl, nl, nl, nl, nl, menuDisciplinasPagas).
+     Entrada = "n" -> write(""), nl, nl, nl, nl, nl, menuDisciplinasPagas;
+     menu0RetornaMenu).
 
 menu0EscreveOpcoes:-
     writeln("Deseja remover alguma disciplina que informou como paga? s/n, visualizar disciplinas pagas(v) ou apagar histórico(a):"),
