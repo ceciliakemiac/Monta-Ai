@@ -4,8 +4,19 @@
 :-use_module(horariosPagos).
 :-use_module(avaliacoesDisc).
 
+logo :- 
+    writeln(" __  __             _                            _           "),
+    writeln("|  \\/  |           | |                     /\\   (_)        "),
+    writeln("| \\  / | ___  _ __ | |_ __ _   ______     /  \\   _         "),
+    writeln("| |\\/| |/ _ \\| '_ \\| __/ _` | |______|   / /\\ \\ | |     "),
+    writeln("| |  | | (_) | | | | || (_| |           / ____ \\| |         "),
+    writeln("|_|  |_|\\___/|_| |_|\\__\\__,_|          /_/    \\_\\_|	  ").
+
+
+
 main:-
     write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    logo, nl,
     write("MENU"), nl,
     write("0 - Informar/Editar disciplinas que já paguei"), nl,
     write("1 - Montar horário que já paguei"), nl,
