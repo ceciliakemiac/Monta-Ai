@@ -1,5 +1,10 @@
 :- initialization(main).
 
+:- use_module(horariosPagos).
+
+:- dynamic (avaliacoesComentario/2),
+            (avaliacoesNivel/2).
+
 comentario_ou_votarAvaliacao :- 
     writeln(""),    
     writeln("1 - Deixar um comentário"),
@@ -14,17 +19,11 @@ menu_votar_avaliacao :-
     writeln("4 - tenso"),
     writeln("5 - peso").
 
-nivel(1, rasgado).
-nivel(2, deboa).
-nivel(3, carrego).
-nivel(4, tenso).
-nivel(5, peso).
-
 passoAvaliacao :-
     writeln(""),
     writeln("Qual disciplina deseja avaliar?"),
     read_line_to_string(user_input, Disc),
-    (avaliacao(Disc) -> escolherOpcao(Disc); 
+    (horariosPagos:existeDisciplina(Disc) -> escolherOpcao(Disc); 
     writeln("Disciplina não existe /:")),
     writeln("1 - Avaliar outra disciplina"), 
     writeln("2 - voltar ao menu"),
@@ -35,31 +34,31 @@ passoAvaliacao :-
 escolherOpcao(Disc) :- 
     comentario_ou_votarAvaliacao,
     read_line_to_string(user_input, Opcao),
-    (Opcao = "2" -> menu_votar_avaliacao, atribuirNivel(Disc);
-    adicionarComentario(Disc)).
+    (Opcao = "2" -> menu_votar_avaliacao, read_line_to_string(user_input, Nivel), atribuirNivel(Disc, Nivel);
+    Opcao = "1" ->  read_line_to_string(user_input, Comentario),
+    adicionaComentario(Disc, Comentario)).
 
-atribuirNivel(Disc) :- avaliacao(Disc), writeln("Nivel a implementar").
-adicionarComentario(Disc) :- avaliacao(Disc), writeln("Cmen a implementar").
+adicionaComentario(Nome, Comentario) :- assert(avaliacoesComentario(Nome, Comentario)).
 
 
-% adicionaAval([]).
-% adicionaAval([H|T]) :- 
-
-avaliacao("p1").
+listar([]):- writeln("").
+listar([H | T]):-
+    write("        "), 
+    write(H), nl,
+    listar(T).
     
-     
-    
-    
+
+atribuirNivel(Nome, Nivel) :- avaliacoesNivel(Nome,_) ->
+    retract(avaliacoesNivel(Nome,_)), assert(avaliacoesNivel(Nome, Nivel));
+    assert(avaliacoesNivel(Nome, Nivel)).
+
+getNivel(Nome, Res) :- avaliacoesNivel(Nome, Res).
+
+getComentarios(Nome) :- 
+    findall(X, avaliacoesComentario(Nome, X), Y),
+    listar(Y).
+
 
 main :- 
-    writeln("voltou"),
-    passoAvaliacao.
-%    avaliacoes(p1, X, _), insere(2, X, Res), writeln(Res).
-%    insere(Elem, Lista, [Elem|Lista]).
-
-
-% getAvalNome(Nome, Res) :- avaliacoes([Nome|Res]).
-
-avaliacoes(p1, [], []).
-
-alteraNivel(Nome, Novo) :- avaliacoes(Nome, X, _), append(X, Novo, Res), writeln(Res).
+    
+    % passoAvaliacao.
