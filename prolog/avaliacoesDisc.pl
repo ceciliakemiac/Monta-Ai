@@ -1,5 +1,4 @@
-:- initialization(main).
-
+:-module(avaliacoesDisc, []).
 :- use_module(horariosPagos).
 
 :- dynamic (avaliacoesComentario/2),
@@ -35,16 +34,16 @@ escolherOpcao(Disc) :-
     comentario_ou_votarAvaliacao,
     read_line_to_string(user_input, Opcao),
     (Opcao = "2" -> menu_votar_avaliacao, read_line_to_string(user_input, Nivel), atribuirNivel(Disc, Nivel);
-    Opcao = "1" ->  read_line_to_string(user_input, Comentario),
+    Opcao = "1" -> write("Digite um comentario sobre a disciplina "), writeln(Disc), read_line_to_string(user_input, Comentario),
     adicionaComentario(Disc, Comentario)).
 
 adicionaComentario(Nome, Comentario) :- assert(avaliacoesComentario(Nome, Comentario)).
 
 
-listar([]):- writeln("").
+listar([]):- write("").
 listar([H | T]):-
-    write("        "), 
-    write(H), nl,
+    write("     - "),
+    writeln(H),
     listar(T).
     
 
@@ -56,9 +55,17 @@ getNivel(Nome, Res) :- avaliacoesNivel(Nome, Res).
 
 getComentarios(Nome) :- 
     findall(X, avaliacoesComentario(Nome, X), Y),
+    writeln("Comentarios:"),
     listar(Y).
 
+toStringAval(Nome) :- 
+    getComentarios(Nome), write("- Essa disciplina eh "),
+    getNivel(Nome, X), nivel(X, Y), write(Y), 
+    writeln(" >:(").
 
-main :- 
-    
-    % passoAvaliacao.
+nivel(1, "rasgada").
+nivel(2, "de boa").
+nivel(3, "carrego").
+nivel(4, "tenso").
+nivel(5, "peso").
+

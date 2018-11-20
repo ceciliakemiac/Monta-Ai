@@ -2,6 +2,7 @@
 
 :-use_module(turmas).
 :-use_module(horariosPagos).
+:-use_module(avaliacoesDisc).
 
 main:-
     write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
@@ -59,6 +60,8 @@ menuInformacoesDetalhadas:-
     main.
 
 menuAvaliacao:-
+    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
     write("Menu de avaliação"), nl,
+    avaliacoesDisc:passoAvaliacao,
     main.
     
