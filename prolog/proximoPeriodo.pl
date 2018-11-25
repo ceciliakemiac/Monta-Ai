@@ -48,8 +48,8 @@ addPossiveisOptativas([]).
 addPossiveisOptativas([H | T]):-
     horariosPagos:getPreRequisito(H, Y),
     ((iteraSobreRequisitos(Y), not(horariosPagos:disciplinaPaga(H)), not(proximoPeriodoOp(H)))
-    -> assert(proximoPeriodoOp(H)), addPossiveisObrigatorias(T);
-    addPossiveisObrigatorias(T)).
+    -> assert(proximoPeriodoOp(H)), addPossiveisOptativas(T);
+    addPossiveisOptativas(T)).
 
 %Dada todas as disciplinas optativas, adiciona as que já podem ser pagas próximo período.
 addFinalPossiveisOptativas:-

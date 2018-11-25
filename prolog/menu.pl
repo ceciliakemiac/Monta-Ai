@@ -3,6 +3,7 @@
 :-use_module(turmas).
 :-use_module(horariosPagos).
 :-use_module(avaliacoesDisc).
+:-use_module(proximoPeriodo).
 
 logo :- 
     writeln(" __  __             _                            _           "),
@@ -19,7 +20,7 @@ main:-
     logo, nl,
     write("MENU"), nl,
     write("0 - Informar/Editar disciplinas que já paguei"), nl,
-    write("1 - Montar horário que já paguei"), nl,
+    write("1 - Montar horário do semestre"), nl,
     write("2 - Visualizar disciplinas"), nl,
     write("3 - Ver informações detalhadas de uma disciplina"), nl,
     write("4 - Avaliar disciplina"), nl,
@@ -58,12 +59,31 @@ menuDisciplinasPagas:-
     horariosPagos:digitaDisciplinas,
     menu0EscreveOpcoes.
 
+menu1ObservaDiscs:-
+    write("Estas são as disciplinas OBRIGATORIAS disponíveis para matrícula"), nl,
+    proximoPeriodo:addFinalPossiveisObrigatorias,
+    proximoPeriodo:exibirObrigatorias, nl,
+    write("Estas são as disciplinas OPTATIVAS disponíveis para matrícula"), nl,
+    proximoPeriodo:addFinalPossiveisOptativas,
+    proximoPeriodo:exibirOptativas, nl,
+    write("Deseja continuar observando(c) ou voltar para o menu principal(v) ?"),
+    read_line_to_string(user_input, Entrada),
+    (Entrada = "c" -> write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+     nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, menu1ObservaDiscs;
+     Entrada = "v" -> main;
+     menu1ObservaDiscs).  
+
 menuMontarHorario:-
-    write("Menu de montar o horário"), nl,
-    main.
+    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    write("Menu de montar o horário"), nl, nl,
+    write("Deseja importar algum horário pronto? (s/n)"), nl,
+    read_line_to_string(user_input, Entrada),
+    (Entrada = "n" -> menu1ObservaDiscs;
+     Entrada = "s" -> menuMontarHorario;
+     menuMontarHorario).
 
 menuVisualizarDisciplinas:-
-    write("Menu de vizualizar disciplinas"), nl,
+    write("Menu de vizualizar disciplinas"), nl, nl,
     main.
 
 menuInformacoesDetalhadas:-
