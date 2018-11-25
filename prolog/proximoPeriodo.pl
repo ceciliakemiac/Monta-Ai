@@ -3,6 +3,7 @@
 :- use_module(horariosPagos).
 
 %proximoPeriodoOb(Nome)
+%proximoPeriodoOp(Nome)
 :- dynamic (proximoPeriodoOb/1),
            (proximoPeriodoOp/1).
 
