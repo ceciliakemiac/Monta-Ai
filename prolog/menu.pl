@@ -52,7 +52,7 @@ menu0EscreveOpcoes:-
      menu0EscreveOpcoes).
 
 menuDisciplinasPagas:-
-    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    tty_clear,
     write("Menu de disciplinas pagas"), nl, nl,
     write("Quais disciplinas você já pagou?        | Digite 'pronto' quando terminar"), nl, nl,
     horariosPagos:digitaDisciplinas,
@@ -67,11 +67,22 @@ menuVisualizarDisciplinas:-
     main.
 
 menuInformacoesDetalhadas:-
-    write("Menu de informações detalhadas"), nl,
+    write("Informações detalhadas de uma disciplina"), nl,
+    write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
+    turmas:disciplina(Nome, C, P, O, Pr, H),
+    write("Creditos: "), writeln(C),
+    write("Status: "), (P =:= 1 -> writeln("Obrigatoria"); P =:= 0 -> writeln("Optativa")),
+    write("Pre-requisitos: "), 
+    exibePR(Pr),
     main.
 
+exibePR([]) :- writeln("").
+exibePR(X|XS) :- write(X),
+    write(" |"),
+      exibePR(XS).
+
 menuAvaliacao:-
-    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    tty_clear,
     write("Menu de avaliação"), nl,
     avaliacoesDisc:passoAvaliacao,
     main.
