@@ -74,12 +74,19 @@ menuInformacoesDetalhadas:-
     write("Status: "), (P =:= 1 -> writeln("Obrigatoria"); P =:= 0 -> writeln("Optativa")),
     write("Pre-requisitos: "), 
     exibePR(Pr),
+    write("Turmas: "),
+    exibeTurmas(H),
     main.
 
 exibePR([]) :- writeln("").
-exibePR(X|XS) :- write(X),
+exibePR([X|XS]) :- write(X),
     write(" |"),
-      exibePR(XS).
+    exibePR(XS).
+
+exibeTurmas([]) :-writeln("").
+exibeTurmas([X|XS]) :- write(X),
+    write(" |"),
+    exibeTurmas(XS).
 
 menuAvaliacao:-
     tty_clear,
