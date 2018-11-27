@@ -69,23 +69,23 @@ menuVisualizarDisciplinas:-
 menuInformacoesDetalhadas:-
     write("Informações detalhadas de uma disciplina"), nl,
     write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
-    turmas:disciplina(Nome, C, P, O, Pr, H),
+    turmas:disciplina(Nome, C, P, O, R, H),
     write("Creditos: "), writeln(C),
-    write("Status: "), (P =:= 1 -> writeln("Obrigatoria"); P =:= 0 -> writeln("Optativa")),
+    write("Status: "), (O =:= 1 -> writeln("Obrigatoria"); O =:= 0 -> writeln("Optativa")),
     write("Pre-requisitos: "), 
-    exibePR(Pr),
+    exibePR(R),
     write("Turmas: "),
     exibeTurmas(H),
     main.
 
 exibePR([]) :- writeln("").
 exibePR([X|XS]) :- write(X),
-    write(" |"),
+    write(" | "),
     exibePR(XS).
 
-exibeTurmas([]) :-writeln("").
+exibeTurmas([]) :- writeln("").
 exibeTurmas([X|XS]) :- write(X),
-    write(" |"),
+    write(" | "),
     exibeTurmas(XS).
 
 menuAvaliacao:-
