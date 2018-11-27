@@ -2,6 +2,16 @@
 :- use_module(proximoPeriodo).
 :- use_module(turmas).
 
+
+geraCombinacoes( [],[] ).
+geraCombinacoes( [X|L1] , [X|L2]):-
+    geraCombinacoes( L1 , L2).
+geraCombinacoes( [ _ |L1] , L2 ) :-
+    geraCombinacoes( L1 , L2).
+
+geraCombinacoesLista(Disciplinas, Saida):- findall(S, geraCombinacoes(Disciplinas, S), Saida).
+
+
 getTurmas(Disc, T):-
     turmas:disciplina(Disc, _, _, _, _, T).
 
