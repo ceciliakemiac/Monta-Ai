@@ -76,7 +76,7 @@ menuInformacoesDetalhadas:-
     exibePR(R),
     writeln("Turmas: "),
     exibeTurmas(H, 1),
-    %avaliacoesDisc:toStringAval(Nome),
+    avaliacoesDisc:toStringAval(Nome),
     menuInformacoesDetalhadasOp,
     main.
 

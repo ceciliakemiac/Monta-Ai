@@ -39,28 +39,33 @@ escolherOpcao(Disc) :-
 
 adicionaComentario(Nome, Comentario) :- assert(avaliacoesComentario(Nome, Comentario)).
 
-
 listar([]):- write("").
 listar([H | T]):-
     write("     - "),
     writeln(H),
     listar(T).
     
-
 atribuirNivel(Nome, Nivel) :- avaliacoesNivel(Nome,_) ->
     retract(avaliacoesNivel(Nome,_)), assert(avaliacoesNivel(Nome, Nivel));
     assert(avaliacoesNivel(Nome, Nivel)).
 
-getNivel(Nome, Res) :- avaliacoesNivel(Nome, Res).
+getNivel(Nome) :- 
+    findall(X, avaliacoesNivel(Nome, X), Y),
+    nivelG(Y).
 
 getComentarios(Nome) :- 
     findall(X, avaliacoesComentario(Nome, X), Y),
     writeln("Comentarios:"),
     listar(Y).
 
+nivelG([]) :- write("").
+nivelG([X|L]):- 
+    nivel(X,Res),
+    write(Res), nivelG(L).
+
 toStringAval(Nome) :- 
     getComentarios(Nome), write("- Essa disciplina eh "),
-    getNivel(Nome, X), nivel(X, Y), write(Y), 
+    getNivel(Nome), 
     writeln(" >:(").
 
 nivel(1, "rasgada").
