@@ -11,6 +11,18 @@ geraCombinacoes( [ _ |L1] , L2 ) :-
 
 geraCombinacoesLista(Disciplinas, Saida):- findall(S, geraCombinacoes(Disciplinas, S), Saida).
 
+/* Verifica se um dia e hora não bate com horarios de uma turma */
+naoChoca(D, H, []).
+naoChoca(D, H, [D1, H1|Tail]):- not(D = D1), naoChoca(D, H, Tail).
+naoChoca(D, H, [D1, H1|Tail]):- not(H = H1), naoChoca(D, H, Tail).
+
+/* verifica se não tem choques entre turmas. 
+** turmas: [[2, 8, 4, 10], [2, 10, 5, 8], ...]*/
+naotemChoques([]).
+naotemChoques([X]).
+naotemChoques([ [D, H | [] ] | [X | T2] ]):- naoChoca(D, H, X), naotemChoques([X | T2]).
+naotemChoques([ [D, H | T1] | [X | T2]]) :- naoChoca(D, H, X), naotemChoques([T1 | [ X |T2]]).
+
 
 getTurmas(Disc, T):-
     turmas:disciplina(Disc, _, _, _, _, T).
