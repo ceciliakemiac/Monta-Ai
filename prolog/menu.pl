@@ -74,19 +74,28 @@ menuInformacoesDetalhadas:-
     write("Status: "), (O =:= 1 -> writeln("Obrigatoria"); O =:= 0 -> writeln("Optativa")),
     write("Pre-requisitos: "), 
     exibePR(R),
-    write("Turmas: "),
-    exibeTurmas(H),
+    writeln("Turmas: "),
+    exibeTurmas(H, 1),
+    %avaliacoesDisc:toStringAval(Nome),
+    menuInformacoesDetalhadasOp,
     main.
+
+menuInformacoesDetalhadasOp:-
+    writeln("1 - Visualizar outra disciplina"),
+    writeln("2 - voltar ao menu"),
+    read_line_to_string(user_input, Op), (Op =:= "1" -> menuInformacoesDetalhadas; Op =:= "2" ; menuInformacoesDetalhadasOp).
 
 exibePR([]) :- writeln("").
 exibePR([X|XS]) :- write(X),
     write(" | "),
     exibePR(XS).
 
-exibeTurmas([]) :- writeln("").
-exibeTurmas([X|XS]) :- write(X),
-    write(" | "),
-    exibeTurmas(XS).
+exibeTurmas([], N) :- writeln("").
+exibeTurmas([X|XS], Nx) :- X = [D1, H1, D2, H2], 
+    write("------ "), write(Nx), write(" | Dia "), write(D1), write("- hora: "), write(H1), write(" |"),
+    write("| "), write(" | Dia "), write(D2), write("- hora: "), write(H2), writeln(" |"),
+    N is Nx + 1,
+    exibeTurmas(XS, N).
 
 menuAvaliacao:-
     tty_clear,
