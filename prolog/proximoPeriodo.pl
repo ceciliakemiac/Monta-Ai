@@ -52,6 +52,10 @@ addPossiveisOptativas([H | T]):-
     -> assert(proximoPeriodoOp(H)), addPossiveisOptativas(T);
     addPossiveisOptativas(T)).
 
+removerObrigatoria(Nome):-
+    turmas:disciplina(Nome, _, _, _, _, _),
+    retract(proximoPeriodoOb(Nome)).
+
 %Dada todas as disciplinas optativas, adiciona as que já podem ser pagas próximo período.
 addFinalPossiveisOptativas:-
     getOptativas(Optativas),

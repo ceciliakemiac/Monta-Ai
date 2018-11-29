@@ -188,3 +188,15 @@ disciplina("FUT", 2, 0, false, [],
 
 disciplina("DC", 4, 0, false, [], 
     [[3, 10, 6, 8], []]).
+
+dia(2, "Segunda").
+dia(3, "Terça").
+dia(4, "Quarta").
+dia(5, "Quinta").
+dia(6, "Sexta").
+
+hora(8, "08:00").
+hora(10, "10:00").
+hora(14, "14:00").
+hora(16, "16:00").
+
