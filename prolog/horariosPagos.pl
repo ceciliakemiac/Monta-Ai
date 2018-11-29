@@ -63,4 +63,5 @@ getListaDisciplinasPagas:-
     findall(Y, disciplinaPaga(Y), X),
     listarDisciplinasPagas(X).
 
+getDisciplinasPagas(Y):- findall(X, disciplinaPaga(X), Y).
 
