@@ -2,6 +2,7 @@
 :- use_module(proximoPeriodo).
 :- use_module(turmas).
 :- use_module(horariosPagos).
+:- use_module(menu).
 
 :- dynamic (proximoPeriodoTurmas/3).
 
@@ -9,20 +10,6 @@ getProximas(Y):-
     findall(X, (proximoPeriodo:proximoPeriodoOb(X)), Y).
 
 getProximasComTurmas(Y):- findall([D, Horas, Turma], proximoPeriodoTurmas(D, Horas, Turma), Y).
-
-/* Verifica se um dia e hora não bate com horarios de uma turma */
-naoChoca(D, H, []).
-naoChoca(D, H, [D1, H1|Tail]):- not(D = D1), naoChoca(D, H, Tail).
-naoChoca(D, H, [D1, H1|Tail]):- not(H = H1), naoChoca(D, H, Tail).
-
-/* verifica se não tem choques entre turmas. 
-** turmas: [[2, 8, 4, 10], [2, 10, 5, 8], ...]*/
-naotemChoques([]).
-naotemChoques([X]).
-% naotemChoques([ [D, H | R ] | [X, Y, Z | []]]):- 
-%     naoChoca(D, H, X), naoChoca(D, H, Y), naoChoca(D, H, Z).
-naotemChoques([ [D, H | [] ] | [X | T2] ]):- naoChoca(D, H, X), naotemChoques([X | T2]).
-naotemChoques([ [D, H | T1] | [X | T2]]) :- naoChoca(D, H, X), naotemChoques([T1 | [ X |T2]]).
 
 getTurmas(Disc, T):-
     turmas:disciplina(Disc, _, _, _, _, T).
@@ -146,41 +133,15 @@ escreveHorarios([H | T]):-
     escreveHorario(H), true,
     escreveHorarios(T).
     
-
-%4 turmas não tem o mesmo horário
-% semChoqueTurmas([], [], [], []).
-% semChoqueTurmas([], _, _, _).
-% semChoqueTurmas(_, [], _, _).
-% semChoqueTurmas(_, _, [], _).
-% semChoqueTurmas(_, _, _, []).
-% semChoqueTurmas(T1, T2, T3, T4):-
-%     not(analisaChoqueTurmas(T1, T2)), not(analisaChoqueTurmas(T1, T3)), 
-%     not(analisaChoqueTurmas(T1, T4)), not(analisaChoqueTurmas(T2, T3)),
-%     not(analisaChoqueTurmas(T2, T4)), not(analisaChoqueTurmas(T3, T4)).  
-
-% temChoqueDiscs(A, B):-
-%     getTurmas(A, Ta), getTurmas(B, Tb),
-%     nth0(0, Ta, T1), nth0(1, Ta, T2), nth0(0, Tb, T3), nth0(1, Tb, T4),
-%     (not(analisaChoqueTurmas(T1, T3)) -> false;
-%      not(analisaChoqueTurmas(T1, T4)) -> false;
-%      not(analisaChoqueTurmas(T2, T3)) -> false;
-%      not(analisaChoqueTurmas(T2, T4)) -> false;
-%      true).
-
-% getDiscsAleatorias(Y, X, W, Z):-
-%     proximoPeriodo:proximoPeriodoOb(Y),
-%     proximoPeriodo:proximoPeriodoOb(X),
-%     proximoPeriodo:proximoPeriodoOb(W),
-%     proximoPeriodo:proximoPeriodoOb(Z),
-%     Y \== X, Y \== W, Y \== Z,
-%     X \== W, X \== Z, W \== Z,
-%     not(temChoqueDiscs(Y, X)), not(temChoqueDiscs(Y, W)), not(temChoqueDiscs(Y, Z)),
-%     not(temChoqueDiscs(X, W)), not(temChoqueDiscs(X, Z)), not(temChoqueDiscs(W, Z)).
-
-% geraHorario(Y, X, W, Z):-
-%     getTurmas(Y, Ty), getTurmas(X, Tx), getTurmas(W, Tw), getTurmas(Z, Tz),
-%     getTurma(Ty, Ty1, Ty2), getTurma(Tx, Tx1, Tx2), getTurma(Tw, Tw1, Tw2), getTurma(Tz, Tz1, Tz2),
-%     (semChoqueTurmas(Ty1, Tx1, Tw1, Tz1) -> exibeHorarioTurmas(Y, Ty1, X, Tx1, W, Tw1, Z, Tz1)).
-
-% exibeHorarioTurmas(Y, Ty, X, Tx, W, Tw, Z, Tz):-
+escreveHorariosPorVez([]).
+escreveHorariosPorVez([H | T]):-
+    write("Processando..."), nl,
+    write("Possíveis horários: "), nl,
+    escreveHorarios(H), nl,
+    write("escolher(e) proximo(n) menu principal(p)"), nl,
+    read_line_to_string(user_input, Entrada),
+    (Entrada = "e" -> menu:main;
+     Entrada = "n" -> escreveHorariosPorVez(T);
+     Entrada = "p" -> menu:main;
+     escreveHorariosPorVez(T)).
 

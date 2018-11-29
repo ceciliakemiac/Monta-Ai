@@ -1,3 +1,4 @@
+:- module(menu, []).
 :- initialization(main).
 
 :-use_module(turmas).
@@ -76,7 +77,8 @@ menu1Calcula:-
     read_line_to_string(user_input, Entrada),
     (Entrada = "r" -> read_line_to_string(user_input, D),
      proximoPeriodo:removerObrigatoria(D), menu1Calcula;
-     Entrada = "c" -> gerarHorarios:exibirHorarios, menu1Calcula;
+     Entrada = "c" -> gerarHorarios:geraCombinacoesLista(S), 
+     gerarHorarios:escreveHorariosPorVez(S);
      menu1Calcula).  
 
 menuMontarHorario:-
