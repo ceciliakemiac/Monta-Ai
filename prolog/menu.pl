@@ -16,7 +16,7 @@ logo :-
 
 
 main:-
-    write('\e[H\e[2J'),
+    write('\e[2J'),
     logo, nl,
     write("MENU"), nl,
     write("0 - Informar/Editar disciplinas que já paguei"), nl,
@@ -64,9 +64,9 @@ menuMontarHorario:-
     main.
 
 menuVisualizarDisciplinas:-
+    write('\e[H\e[2J'),
     write("Menu de vizualizar disciplinas"), nl,
-    menuVisualizarDisciplinasOp1,
-    main.
+    menuVisualizarDisciplinasOp1.
 
 menuVisualizarDisciplinasOp1:-
     writeln("Menu: planilha de horarios(1) listagem(2) filtrar(3) voltar ao menu(4)"),
@@ -75,14 +75,20 @@ menuVisualizarDisciplinasOp1:-
 
 exibePlanilhaHorarios:-
     writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    "),
-    main.
+    %todo
+    menuVisualizarDisciplinasOp1.
+
+listaDisciplinas:-
+    findall(Nome,  turmas:disciplina(Nome, _, _, _, _, _), Lista),
+    funcoesDeExibicao:exibeListaDeDisciplinas(Lista),
+    menuVisualizarDisciplinasOp1.
 
 menuInformacoesDetalhadas:-
     write("Informações detalhadas de uma disciplina"), nl,
     write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
     turmas:disciplina(Nome, C, P, O, R, H),
     write("Creditos: "), writeln(C),
-    write("Status: "), (O =:= 1 -> writeln("Obrigatoria"); O =:= 0 -> writeln("Optativa")),
+    write("Status: "), exibeStatus(O),
     write("Pre-requisitos: "), 
     funcoesDeExibicao:exibePR(R),
     writeln("Turmas: "),
@@ -90,18 +96,6 @@ menuInformacoesDetalhadas:-
     avaliacoesDisc:toStringAval(Nome),
     menuInformacoesDetalhadasOp,
     main.
-
-exibePR([]) :- writeln("").
-exibePR([X|XS]) :- write(X),
-    write(" | "),
-    exibePR(XS).
-
-exibeTurmas([], N) :- writeln("").
-exibeTurmas([X|XS], Nx) :- X = [D1, H1, D2, H2], 
-    write("------ "), write(Nx), write(" | Dia "), write(D1), write("- hora: "), write(H1), write(" |"),
-    write("| "), write(" | Dia "), write(D2), write("- hora: "), write(H2), writeln(" |"),
-    N is Nx + 1,
-    exibeTurmas(XS, N).
 
 menuInformacoesDetalhadasOp:-
     writeln("1 - Visualizar outra disciplina"),
