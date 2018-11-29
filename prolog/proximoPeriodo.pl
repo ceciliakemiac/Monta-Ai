@@ -3,6 +3,7 @@
 :- use_module(horariosPagos).
 
 %proximoPeriodoOb(Nome)
+%proximoPeriodoOp(Nome)
 :- dynamic (proximoPeriodoOb/1),
            (proximoPeriodoOp/1).
 
@@ -50,6 +51,10 @@ addPossiveisOptativas([H | T]):-
     ((iteraSobreRequisitos(Y), not(horariosPagos:disciplinaPaga(H)), not(proximoPeriodoOp(H)))
     -> assert(proximoPeriodoOp(H)), addPossiveisOptativas(T);
     addPossiveisOptativas(T)).
+
+removerObrigatoria(Nome):-
+    turmas:disciplina(Nome, _, _, _, _, _),
+    retract(proximoPeriodoOb(Nome)).
 
 %Dada todas as disciplinas optativas, adiciona as que já podem ser pagas próximo período.
 addFinalPossiveisOptativas:-
