@@ -1,5 +1,7 @@
 :- module(funcoesDeExibicao, []).
 
+:-use_module(planilha).
+
 exibeStatus(O):-
     (O =:= 1 -> writeln("Obrigatoria"); O =:= 0 -> writeln("Optativa")).
 
@@ -24,8 +26,7 @@ exibeListaDeDisciplinas([X|XS]) :-
     exibeListaDeDisciplinas(XS).
 
 exibePlanilhaHorarios:-
-    writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    ").
-    %todo.
+   planilha:planilha1.
 
 listaDisciplinas:-
     findall(Nome,  turmas:disciplina(Nome, _, _, _, _, _), Lista),

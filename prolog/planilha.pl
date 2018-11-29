@@ -1,6 +1,6 @@
 :- module(planilha,[]).
 
-planilha :- writeln("         SEGUNDA          TERÇA          QUARTA          QUINTA          SEXTA
+planilha1 :- writeln("         SEGUNDA          TERÇA          QUARTA          QUINTA          SEXTA
 8:00     BD1 t-1         AA t-1          LC t-1         Comp t-2         AA t-1
          CDP t-1         Comp t-1        LOAC t-1       D1/2 t-1         AS t-1
          EDA t-1         D1/2 t-1        LP t-1         EA t-1           ATAL t-1
