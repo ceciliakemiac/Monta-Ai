@@ -4,30 +4,30 @@
 % .....Requisitos, turmas 
 
 % 1p
-disciplina("FMCC1", 4, 1, true, [], 
+disciplina("FMCC1", 4, 1, 1, [], 
     [[3, 10, 6, 8], [3, 10, 6, 8]]).
 
-disciplina("P1", 4, 1, true, [],
+disciplina("P1", 4, 1, 1, [],
     [[2, 14, 4, 16], [2, 8, 4, 10]]).
 
-disciplina("LP1", 4, 1, true, [],
+disciplina("LP1", 4, 1, 1, [],
     [[2, 10, 4, 8], [2, 16, 5, 14]]).
 
-disciplina("IC", 4, 1, true, [],
+disciplina("IC", 4, 1, 1, [],
     [[3, 8, 5, 10], [3, 8, 5, 10]]).
 
 
 % 2p
-disciplina("FMCC2", 4, 2, true, ["FMCC1"], 
+disciplina("FMCC2", 4, 2, 1, ["FMCC1"], 
     [[2, 10, 5, 8], [2, 10, 5, 8]]).
 
-disciplina("C1", 4, 2, true, ["FMCC1"], 
+disciplina("C1", 4, 2, 1, ["FMCC1"], 
     [[2, 14, 4, 16], [2, 14, 4, 16]]).
 
-disciplina("P2", 4, 2, true, ["P1", "LP1"], 
+disciplina("P2", 4, 2, 1, ["P1", "LP1"], 
     [[4, 8, 6, 10], [4, 8, 6, 10]]).
 
-disciplina("LP2", 4, 2, true, ["P1", "LP1"], 
+disciplina("LP2", 4, 2, 1, ["P1", "LP1"], 
     [[3, 8, 5, 10], [3, 8, 5, 10]]).
 
 
@@ -41,32 +41,32 @@ disciplina("LC", 4, 3, true, ["FMCC2", "C1"],
 disciplina("C2", 4, 3, true, ["FMCC2", "C1"], 
     [[2, 14, 4, 16], []]).
 
-disciplina("EDA", 4, 3, true, ["P2", "LP2"], 
+disciplina("EDA", 4, 3, 1, ["P2", "LP2"], 
     [[2, 8, 4, 10], [3, 8, 5, 10]]).
 
-disciplina("LEDA", 4, 3, true, ["P2", "LP2"], 
+disciplina("LEDA", 4, 3, 1, ["P2", "LP2"], 
     [[2, 16, 5, 14], [2, 16, 5, 14]]).
 
 disciplina("TG", 4, 3, true, [], 
     [[3, 10, 6, 10], []]).
 
 % 4p
-disciplina("IP", 4, 4, true, ["FMCC2", "C1"], 
+disciplina("IP", 4, 4, 1, ["FMCC2", "C1"], 
     [[2, 10, 5, 8], [2, 10, 5, 8]]).
 
-disciplina("PS", 4, 4, true, ["P1", "LP1"], 
+disciplina("PS", 4, 4, 1, ["P1", "LP1"], 
     [[2, 14, 4, 16], [2, 14, 4, 16]]).
 
-disciplina("PLP", 4, 4, true, ["P1", "LP1"], 
+disciplina("PLP", 4, 4, 1, ["P1", "LP1"], 
     [[2, 16, 6, 14], [2, 16, 6, 14]]).
 
-disciplina("BD1", 4, 4, true, ["EDA"], 
+disciplina("BD1", 4, 4, 1, ["EDA"], 
     [[2, 8, 4, 10], [3, 14, 5, 16]]).
 
-disciplina("OAC", 4, 4, true, ["IC"], 
+disciplina("OAC", 4, 4, 1, ["IC"], 
     [[3, 10, 6, 8], [4, 8, 6, 10]]).
 
-disciplina("LOAC", 4, 4, true, ["IC"], 
+disciplina("LOAC", 4, 4, 1, ["IC"], 
     [[4, 8, 6, 10], [3, 14, 5, 16]]).
 
 
@@ -80,8 +80,7 @@ disciplina("AS", 4, 5, true, ["P1", "LP1"],
 disciplina("ES", 4, 5, true, ["P1", "LP1"], 
     [[2, 14, 4, 16], []]).
 
-
-disciplina("RC", 4, 5, true, ["IC"], 
+disciplina("RC", 4, 5, 1, ["IC"], 
     [[3, 8, 5, 10], [3, 16, 5, 14]]).
 
 
@@ -105,7 +104,6 @@ disciplina("PC", 4, 6, true, ["SO"],
 disciplina("IA", 4, 6, true, ["TC"], 
     [[3, 16, 6, 14], []]).
 
-
 % 7p
 
 
@@ -118,7 +116,7 @@ disciplina("COMP", 4, 7, true, ["EDA", "LEDA"],
 
 % 8p 
 
-disciplina("PC1", 4, 8, true, ["ES"], 
+disciplina("PC1", 4, 8, 1, ["ES"], 
     [[3, 10, 5, 8], [3, 10, 5, 8]]).
 
 
@@ -130,12 +128,11 @@ disciplina("PTCC", 4, 8, true, [],
 disciplina("PC2", 4, 8, true, ["PC1"], 
     [[3, 14, 5, 16], []]).
 
-disciplina("TCC", 4, 8, true, ["PTCC"], 
+disciplina("TCC", 4, 8, 1, ["PTCC"], 
     [[2, 10, 5, 8], [3, 10, 5, 8]]).
 
 
 % optativas
-
 disciplina("VD", 4, 0, false, [], 
     [[2, 10, 5, 8], []]).
 
@@ -180,7 +177,7 @@ disciplina("LP", 4, 0, false, [],
     [[2, 18, 4, 18], []]).
 
 
-disciplina("ING", 4, 0, false, [], 
+disciplina("ING", 4, 0, 0, [], 
     [[2, 8, 4, 10], [2, 18, 5, 10]]).
 
 disciplina("FUT", 2, 0, false, [], 
@@ -188,6 +185,7 @@ disciplina("FUT", 2, 0, false, [],
 
 disciplina("DC", 4, 0, false, [], 
     [[3, 10, 6, 8], []]).
+
 
 dia(2, "Segunda").
 dia(3, "Terça").

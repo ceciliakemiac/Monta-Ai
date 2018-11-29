@@ -4,6 +4,7 @@
 :-use_module(turmas).
 :-use_module(horariosPagos).
 :-use_module(avaliacoesDisc).
+:-use_module(funcoesDeExibicao).
 :-use_module(proximoPeriodo).
 :-use_module(gerarHorarios).
 
@@ -18,7 +19,7 @@ logo :-
 
 
 main:-
-    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    write('\e[2J'),
     logo, nl,
     write("MENU"), nl,
     write("0 - Informar/Editar disciplinas que já paguei"), nl,
@@ -55,7 +56,7 @@ menu0EscreveOpcoes:-
      menu0EscreveOpcoes).
 
 menuDisciplinasPagas:-
-    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    tty_clear,
     write("Menu de disciplinas pagas"), nl, nl,
     write("Quais disciplinas você já pagou?        | Digite 'pronto' quando terminar"), nl, nl,
     horariosPagos:digitaDisciplinas,
@@ -91,15 +92,47 @@ menuMontarHorario:-
      menuMontarHorario).
 
 menuVisualizarDisciplinas:-
-    write("Menu de vizualizar disciplinas"), nl, nl,
-    main.
+    write('\e[H\e[2J'),
+    write("Menu de vizualizar disciplinas"), nl,
+    menuVisualizarDisciplinasOp1.
+
+menuVisualizarDisciplinasOp1:-
+    writeln("Menu: planilha de horarios(1) listagem(2) filtrar(3) voltar ao menu(4)"),
+    read_line_to_string(user_input, Op),
+    (Op =:= "1" -> funcoesDeExibicao:exibePlanilhaHorarios ; Op =:= "2" -> funcoesDeExibicao:listaDisciplinas; Op =:= "3" -> funcoesDeExibicao:filtraDisciplinas; Op =:= "4" -> main; menuVisualizarDisciplinasOp1),
+    menuVisualizarDisciplinasOp1.
+
+filtraDisciplinas:-
+    writeln("Filtrar por periodo(1), obrigatorias(2), optativas(3) ou todas as disciplinas(4)?"),
+    read_line_to_string(user_input, Op),
+    (Op =:= "1" -> funcoesDeExibicao:listaPorPeriodo; Op =:= "2" -> funcoesDeExibicao:listaObrigatorias; Op =:= "3" -> funcoesDeExibicao:listaOptativas; Op =:= "4" -> funcoesDeExibicao:listaDisciplinas; filtraDisciplinas).
+
+exibePlanilhaHorarios:-
+    writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    "),
+    %todo
+    menuVisualizarDisciplinasOp1.
 
 menuInformacoesDetalhadas:-
-    write("Menu de informações detalhadas"), nl,
+    write("Informações detalhadas de uma disciplina"), nl,
+    write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
+    turmas:disciplina(Nome, C, P, O, R, H),
+    write("Creditos: "), writeln(C),
+    write("Status: "), funcoesDeExibicao:exibeStatus(O),
+    write("Pre-requisitos: "), 
+    funcoesDeExibicao:exibePR(R),
+    writeln("Turmas: "),
+    funcoesDeExibicao:exibeTurmas(H, 1),
+    avaliacoesDisc:toStringAval(Nome),
+    menuInformacoesDetalhadasOp,
     main.
 
+menuInformacoesDetalhadasOp:-
+    writeln("1 - Visualizar outra disciplina"),
+    writeln("2 - voltar ao menu"),
+    read_line_to_string(user_input, Op), (Op =:= "1" -> menuInformacoesDetalhadas; Op =:= "2" -> main; menuInformacoesDetalhadasOp).
+
 menuAvaliacao:-
-    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    tty_clear,
     write("Menu de avaliação"), nl,
     avaliacoesDisc:passoAvaliacao,
     main.
