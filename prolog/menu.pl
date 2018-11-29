@@ -1,3 +1,4 @@
+:- module(menu, []).
 :- initialization(main).
 
 :-use_module(turmas).
@@ -5,6 +6,7 @@
 :-use_module(avaliacoesDisc).
 :-use_module(funcoesDeExibicao).
 :-use_module(proximoPeriodo).
+:-use_module(gerarHorarios).
 
 logo :- 
     writeln(" __  __             _                            _           "),
@@ -67,12 +69,18 @@ menu1ObservaDiscs:-
     write("Estas são as disciplinas OPTATIVAS disponíveis para matrícula"), nl,
     proximoPeriodo:addFinalPossiveisOptativas,
     proximoPeriodo:exibirOptativas, nl,
-    write("Deseja continuar observando(c) ou voltar para o menu principal(v) ?"),
+    menu1Calcula.
+
+menu1Calcula:-
+    write("Calculando possiblidades com as seguintes disciplinas"), nl,
+    proximoPeriodo:exibirObrigatorias, nl,
+    write("Deseja remover(r) alguma disciplinas ou continuar(c)?"),
     read_line_to_string(user_input, Entrada),
-    (Entrada = "c" -> write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
-     nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, menu1ObservaDiscs;
-     Entrada = "v" -> main;
-     menu1ObservaDiscs).  
+    (Entrada = "r" -> read_line_to_string(user_input, D),
+     proximoPeriodo:removerObrigatoria(D), menu1Calcula;
+     Entrada = "c" -> gerarHorarios:geraCombinacoesLista(S), 
+     gerarHorarios:escreveHorariosPorVez(S);
+     menu1Calcula).  
 
 menuMontarHorario:-
     write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
