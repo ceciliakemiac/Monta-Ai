@@ -71,16 +71,17 @@ menuVisualizarDisciplinas:-
 menuVisualizarDisciplinasOp1:-
     writeln("Menu: planilha de horarios(1) listagem(2) filtrar(3) voltar ao menu(4)"),
     read_line_to_string(user_input, Op),
-    (Op =:= "1" -> exibePlanilhaHorarios ; Op =:= "2" -> listaDisciplinas; Op =:= "3" -> filtraDisciplinas; Op =:= "4" -> main; menuVisualizarDisciplinasOp1).
+    (Op =:= "1" -> funcoesDeExibicao:exibePlanilhaHorarios ; Op =:= "2" -> funcoesDeExibicao:listaDisciplinas; Op =:= "3" -> funcoesDeExibicao:filtraDisciplinas; Op =:= "4" -> main; menuVisualizarDisciplinasOp1),
+    menuVisualizarDisciplinasOp1.
+
+filtraDisciplinas:-
+    writeln("Filtrar por periodo(1), obrigatorias(2), optativas(3) ou todas as disciplinas(4)?"),
+    read_line_to_string(user_input, Op),
+    (Op =:= "1" -> funcoesDeExibicao:listaPorPeriodo; Op =:= "2" -> funcoesDeExibicao:listaObrigatorias; Op =:= "3" -> funcoesDeExibicao:listaOptativas; Op =:= "4" -> funcoesDeExibicao:listaDisciplinas; filtraDisciplinas).
 
 exibePlanilhaHorarios:-
     writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    "),
     %todo
-    menuVisualizarDisciplinasOp1.
-
-listaDisciplinas:-
-    findall(Nome,  turmas:disciplina(Nome, _, _, _, _, _), Lista),
-    funcoesDeExibicao:exibeListaDeDisciplinas(Lista),
     menuVisualizarDisciplinasOp1.
 
 menuInformacoesDetalhadas:-
@@ -88,7 +89,7 @@ menuInformacoesDetalhadas:-
     write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
     turmas:disciplina(Nome, C, P, O, R, H),
     write("Creditos: "), writeln(C),
-    write("Status: "), exibeStatus(O),
+    write("Status: "), funcoesDeExibicao:exibeStatus(O),
     write("Pre-requisitos: "), 
     funcoesDeExibicao:exibePR(R),
     writeln("Turmas: "),
