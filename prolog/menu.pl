@@ -3,6 +3,7 @@
 :-use_module(turmas).
 :-use_module(horariosPagos).
 :-use_module(avaliacoesDisc).
+:-use_module(funcoesDeExibicao).
 
 logo :- 
     writeln(" __  __             _                            _           "),
@@ -15,7 +16,7 @@ logo :-
 
 
 main:-
-    write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
+    write('\e[H\e[2J'),
     logo, nl,
     write("MENU"), nl,
     write("0 - Informar/Editar disciplinas que já paguei"), nl,
@@ -64,6 +65,16 @@ menuMontarHorario:-
 
 menuVisualizarDisciplinas:-
     write("Menu de vizualizar disciplinas"), nl,
+    menuVisualizarDisciplinasOp1,
+    main.
+
+menuVisualizarDisciplinasOp1:-
+    writeln("Menu: planilha de horarios(1) listagem(2) filtrar(3) voltar ao menu(4)"),
+    read_line_to_string(user_input, Op),
+    (Op =:= "1" -> exibePlanilhaHorarios ; Op =:= "2" -> listaDisciplinas; Op =:= "3" -> filtraDisciplinas; Op =:= "4" -> main; menuVisualizarDisciplinasOp1).
+
+exibePlanilhaHorarios:-
+    writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    "),
     main.
 
 menuInformacoesDetalhadas:-
@@ -73,17 +84,12 @@ menuInformacoesDetalhadas:-
     write("Creditos: "), writeln(C),
     write("Status: "), (O =:= 1 -> writeln("Obrigatoria"); O =:= 0 -> writeln("Optativa")),
     write("Pre-requisitos: "), 
-    exibePR(R),
+    funcoesDeExibicao:exibePR(R),
     writeln("Turmas: "),
-    exibeTurmas(H, 1),
+    funcoesDeExibicao:exibeTurmas(H, 1),
     avaliacoesDisc:toStringAval(Nome),
     menuInformacoesDetalhadasOp,
     main.
-
-menuInformacoesDetalhadasOp:-
-    writeln("1 - Visualizar outra disciplina"),
-    writeln("2 - voltar ao menu"),
-    read_line_to_string(user_input, Op), (Op =:= "1" -> menuInformacoesDetalhadas; Op =:= "2" ; menuInformacoesDetalhadasOp).
 
 exibePR([]) :- writeln("").
 exibePR([X|XS]) :- write(X),
@@ -96,6 +102,11 @@ exibeTurmas([X|XS], Nx) :- X = [D1, H1, D2, H2],
     write("| "), write(" | Dia "), write(D2), write("- hora: "), write(H2), writeln(" |"),
     N is Nx + 1,
     exibeTurmas(XS, N).
+
+menuInformacoesDetalhadasOp:-
+    writeln("1 - Visualizar outra disciplina"),
+    writeln("2 - voltar ao menu"),
+    read_line_to_string(user_input, Op), (Op =:= "1" -> menuInformacoesDetalhadas; Op =:= "2" -> main; menuInformacoesDetalhadasOp).
 
 menuAvaliacao:-
     tty_clear,
