@@ -84,7 +84,7 @@ menu1Calcula:-
     read_line_to_string(user_input, Entrada),
     (Entrada = "r" -> menu1Remove;
      Entrada = "c" -> gerarHorarios:geraCombinacoesLista(S), 
-     gerarHorarios:escreveHorariosPorVez(S);
+     gerarHorarios:printHorariosPorVez(S);
      menu1CalculaE).
 
 menu1CalculaE:-

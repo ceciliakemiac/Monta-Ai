@@ -23,8 +23,8 @@ criaComTurmasPorDisc([H | T]):-
     getTurmas(H, Turmas),
     getTurma(Turmas, T1, T2),
     length(T2, Int),
-    (Int \== 0 -> assert(proximoPeriodoTurmas(H, T2, t-2)), true; true),
-    assert(proximoPeriodoTurmas(H, T1, t-1)),
+    (Int \== 0 -> assert(proximoPeriodoTurmas(H, T2, 2)), true; true),
+    assert(proximoPeriodoTurmas(H, T1, 1)),
     criaComTurmasPorDisc(T).
 
 %gera os fatos de proximoPeriodoTurmas com as proximas disciplinas/turmas a se pagar
@@ -145,3 +145,77 @@ escreveHorariosPorVez([H | T]):-
      Entrada = "p" -> menu:main;
      escreveHorariosPorVez([H | T])).
 
+printHorariosPorVez([]).
+printHorariosPorVez([H | T]):-
+    write("Processando..."), nl,
+    write("Possíveis horários: "), nl,
+    printHorario(H), nl,
+    write("escolher(e) proximo(n) menu principal(p)"), nl,
+    read_line_to_string(user_input, Entrada),
+    (Entrada = "e" -> menu:main;
+     Entrada = "n" -> printHorariosPorVez(T);
+     Entrada = "p" -> menu:main;
+     printHorariosPorVez([H | T])).
+
+pegaDH(D, H, [], []).
+pegaDH(D, H, [[Nome,[D, H| []] , Turma]|T1], [S | T2]):-
+    atom_string(Nome, N1),
+    atom_string(Turma, Turma1),
+    atomics_to_string([N1, Turma1], ": t-", S),
+    pegaDH(D, H, T1, T2).
+pegaDH(D, H, [[Nome,[D, H| T] , Turma]|T1], [S | T2]):-
+    atom_string(Nome, N1),
+    atom_string(Turma, Turma1),
+    atomics_to_string([N1, Turma1], ": t-", S),
+    pegaDH(D, H, T1, T2).
+pegaDH(D, H, [[Nome,[_, _| T] , Turma]|T1], T2):-
+    pegaDH(D, H, [[ Nome, T, Turma] | T1], T2).
+pegaDH(D, H, [_|T], X):- pegaDH(D, H, T, X).
+
+replicate(0, X, "").
+replicate(1, X, S):- string_concat(X, "", S).
+replicate(N, X, S):- N < 0, replicate(0, X, S).
+replicate(N, X, S):-
+    N1 is N - 1, replicate(N1, X, S1), string_concat(X, S1, S).
+
+
+formataString(String, S):-
+    atomics_to_string(String, "", S1),
+    string_length(S1, Len),!,  
+    Esp is 15 - Len,
+    replicate(Esp, " ", S2),!,
+    string_concat(S1, S2, S),!.
+
+
+writeSemana(S, T, Q, Qt, Sx):-
+    formataString(S, S1),!, 
+    formataString(T, T1),!,
+    formataString(Q, Q1),!,
+    formataString(Qt, Qt1),!,
+    formataString(Sx, Sx1),!, 
+    write(S1), write(T1), write(Q1), write(Qt1), write(Sx1), nl.
+
+printHorario([]).
+printHorario(H):-
+    pegaDH(2, 8, H, S8),!,pegaDH(3, 8, H, T8),!,pegaDH(4, 8, H, Q8),!,
+    pegaDH(5, 8,H, Qi8),!, pegaDH(6, 8, H,Sx8),!,
+    pegaDH(2, 10, H, S10),!,pegaDH(3, 10, H, T10),!,pegaDH(4, 10, H, Q10),!,
+    pegaDH(5, 10,H, Qi10),!, pegaDH(6, 10, H, Sx10),!,
+    pegaDH(2, 14, H, S14),!,pegaDH(3, 14, H, T14),!,pegaDH(4, 14, H, Q14),!,
+    pegaDH(5, 14,H, Qi14),!, pegaDH(6, 14, H, Sx14),!,
+    pegaDH(2, 16, H, S16),!,pegaDH(3, 16, H, T16),!,pegaDH(4, 16, H, Q16),!,
+    pegaDH(5, 16,H, Qi16),!, pegaDH(6, 16, H, Sx16),!,
+    write("SEGUNDA        "), 
+    write("TERÇA          "), 
+    write("QUARTA         "), 
+    write("QUINTA         "), 
+    write("SEXTA          "), nl,
+    writeSemana( S8,  T8,  Q8,  Qi8,  Sx8),
+    writeSemana(S10, T10, Q10, Qi10, Sx10),
+    writeSemana(S14, T14, Q14, Qi14, Sx14),
+    writeSemana(S16, T16, Q16, Qi16, Sx16).
+
+printHorarios([]):- writeln("").
+printHorarios([H | T]):-
+    printHorario(H), true,
+    printHorarios(T).
