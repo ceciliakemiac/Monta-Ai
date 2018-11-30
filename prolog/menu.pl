@@ -133,10 +133,6 @@ filtraDisciplinas:-
      Op =:= "4" -> funcoesDeExibicao:listaDisciplinas; 
      filtraDisciplinas).
 
-exibePlanilhaHorarios:-
-    writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    "),
-    %todo
-    menuVisualizarDisciplinasOp1.
 
 menuInformacoesDetalhadas:-
     write('\e[2J'),
@@ -162,5 +158,15 @@ menuInformacoesDetalhadasOp:-
 
 menuAvaliacao:-
     tty_clear,
-    write("Menu de avaliação"), nl.
+    write("Menu de avaliação"), nl,
+    writeln(""),
+    writeln("Qual disciplina deseja avaliar?"),
+    read_line_to_string(user_input, Disc),
+    (horariosPagos:existeDisciplina(Disc) -> avaliacoesDisc:escolherOpcao(Disc); 
+    writeln("Disciplina não existe /:")),
+    writeln("1 - Avaliar outra disciplina"), 
+    writeln("2 - voltar ao menu"),
+    read_line_to_string(user_input, Opcao),
+    (Opcao = "1" -> menuAvaliacao;
+    Opcao = "2" -> main).
     
