@@ -102,11 +102,12 @@ menu1CalculaE:-
 menuMontarHorario:-
     write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
     write("Menu de montar o horário"), nl, nl,
-    write("Deseja importar algum horário pronto? (s/n)"), nl,
-    read_line_to_string(user_input, Entrada),
-    (Entrada = "n" -> menu1ObservaDiscs;
-     Entrada = "s" -> menuMontarHorario;
-     menuMontarHorario).
+    menu1ObservaDiscs.
+    % write("Deseja importar algum horário pronto? (s/n)"), nl,
+    % read_line_to_string(user_input, Entrada),
+    % (Entrada = "n" -> menu1ObservaDiscs;
+    %  Entrada = "s" -> menuMontarHorario;
+    %  menuMontarHorario).
 
 menuVisualizarDisciplinas:-
     write('\e[H\e[2J'),
@@ -138,7 +139,8 @@ menuInformacoesDetalhadas:-
     write('\e[2J'),
     write("Informações detalhadas de uma disciplina"), nl,
     write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
-    turmas:disciplina(Nome, C, P, O, R, H),
+    (horariosPagos:existeDisciplina(Nome) -> 
+    (turmas:disciplina(Nome, C, P, O, R, H),
     write("Creditos: "), writeln(C),
     write("Status: "), funcoesDeExibicao:exibeStatus(O),
     write("Pre-requisitos: "), 
@@ -146,7 +148,10 @@ menuInformacoesDetalhadas:-
     writeln("Turmas: "),
     funcoesDeExibicao:exibeTurmas(H, 1),
     avaliacoesDisc:toStringAval(Nome),
-    menuInformacoesDetalhadasOp,
+    menuInformacoesDetalhadasOp); writeln("Disciplina não existe!"), writeln("Deseja retornar ao menu ? s/n"),
+    read_line_to_string(user_input, Op),
+    (Op =:= "n" -> menuInformacoesDetalhadas; 
+    Op =:= "s" -> main)),
     main.
 
 menuInformacoesDetalhadasOp:-
