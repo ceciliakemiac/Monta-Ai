@@ -4,7 +4,7 @@
 :-use_module(planilha).
 
 exibeStatus(O):-
-    (O =:= 1 -> writeln("Obrigatoria"); O =:= 0 -> writeln("Optativa")).
+    (O = true -> writeln("Obrigatoria"); O = false -> writeln("Optativa")).
 
 exibePR([]) :- writeln("").
 exibePR([X|XS]) :- write(X),

@@ -36,7 +36,8 @@ listar([H | T]):-
 atribuirNivel(Nome, Nivel) :- assert(avaliacoesNivel(Nome, Nivel)).
 
 getNivel(Nome) :- 
-    avaliacoesNivel(Nome, N), write(N).
+    (avaliacoesNivel(Nome, _) ->
+    avaliacoesNivel(Nome, N), write(N); write("")).
 
 getComentarios(Nome) :- 
     findall(X, avaliacoesComentario(Nome, X), Y),
