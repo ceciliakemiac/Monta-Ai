@@ -143,5 +143,5 @@ escreveHorariosPorVez([H | T]):-
     (Entrada = "e" -> menu:main;
      Entrada = "n" -> escreveHorariosPorVez(T);
      Entrada = "p" -> menu:main;
-     escreveHorariosPorVez(T)).
+     escreveHorariosPorVez([H | T])).
 

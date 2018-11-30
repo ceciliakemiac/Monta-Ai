@@ -71,16 +71,33 @@ menu1ObservaDiscs:-
     proximoPeriodo:exibirOptativas, nl,
     menu1Calcula.
 
+menu1Remove:-
+    read_line_to_string(user_input, Entrada),
+    (proximoPeriodo:not(proximoPeriodoOb(Entrada)) -> menu1CalculaE;
+     proximoPeriodo:removerObrigatoria(Entrada), menu1CalculaE).
+
 menu1Calcula:-
     write("Calculando possiblidades com as seguintes disciplinas"), nl,
     proximoPeriodo:exibirObrigatorias, nl,
+    write("ATENÇÃO! A partir de 10/11 disciplinas, pode demorar"), nl,
     write("Deseja remover(r) alguma disciplinas ou continuar(c)?"),
     read_line_to_string(user_input, Entrada),
-    (Entrada = "r" -> read_line_to_string(user_input, D),
-     proximoPeriodo:removerObrigatoria(D), menu1Calcula;
+    (Entrada = "r" -> menu1Remove;
      Entrada = "c" -> gerarHorarios:geraCombinacoesLista(S), 
      gerarHorarios:escreveHorariosPorVez(S);
-     menu1Calcula).  
+     menu1CalculaE).
+
+menu1CalculaE:-
+    write('\e[2J'),
+    write("Calculando possiblidades com as seguintes disciplinas"), nl,
+    proximoPeriodo:exibirObrigatorias, nl,
+    write("ATENÇÃO! A partir de 10/11 disciplinas, pode demorar"), nl,
+    write("Deseja remover(r) alguma disciplinas ou continuar(c)?"),
+    read_line_to_string(user_input, Entrada),
+    (Entrada = "r" -> menu1Remove;
+     Entrada = "c" -> gerarHorarios:geraCombinacoesLista(S), 
+     gerarHorarios:escreveHorariosPorVez(S);
+     menu1CalculaE).  
 
 menuMontarHorario:-
     write(""), nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl, nl,
@@ -93,19 +110,28 @@ menuMontarHorario:-
 
 menuVisualizarDisciplinas:-
     write('\e[H\e[2J'),
-    write("Menu de vizualizar disciplinas"), nl,
+    write("Menu de vizualizar disciplinas"), nl, nl,
     menuVisualizarDisciplinasOp1.
 
 menuVisualizarDisciplinasOp1:-
     writeln("Menu: planilha de horarios(1) listagem(2) filtrar(3) voltar ao menu(4)"),
     read_line_to_string(user_input, Op),
-    (Op =:= "1" -> funcoesDeExibicao:exibePlanilhaHorarios ; Op =:= "2" -> funcoesDeExibicao:listaDisciplinas; Op =:= "3" -> funcoesDeExibicao:filtraDisciplinas; Op =:= "4" -> main; menuVisualizarDisciplinasOp1),
+    (Op =:= "1" -> funcoesDeExibicao:exibePlanilhaHorarios ; 
+     Op =:= "2" -> funcoesDeExibicao:listaDisciplinas; 
+     Op =:= "3" -> filtraDisciplinas; 
+     Op =:= "4" -> main; menuVisualizarDisciplinasOp1;
+     menuVisualizarDisciplinasOp1),
+    write(""), nl,
     menuVisualizarDisciplinasOp1.
 
 filtraDisciplinas:-
     writeln("Filtrar por periodo(1), obrigatorias(2), optativas(3) ou todas as disciplinas(4)?"),
     read_line_to_string(user_input, Op),
-    (Op =:= "1" -> funcoesDeExibicao:listaPorPeriodo; Op =:= "2" -> funcoesDeExibicao:listaObrigatorias; Op =:= "3" -> funcoesDeExibicao:listaOptativas; Op =:= "4" -> funcoesDeExibicao:listaDisciplinas; filtraDisciplinas).
+    (Op =:= "1" -> funcoesDeExibicao:listaPorPeriodo; 
+     Op =:= "2" -> funcoesDeExibicao:listaObrigatorias; 
+     Op =:= "3" -> funcoesDeExibicao:listaOptativas; 
+     Op =:= "4" -> funcoesDeExibicao:listaDisciplinas; 
+     filtraDisciplinas).
 
 exibePlanilhaHorarios:-
     writeln("        SEGUNDA        TERÇA         QUARTA         QUINTA         SEXTA    "),
@@ -113,6 +139,7 @@ exibePlanilhaHorarios:-
     menuVisualizarDisciplinasOp1.
 
 menuInformacoesDetalhadas:-
+    write('\e[2J'),
     write("Informações detalhadas de uma disciplina"), nl,
     write("Digite o nome da disciplina: "), read_line_to_string(user_input, Nome),
     turmas:disciplina(Nome, C, P, O, R, H),
@@ -129,11 +156,11 @@ menuInformacoesDetalhadas:-
 menuInformacoesDetalhadasOp:-
     writeln("1 - Visualizar outra disciplina"),
     writeln("2 - voltar ao menu"),
-    read_line_to_string(user_input, Op), (Op =:= "1" -> menuInformacoesDetalhadas; Op =:= "2" -> main; menuInformacoesDetalhadasOp).
+    read_line_to_string(user_input, Op), 
+    (Op =:= "1" -> menuInformacoesDetalhadas; 
+     Op =:= "2" -> main; menuInformacoesDetalhadasOp).
 
 menuAvaliacao:-
     tty_clear,
-    write("Menu de avaliação"), nl,
-    avaliacoesDisc:passoAvaliacao,
-    main.
+    write("Menu de avaliação"), nl.
     
