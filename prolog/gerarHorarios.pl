@@ -3,6 +3,8 @@
 :- use_module(turmas).
 :- use_module(horariosPagos).
 :- use_module(menu).
+:- use_module(persistirHorario).
+
 
 :- dynamic (proximoPeriodoTurmas/3).
 
@@ -133,15 +135,28 @@ escreveHorarios([H | T]):-
     escreveHorario(H), true,
     escreveHorarios(T).
     
+pegaArquivo([],[]).
+pegaArquivo([H | T],[ Nome, Turma | L]) :-
+    nth0(0, H, Nome),
+    nth0(2, H, Turma),
+    pegaArquivo(T, L).
+
 escreveHorariosPorVez([]).
 escreveHorariosPorVez([H | T]):-
     write("Processando..."), nl,
     write("Possíveis horários: "), nl,
     escreveHorarios(H), nl,
+    pegaArquivo(H, L),
     write("escolher(e) proximo(n) menu principal(p)"), nl,
     read_line_to_string(user_input, Entrada),
-    (Entrada = "e" -> menu:main;
+    (Entrada = "e" -> salvar(L), menu:main;
      Entrada = "n" -> escreveHorariosPorVez(T);
      Entrada = "p" -> menu:main;
      escreveHorariosPorVez([H | T])).
+
+
+salvar(L) :- 
+    write("Qual o nome do arquivo que você quer salvar?"), nl,
+    read_line_to_string(user_input, Nome),
+    persistirHorario:criaArquivo(Nome, L).
 
